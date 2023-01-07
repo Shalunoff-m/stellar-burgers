@@ -1,5 +1,7 @@
+import "./app-header.module.css";
+
 function Header() {
-  return <p>Какой-то текст</p>;
+  return <h1>Текст хедера</h1>;
 }
 
 export default Header;
