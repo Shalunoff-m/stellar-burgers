@@ -28,7 +28,7 @@ export default function BurgerConstructor(props) {
       </div>
 
       <h2 className="text text_type_main-medium">Булки</h2>
-      <ul className="pt-6 pr-4 pl-4 pb-10">
+      <ul className={`pt-6 pr-4 pl-4 pb-10 `}>
         <li className="pb-10">
           <img src={cratorBread} alt="Краторная булка" className="pt-0 pb-1" />
           <div className={burgerConstructor.currency}>
