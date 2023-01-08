@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <AppHeader />
-      <main className={`${utils.show} layout`}>
+      <main className={` layout`}>
         <section className="section">
           <BurgerConstructor />
         </section>

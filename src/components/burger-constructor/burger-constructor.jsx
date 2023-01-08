@@ -1,4 +1,4 @@
-import style from "./burger-constructor.module.css";
+import burgerConstructor from "./burger-constructor.module.css";
 import {
   Tab,
   CurrencyIcon,
@@ -31,41 +31,49 @@ export default function BurgerConstructor(props) {
       <ul className="pt-6 pr-4 pl-4 pb-10">
         <li className="pb-10">
           <img src={cratorBread} alt="Краторная булка" className="pt-0 pb-1" />
-          <div className={style.currency}>
+          <div className={burgerConstructor.currency}>
             <p className="text text_type_digits-default">20</p>
             <CurrencyIcon type="primary" />
           </div>
-          <p className={`text text_type_main-default ${style.description}`}>
+          <p
+            className={`text text_type_main-default ${burgerConstructor.description}`}
+          >
             Краторная булка N-200i
           </p>
         </li>
         <li className="pb-10">
           <img src={cratorBread} alt="Краторная булка" className="pt-0 pb-1" />
-          <div className={style.currency}>
+          <div className={burgerConstructor.currency}>
             <p className="text text_type_digits-default">20</p>
             <CurrencyIcon type="primary" />
           </div>
-          <p className={`text text_type_main-default ${style.description}`}>
+          <p
+            className={`text text_type_main-default ${burgerConstructor.description}`}
+          >
             Краторная булка N-200i
           </p>
         </li>
         <li className="pb-10">
           <img src={cratorBread} alt="Краторная булка" className="pt-0 pb-1" />
-          <div className={style.currency}>
+          <div className={burgerConstructor.currency}>
             <p className="text text_type_digits-default">20</p>
             <CurrencyIcon type="primary" />
           </div>
-          <p className={`text text_type_main-default ${style.description}`}>
+          <p
+            className={`text text_type_main-default ${burgerConstructor.description}`}
+          >
             Краторная булка N-200i
           </p>
         </li>
         <li className="pb-10">
           <img src={cratorBread} alt="Краторная булка" className="pt-0 pb-1" />
-          <div className={style.currency}>
+          <div className={burgerConstructor.currency}>
             <p className="text text_type_digits-default">20</p>
             <CurrencyIcon type="primary" />
           </div>
-          <p className={`text text_type_main-default ${style.description}`}>
+          <p
+            className={`text text_type_main-default ${burgerConstructor.description}`}
+          >
             Краторная булка N-200i
           </p>
         </li>
@@ -74,41 +82,49 @@ export default function BurgerConstructor(props) {
       <ul className="pt-6 pr-4 pl-4 pb-10">
         <li className="pb-10">
           <img src={cratorBread} alt="Краторная булка" className="pt-0 pb-1" />
-          <div className={style.currency}>
+          <div className={burgerConstructor.currency}>
             <p className="text text_type_digits-default">20</p>
             <CurrencyIcon type="primary" />
           </div>
-          <p className={`text text_type_main-default ${style.description}`}>
+          <p
+            className={`text text_type_main-default ${burgerConstructor.description}`}
+          >
             Краторная булка N-200i
           </p>
         </li>
         <li className="pb-10">
           <img src={cratorBread} alt="Краторная булка" className="pt-0 pb-1" />
-          <div className={style.currency}>
+          <div className={burgerConstructor.currency}>
             <p className="text text_type_digits-default">20</p>
             <CurrencyIcon type="primary" />
           </div>
-          <p className={`text text_type_main-default ${style.description}`}>
+          <p
+            className={`text text_type_main-default ${burgerConstructor.description}`}
+          >
             Краторная булка N-200i
           </p>
         </li>
         <li className="pb-10">
           <img src={cratorBread} alt="Краторная булка" className="pt-0 pb-1" />
-          <div className={style.currency}>
+          <div className={burgerConstructor.currency}>
             <p className="text text_type_digits-default">20</p>
             <CurrencyIcon type="primary" />
           </div>
-          <p className={`text text_type_main-default ${style.description}`}>
+          <p
+            className={`text text_type_main-default ${burgerConstructor.description}`}
+          >
             Краторная булка N-200i
           </p>
         </li>
         <li className="pb-10">
           <img src={cratorBread} alt="Краторная булка" className="pt-0 pb-1" />
-          <div className={style.currency}>
+          <div className={burgerConstructor.currency}>
             <p className="text text_type_digits-default">20</p>
             <CurrencyIcon type="primary" />
           </div>
-          <p className={`text text_type_main-default ${style.description}`}>
+          <p
+            className={`text text_type_main-default ${burgerConstructor.description}`}
+          >
             Краторная булка N-200i
           </p>
         </li>
