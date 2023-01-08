@@ -1,7 +1,16 @@
 body {
-  font-family: "JetBrainsMono", Tahoma, Geneva, Verdana, sans-serif;
-  font-style: normal;
-  font-weight: normal;
   background-color: #131316;
   color: white;
+}
+
+.layout {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.section {
+  min-height: 500px;
 }
