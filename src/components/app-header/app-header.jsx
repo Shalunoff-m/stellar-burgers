@@ -7,30 +7,42 @@ import {
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import TopMenuItem from "../top-menu-item/top-menu-item";
+import { useState } from "react";
 
 export default function AppHeader() {
+  const [activePage, setActivePage] = useState("Burger");
+
+  function clickHandler(name) {
+    setActivePage(name);
+  }
+
   return (
     <header className={`${styles.header} ${utils.show}`}>
       <div className={styles.wrapper}>
         <nav className={styles.menuList}>
-          <div className={`${styles.menuItem} m-5`}>
-            <BurgerIcon type="primary" />
-            <p className="p-2 text text_type_main-default">Конструктор</p>
-          </div>
-          <div className={`${styles.menuItem} m-5`}>
-            <ListIcon type="secondary" />
-            <p className="p-2 text text_type_main-default">Лента заказов</p>
-          </div>
-          {/* Проверка компонента */}
-          {/* ПОКА НЕ РАБОТАЕТ */}
-          {/* <TopMenuItem icon="BurgerIcon" type="primary" /> */}
-          {/* Проверка компонента */}
+          <TopMenuItem
+            clickHandler={clickHandler}
+            name="Burger"
+            Icon={BurgerIcon}
+            description="Конструктор"
+            active={activePage === "Burger" ? true : false}
+          />
+          <TopMenuItem
+            clickHandler={clickHandler}
+            name="Orders"
+            Icon={ListIcon}
+            description="Лента заказов"
+            active={activePage === "Orders" ? true : false}
+          />
         </nav>
         <Logo />
-        <div className={`${styles.menuItem} m-5`}>
-          <ProfileIcon type="secondary" />
-          <p className="p-2 text text_type_main-default">Личный кабинет</p>
-        </div>
+        <TopMenuItem
+          clickHandler={clickHandler}
+          name="Cabinet"
+          Icon={ProfileIcon}
+          description="Личный кабинет"
+          active={activePage === "Cabinet" ? true : false}
+        />
       </div>
     </header>
   );

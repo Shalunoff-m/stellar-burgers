@@ -1,0 +1,9 @@
+.menuItem {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.menuItem:last-child {
+  justify-self: end;
+}
