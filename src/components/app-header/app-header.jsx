@@ -17,7 +17,7 @@ export default function AppHeader() {
   }
 
   return (
-    <header className={`${styles.header} ${utils.show}`}>
+    <header className={`${styles.header}`}>
       <div className={styles.wrapper}>
         <nav className={styles.menuList}>
           <TopMenuItem
