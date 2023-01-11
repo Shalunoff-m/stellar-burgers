@@ -1,7 +1,9 @@
+import React from "react";
 import burgerConstructor from "./burger-constructor.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import React from "react";
-import IngredientList from "../ingredient-list/ingredient-list";
+import IngredientLists from "../ingredient-list/ingredient-list";
+import { productTypes } from "../utils/types";
+import IngredientItems from "../ingredient-items/ingredient-items";
 
 export default function BurgerConstructor({ apiData }) {
   const [current, setCurrent] = React.useState("one");
@@ -9,7 +11,7 @@ export default function BurgerConstructor({ apiData }) {
     <>
       <h1 className="pt-10 pb-5 text text_type_main-large">Соберите бургер</h1>
 
-      {/* TODO Переделать в компонент вкладки на основе типов продуктов */}
+      {/* TODO Переделать в компонент итератор на основе типов продуктов */}
       <div style={{ display: "flex" }} className="pb-10">
         <Tab value="bun" active={current === "bun"} onClick={setCurrent}>
           Булки
@@ -21,7 +23,11 @@ export default function BurgerConstructor({ apiData }) {
           Начинки
         </Tab>
       </div>
-      <IngredientList data={apiData} />
+      <IngredientLists
+        data={apiData}
+        Items={IngredientItems}
+        types={productTypes}
+      />
     </>
   );
 }
