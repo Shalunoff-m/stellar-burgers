@@ -6,4 +6,5 @@
 
 .navItem:last-child {
   justify-self: end;
+  margin-right: 13px;
 }

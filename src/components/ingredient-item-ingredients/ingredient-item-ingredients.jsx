@@ -10,7 +10,7 @@ export default function IngredientItemIngredients(props) {
   // console.log(data);
 
   return (
-    <li className={`{styles.listItem} pl-4 pr-4 pt-2 pb-2`}>
+    <li className={`${styles.listItem} pl-4 pr-4 pt-2 pb-2`}>
       <DragIcon type="primary" />
       <ConstructorElement
         type={data.type}

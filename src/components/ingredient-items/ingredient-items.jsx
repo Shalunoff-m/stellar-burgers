@@ -4,8 +4,6 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 
 export default function IngredientItems(props) {
   const { data, Item } = props;
-  //   const element = data[0];
-  //   console.log(element);
   const allItems = data.map((element, index) => {
     return <Item key={index} data={element} />;
   });

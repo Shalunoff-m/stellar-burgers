@@ -4,10 +4,3 @@
   align-items: center;
 }
 
-.show * {
-  outline: blue 1px solid;
-}
-
-.show  {
-  outline: blue 1px solid;
-}
