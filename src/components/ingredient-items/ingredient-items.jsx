@@ -1,25 +1,14 @@
+import React from "react";
 import styles from "./ingredient-items.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-export default function IngredientItems({ data }) {
-  const elementsList = data.map((element, i) => (
-    <li key={i} className={`pb-10 ${styles.listItem}`}>
-      <img src={element.image} alt={element.name} className="pt-0 pb-1" />
-      <div className={styles.currency}>
-        <p className="text text_type_digits-default">{element.price}</p>
-        <CurrencyIcon type="primary" />
-      </div>
-      <p className={`text text_type_main-default ${styles.description}`}>
-        {element.name}
-      </p>
-      {element.__v > 0 ? (
-        <div className={styles.count}>
-          <p className="text text_type_digits-default">{element.__v}</p>
-        </div>
-      ) : (
-        ""
-      )}
-    </li>
-  ));
-  return elementsList;
+export default function IngredientItems(props) {
+  const { data, Item } = props;
+  //   const element = data[0];
+  //   console.log(element);
+  const allItems = data.map((element, index) => {
+    return <Item key={index} data={element} />;
+  });
+
+  return allItems;
 }
