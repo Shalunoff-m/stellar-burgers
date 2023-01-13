@@ -1,4 +1,5 @@
 import React from "react";
+import { ReactDOM } from "react";
 import "./App.css";
 import { api } from "./components/utils/data";
 import {
@@ -25,15 +26,58 @@ import BurgerIngredients from "./components/burger-ingredients/burger-ingredient
 import Scroll from "./components/scroll/scroll";
 import Total from "./components/total/total";
 import { useState, useEffect } from "react";
+import ModalOverlay from "./components/modal-overlay/modal-overlay";
+import OrderDetails from "./components/order-details/order-details";
+
+const APIURL = "https://norma.nomoreparties.space/api/ingredients";
+
+async function apiGetData() {
+  try {
+    const res = await fetch(APIURL);
+    const data = await res.json();
+    // console.log(data);
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 function App() {
   // console.log(sortedData);
+  apiGetData();
   const [localData, setData] = React.useState([]);
+  const [modalOptions, setModalOption] = React.useState({
+    visible: true,
+    activeModal: "",
+  });
   const sortedData = sortData(localData, productTypes);
 
+  function closeModal() {
+    setModalOption({
+      ...modalOptions,
+      visible: false,
+    });
+  }
+
+  function showModal() {
+    setModalOption({
+      ...modalOptions,
+      visible: true,
+    });
+  }
+
   useEffect(() => {
-    setData(api);
+    apiGetData()
+      .then((remoteData) => {
+        setData(remoteData.data);
+        // console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
+
+  // useEffect(() => {});
 
   // console.log(sortedData);
   return (
@@ -64,6 +108,7 @@ function App() {
                   <IngredientItems
                     data={sortedData[List]}
                     Item={IngredientItemConstructor}
+                    onClick={showModal}
                   />
                 </IngredientList>
               );
@@ -75,13 +120,15 @@ function App() {
             <IngredientItems
               data={localData}
               Item={IngredientItemIngredients}
+              onClick={showModal}
             />
           </Scroll>
           <Total />
         </BurgerIngredients>
       </Layout>
-
-      {/* <Modal></Modal> */}
+      {modalOptions.visible && (
+        <ModalOverlay onCLose={closeModal}>Вот модалка</ModalOverlay>
+      )}
     </>
   );
 }

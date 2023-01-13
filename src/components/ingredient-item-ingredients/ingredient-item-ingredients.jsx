@@ -6,11 +6,14 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 export default function IngredientItemIngredients(props) {
-  const { data } = props;
-  // console.log(data);
+  const { data, clickHandler } = props;
+
+  function message(evt) {
+    clickHandler();
+  }
 
   return (
-    <li className={`${styles.listItem} pl-4 pr-4 pt-2 pb-2`}>
+    <li onClick={message} className={`${styles.listItem} pl-4 pr-4 pt-2 pb-2`}>
       <DragIcon type="primary" />
       <ConstructorElement
         type={data.type}

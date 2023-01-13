@@ -3,11 +3,11 @@ import styles from "./ingredient-items.module.css";
 import PropTypes from "prop-types";
 
 export default function IngredientItems(props) {
-  const { data, Item } = props;
+  const { data, Item, onClick } = props;
 
   const dataTemplate = PropTypes.shape({
     _id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
+    name: PropTypes.string,
     type: PropTypes.string,
     proteins: PropTypes.number,
     fat: PropTypes.number,
@@ -26,7 +26,7 @@ export default function IngredientItems(props) {
   };
 
   const allItems = data.map((element, index) => {
-    return <Item key={index} data={element} />;
+    return <Item key={index} data={element} clickHandler={onClick} />;
   });
 
   return allItems;
