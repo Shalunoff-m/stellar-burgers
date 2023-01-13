@@ -24,11 +24,18 @@ import BurgerIngredients from "./components/burger-ingredients/burger-ingredient
 // inport ingre
 import Scroll from "./components/scroll/scroll";
 import Total from "./components/total/total";
+import { useState, useEffect } from "react";
 
 function App() {
-  const sortedData = sortData(api, productTypes);
-  console.log(sortedData);
+  // console.log(sortedData);
+  const [localData, setData] = React.useState([]);
+  const sortedData = sortData(localData, productTypes);
 
+  useEffect(() => {
+    setData(api);
+  }, []);
+
+  // console.log(sortedData);
   return (
     <>
       <Header>
@@ -65,7 +72,10 @@ function App() {
         </BurgerConstructor>
         <BurgerIngredients>
           <Scroll type="ingredients">
-            <IngredientItems data={api} Item={IngredientItemIngredients} />
+            <IngredientItems
+              data={localData}
+              Item={IngredientItemIngredients}
+            />
           </Scroll>
           <Total />
         </BurgerIngredients>
