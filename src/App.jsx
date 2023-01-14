@@ -47,7 +47,7 @@ function App() {
   apiGetData();
   const [localData, setData] = React.useState([]);
   const [modalOptions, setModalOption] = React.useState({
-    visible: true,
+    visible: false,
     activeModal: "",
   });
   const sortedData = sortData(localData, productTypes);
@@ -113,6 +113,9 @@ function App() {
                 </IngredientList>
               );
             })}
+            {modalOptions.visible && (
+              <ModalOverlay onCLose={closeModal}>Вот модалка</ModalOverlay>
+            )}
           </Scroll>
         </BurgerConstructor>
         <BurgerIngredients>
@@ -126,9 +129,6 @@ function App() {
           <Total />
         </BurgerIngredients>
       </Layout>
-      {modalOptions.visible && (
-        <ModalOverlay onCLose={closeModal}>Вот модалка</ModalOverlay>
-      )}
     </>
   );
 }
