@@ -14,7 +14,7 @@ export default function IngredientItemConstructor(props) {
   return (
     <li
       onClick={() => {
-        clickHandler();
+        clickHandler(data);
       }}
       key={element._id}
       className={`pb-10 ${styles.listItem}`}

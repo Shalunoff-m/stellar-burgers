@@ -46,23 +46,27 @@ function App() {
   // console.log(sortedData);
   apiGetData();
   const [localData, setData] = React.useState([]);
-  const [modalOptions, setModalOption] = React.useState({
+  const [modalOptions, setModalOptions] = React.useState({
     visible: false,
-    activeModal: "",
+    dataModal: {},
   });
   const sortedData = sortData(localData, productTypes);
 
   function closeModal() {
-    setModalOption({
+    setModalOptions({
       ...modalOptions,
       visible: false,
     });
   }
 
-  function showModal() {
-    setModalOption({
+  function showModal(recieveData) {
+    // console.log(recieveData);
+    setModalOptions({
       ...modalOptions,
       visible: true,
+      dataModal: {
+        ...recieveData,
+      },
     });
   }
 
@@ -115,7 +119,7 @@ function App() {
             })}
             {modalOptions.visible && (
               <ModalOverlay onCLose={closeModal}>
-                <IngredientDetails data={localData} />
+                <IngredientDetails data={modalOptions.dataModal} />
               </ModalOverlay>
             )}
           </Scroll>
