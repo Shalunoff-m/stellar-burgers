@@ -27,7 +27,7 @@ import Scroll from "./components/scroll/scroll";
 import Total from "./components/total/total";
 import { useState, useEffect } from "react";
 import ModalOverlay from "./components/modal-overlay/modal-overlay";
-import OrderDetails from "./components/order-details/order-details";
+import IngredientDetails from "./components/ingredient-details/ingredient-details";
 
 const APIURL = "https://norma.nomoreparties.space/api/ingredients";
 
@@ -114,7 +114,9 @@ function App() {
               );
             })}
             {modalOptions.visible && (
-              <ModalOverlay onCLose={closeModal}>Вот модалка</ModalOverlay>
+              <ModalOverlay onCLose={closeModal}>
+                <IngredientDetails data={localData} />
+              </ModalOverlay>
             )}
           </Scroll>
         </BurgerConstructor>

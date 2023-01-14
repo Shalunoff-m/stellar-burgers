@@ -44,13 +44,13 @@ export default function ModalOverlay(props) {
         onClick={(evt) => {
           evt.stopPropagation();
         }}
-        className={styles.box}
+        className={`${styles.box} p-10`}
       >
         {/* Место под содержимое модалки */}
         {props.children}
 
         <div
-          className={`${styles.iconContainer} mr-10 mt-15`}
+          className={`${styles.iconContainer} m-10 pt-8`}
           id="modal-close-icon"
           onClick={checkClick}
         >
