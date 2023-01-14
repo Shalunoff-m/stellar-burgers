@@ -28,6 +28,7 @@ import Total from "./components/total/total";
 import { useState, useEffect } from "react";
 import ModalOverlay from "./components/modal-overlay/modal-overlay";
 import IngredientDetails from "./components/ingredient-details/ingredient-details";
+import OrderDetails from "./components/order-details/order-details";
 
 const APIURL = "https://norma.nomoreparties.space/api/ingredients";
 
@@ -48,6 +49,7 @@ function App() {
   const [localData, setData] = React.useState([]);
   const [modalOptions, setModalOptions] = React.useState({
     visible: false,
+    modal: "",
     dataModal: {},
   });
   const sortedData = sortData(localData, productTypes);
@@ -59,13 +61,14 @@ function App() {
     });
   }
 
-  function showModal(recieveData) {
+  function showModal({ data, modal }) {
     // console.log(recieveData);
     setModalOptions({
       ...modalOptions,
       visible: true,
+      modal: modal,
       dataModal: {
-        ...recieveData,
+        ...data,
       },
     });
   }
@@ -117,11 +120,12 @@ function App() {
                 </IngredientList>
               );
             })}
-            {modalOptions.visible && (
-              <ModalOverlay onCLose={closeModal}>
-                <IngredientDetails data={modalOptions.dataModal} />
-              </ModalOverlay>
-            )}
+            {modalOptions.visible &&
+              modalOptions.modal === "IngredientDetails" && (
+                <ModalOverlay onCLose={closeModal}>
+                  <IngredientDetails data={modalOptions.dataModal} />
+                </ModalOverlay>
+              )}
           </Scroll>
         </BurgerConstructor>
         <BurgerIngredients>
@@ -129,10 +133,14 @@ function App() {
             <IngredientItems
               data={localData}
               Item={IngredientItemIngredients}
-              onClick={showModal}
             />
+            {modalOptions.visible && modalOptions.modal === "OrderDetails" && (
+              <ModalOverlay onCLose={closeModal}>
+                <OrderDetails data={modalOptions.dataModal} />
+              </ModalOverlay>
+            )}
           </Scroll>
-          <Total />
+          <Total clickHandler={showModal} />
         </BurgerIngredients>
       </Layout>
     </>

@@ -4,6 +4,7 @@
     align-items: center;
     position: relative;
     list-style: none;
+    cursor: pointer;
 }
 
 .currency {
