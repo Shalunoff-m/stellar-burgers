@@ -22,6 +22,16 @@ export default function BurgerIngredients(props) {
     data: PropTypes.arrayOf(ingredientType),
   };
 
+  function onlyIngredients(data) {
+    // console.log(data);
+    const list = data.filter((item) => {
+      return item.type !== "bun";
+    });
+    return list;
+  }
+
+  const dataWithoutBread = onlyIngredients(data);
+
   function showModal({ data }) {
     setModalOptions({
       ...modalOptions,
@@ -43,7 +53,10 @@ export default function BurgerIngredients(props) {
     <section className={`pt-25 ${styles.wrapper}`}>
       <Bread bread={ingredients.bread} type="top" />
       <Scroll type="ingredients">
-        <IngredientItems data={data} Item={IngredientItemIngredients} />
+        <IngredientItems
+          data={dataWithoutBread}
+          Item={IngredientItemIngredients}
+        />
         {modalOptions.visible && (
           <Modal onCLose={closeModal}>
             <OrderDetails data={modalOptions.dataModal} />
