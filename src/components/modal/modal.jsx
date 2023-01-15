@@ -9,33 +9,25 @@ import ModalOverlay from "../modal-overlay/modal-overlay";
 const modalRoot = document.querySelector("#modal");
 
 export default function Modal(props) {
-  const { onCLose } = props;
+  const { onClose } = props;
 
   function checkClick(evt) {
     evt.stopPropagation();
-    let answer = false;
 
-    switch (evt.type) {
-      case "keydown":
-        if (evt.key === "Escape") answer = true;
-        break;
-      case "click":
-        const target = evt.currentTarget.getAttribute("id");
-        if (target === "modal-overlay" || target === "modal-close-icon")
-          answer = true;
-        break;
-      default:
-        answer = false;
-    }
-
-    if (answer) return onCLose();
+    const target = evt.currentTarget.getAttribute("id");
+    if (target === "modal-overlay" || target === "modal-close-icon") onClose();
   }
 
   useEffect(() => {
-    document.addEventListener("keydown", checkClick);
+    function closeByEscape(evt) {
+      if (evt.key === "Escape") {
+        onClose();
+      }
+    }
+    document.addEventListener("keydown", closeByEscape);
 
     return () => {
-      document.removeEventListener("keydown", checkClick);
+      document.removeEventListener("keydown", closeByEscape);
     };
   });
 
@@ -65,5 +57,5 @@ export default function Modal(props) {
 }
 
 Modal.propTypes = {
-  onCLose: Proptypes.func,
+  onClose: Proptypes.func,
 };

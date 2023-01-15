@@ -56,7 +56,7 @@ export default function BurgerConstructor(props) {
           );
         })}
         {modalOptions.visible && (
-          <Modal onCLose={closeModal}>
+          <Modal onClose={closeModal}>
             <IngredientDetails showData={modalOptions.dataModal} />
           </Modal>
         )}

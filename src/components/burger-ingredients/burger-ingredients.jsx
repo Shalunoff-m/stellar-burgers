@@ -54,7 +54,7 @@ export default function BurgerIngredients(props) {
           Item={IngredientItemIngredients}
         />
         {modalOptions.visible && (
-          <Modal onCLose={closeModal}>
+          <Modal onClose={closeModal}>
             <OrderDetails data={modalOptions.dataModal} />
           </Modal>
         )}
