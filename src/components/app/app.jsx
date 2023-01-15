@@ -30,7 +30,7 @@ function App() {
         setData(remoteData.data);
         setIngredients({
           ...ingredients,
-          bread: localData[1],
+          bread: localData[0],
         });
         // console.log(data);
       })
