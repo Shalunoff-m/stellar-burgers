@@ -14,7 +14,7 @@ export default function IngredientItemConstructor(props) {
   return (
     <li
       onClick={() => {
-        clickHandler({ data, modal: "IngredientDetails" });
+        clickHandler({ data });
       }}
       key={element._id}
       className={`pb-10 ${styles.listItem}`}

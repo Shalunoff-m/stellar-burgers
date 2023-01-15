@@ -16,7 +16,7 @@ export default function Total(props) {
           type="primary"
           size="large"
           onClick={() => {
-            clickHandler({ data: {}, modal: "OrderDetails" });
+            clickHandler({ data: {} });
           }}
         >
           Оформить заказ

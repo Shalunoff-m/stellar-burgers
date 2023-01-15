@@ -28,30 +28,6 @@ async function apiGetData() {
 
 function App() {
   const [localData, setData] = React.useState([]);
-  const [modalOptions, setModalOptions] = React.useState({
-    visible: false,
-    modal: "",
-    dataModal: {},
-  });
-
-  function closeModal() {
-    setModalOptions({
-      ...modalOptions,
-      visible: false,
-    });
-  }
-
-  function showModal({ data, modal }) {
-    // console.log(recieveData);
-    setModalOptions({
-      ...modalOptions,
-      visible: true,
-      modal: modal,
-      dataModal: {
-        ...data,
-      },
-    });
-  }
 
   useEffect(() => {
     apiGetData()
@@ -64,28 +40,12 @@ function App() {
       });
   }, []);
 
-  // useEffect(() => {});
-
-  // console.log(sortedData);
   return (
     <>
       <Header />
       <Layout>
         <BurgerConstructor data={localData} />
-        {/* <BurgerIngredients>
-          <Scroll type="ingredients">
-            <IngredientItems
-              data={localData}
-              Item={IngredientItemIngredients}
-            />
-            {modalOptions.visible && modalOptions.modal === "OrderDetails" && (
-              <ModalOverlay onCLose={closeModal}>
-                <OrderDetails data={modalOptions.dataModal} />
-              </ModalOverlay>
-            )}
-          </Scroll>
-          <Total clickHandler={showModal} />
-        </BurgerIngredients> */}
+        <BurgerIngredients data={localData} />
       </Layout>
     </>
   );
