@@ -19,11 +19,19 @@ async function apiGetData() {
 
 function App() {
   const [localData, setData] = React.useState([]);
+  const [ingredients, setIngredients] = React.useState({
+    bread: {},
+    components: [],
+  });
 
   useEffect(() => {
     apiGetData()
       .then((remoteData) => {
         setData(remoteData.data);
+        setIngredients({
+          ...ingredients,
+          bread: localData[1],
+        });
         // console.log(data);
       })
       .catch((err) => {
@@ -36,7 +44,7 @@ function App() {
       <Header />
       <Layout>
         <BurgerConstructor data={localData} />
-        <BurgerIngredients data={localData} />
+        <BurgerIngredients data={localData} ingredients={ingredients} />
       </Layout>
     </>
   );

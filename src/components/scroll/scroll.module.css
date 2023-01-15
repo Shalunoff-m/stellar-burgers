@@ -1,6 +1,6 @@
 .allContent {
   overflow-y: scroll;
-  height: calc(90vh - 285px);
+  height: calc(100vh - 336px);
 }
 
 .allContent::-webkit-scrollbar {
@@ -22,7 +22,7 @@
   margin: 0;
   padding: 0;
   overflow-y: scroll;
-  height: calc(100vh - 380px);
+  height: calc(100vh - 536px);
   list-style: none;
   display: flex;
   flex-direction: column;

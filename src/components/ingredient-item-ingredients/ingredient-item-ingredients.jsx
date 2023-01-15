@@ -7,11 +7,9 @@ import {
 
 export default function IngredientItemIngredients(props) {
   const { data } = props;
-  const container = useRef("");
 
   return (
     <li
-      ref={container}
       className={`${styles.listItem} pl-4 pr-4 pt-2 pb-2`}
       data-type="listItem"
     >

@@ -9,9 +9,10 @@ import OrderDetails from "../order-details/order-details";
 import Total from "../total/total";
 import PropTypes from "prop-types";
 import { ingredientType } from "../utils/types";
+import Bread from "../bread/bread";
 
 export default function BurgerIngredients(props) {
-  const { data } = props;
+  const { data, ingredients } = props;
   const [modalOptions, setModalOptions] = React.useState({
     visible: false,
     dataModal: {},
@@ -40,6 +41,7 @@ export default function BurgerIngredients(props) {
 
   return (
     <section className={`pt-25 ${styles.wrapper}`}>
+      <Bread bread={ingredients.bread} type="top" />
       <Scroll type="ingredients">
         <IngredientItems data={data} Item={IngredientItemIngredients} />
         {modalOptions.visible && (
@@ -48,6 +50,7 @@ export default function BurgerIngredients(props) {
           </Modal>
         )}
       </Scroll>
+      <Bread bread={ingredients.bread} type="bottom" />
       <Total clickHandler={showModal} />
     </section>
   );
