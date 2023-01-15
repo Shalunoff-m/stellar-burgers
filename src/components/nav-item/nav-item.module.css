@@ -1,0 +1,10 @@
+.navItem {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.navItem:last-child {
+  justify-self: end;
+  margin-right: 13px;
+}
