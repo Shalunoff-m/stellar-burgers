@@ -1,19 +1,10 @@
 import React from "react";
-import { ReactDOM } from "react";
 import "./App.css";
-import { api } from "./components/utils/data";
 import { Header } from "./components/header/header";
 import { Layout } from "./components/layout/layout";
 import BurgerConstructor from "./components/burger-constructor/burger-constructor";
-import IngredientItemIngredients from "./components/ingredient-item-ingredients/ingredient-item-ingredients";
 import BurgerIngredients from "./components/burger-ingredients/burger-ingredients";
-// inport ingre
-import Total from "./components/total/total";
-import { useState, useEffect } from "react";
-import OrderDetails from "./components/order-details/order-details";
-import Scroll from "./components/scroll/scroll";
-import IngredientItems from "./components/ingredient-items/ingredient-items";
-import ModalOverlay from "./components/modal-overlay/modal-overlay";
+import { useEffect } from "react";
 
 const APIURL = "https://norma.nomoreparties.space/api/ingredients";
 

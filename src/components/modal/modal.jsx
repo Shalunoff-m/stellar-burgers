@@ -1,17 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import styles from "./modal-overlay.module.css";
+import styles from "./modal.module.css";
 import { useState, useEffect } from "react";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 const modalRoot = document.querySelector("#modal");
 
-export default function ModalOverlay(props) {
+export default function Modal(props) {
   const { onCLose } = props;
 
   function checkClick(evt) {
     evt.stopPropagation();
-    // console.log(evt);
     let answer = false;
 
     switch (evt.type) {

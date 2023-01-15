@@ -8,7 +8,7 @@ import IngredientList from "../ingredient-list/ingredient-list";
 import { productTypes } from "../utils/types";
 import IngredientItems from "../ingredient-items/ingredient-items";
 import IngredientItemConstructor from "../ingredient-item-constructor/ingredient-item-constructor";
-import ModalOverlay from "../modal-overlay/modal-overlay";
+import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { useState, useEffect } from "react";
 
@@ -20,12 +20,10 @@ export default function BurgerConstructor(props) {
     dataModal: {},
   });
 
-  function showModal({ data, modal }) {
-    // console.log(recieveData);
+  function showModal({ data }) {
     setModalOptions({
       ...modalOptions,
       visible: true,
-      modal: modal,
       dataModal: {
         ...data,
       },
@@ -56,9 +54,9 @@ export default function BurgerConstructor(props) {
           );
         })}
         {modalOptions.visible && (
-          <ModalOverlay onCLose={closeModal}>
+          <Modal onCLose={closeModal}>
             <IngredientDetails data={modalOptions.dataModal} />
-          </ModalOverlay>
+          </Modal>
         )}
       </Scroll>
     </section>

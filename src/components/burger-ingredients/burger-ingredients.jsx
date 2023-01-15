@@ -4,7 +4,7 @@ import IngredientItems from "../ingredient-items/ingredient-items";
 import IngredientItemIngredients from "../ingredient-item-ingredients/ingredient-item-ingredients";
 import { useState, useEffect } from "react";
 import React from "react";
-import ModalOverlay from "../modal-overlay/modal-overlay";
+import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import Total from "../total/total";
 
@@ -37,9 +37,9 @@ export default function BurgerIngredients(props) {
       <Scroll type="ingredients">
         <IngredientItems data={data} Item={IngredientItemIngredients} />
         {modalOptions.visible && (
-          <ModalOverlay onCLose={closeModal}>
+          <Modal onCLose={closeModal}>
             <OrderDetails data={modalOptions.dataModal} />
-          </ModalOverlay>
+          </Modal>
         )}
       </Scroll>
       <Total clickHandler={showModal} />
