@@ -29,7 +29,7 @@ export default function Modal(props) {
     return () => {
       document.removeEventListener("keydown", closeByEscape);
     };
-  });
+  }, []);
 
   return ReactDOM.createPortal(
     <ModalOverlay clickHandler={checkClick}>
