@@ -22,10 +22,6 @@ export default function BurgerConstructor(props) {
     dataModal: {},
   });
 
-  IngredientDetails.propTypes = {
-    data: PropTypes.arrayOf(ingredientType),
-  };
-
   function showModal({ data }) {
     setModalOptions({
       ...modalOptions,
@@ -68,3 +64,7 @@ export default function BurgerConstructor(props) {
     </section>
   );
 }
+
+IngredientDetails.propTypes = {
+  data: PropTypes.arrayOf(ingredientType),
+};

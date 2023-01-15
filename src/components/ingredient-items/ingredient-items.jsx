@@ -6,15 +6,15 @@ import { ingredientType } from "../utils/types";
 export default function IngredientItems(props) {
   const { data, Item, onClick } = props;
 
-  IngredientItems.propTypes = {
-    data: PropTypes.arrayOf(ingredientType),
-    Item: PropTypes.func,
-    onClick: PropTypes.func,
-  };
-
   const allItems = data.map((element, index) => {
     return <Item key={element._id} data={element} clickHandler={onClick} />;
   });
 
   return allItems;
 }
+
+IngredientItems.propTypes = {
+  data: PropTypes.arrayOf(ingredientType),
+  Item: PropTypes.func,
+  onClick: PropTypes.func,
+};

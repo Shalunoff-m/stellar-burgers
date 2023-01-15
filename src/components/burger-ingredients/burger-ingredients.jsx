@@ -18,10 +18,6 @@ export default function BurgerIngredients(props) {
     dataModal: {},
   });
 
-  BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(ingredientType),
-  };
-
   function onlyIngredients(data) {
     // console.log(data);
     const list = data.filter((item) => {
@@ -68,3 +64,7 @@ export default function BurgerIngredients(props) {
     </section>
   );
 }
+
+BurgerIngredients.propTypes = {
+  data: PropTypes.arrayOf(ingredientType),
+};

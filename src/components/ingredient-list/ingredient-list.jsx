@@ -6,10 +6,6 @@ import PropTypes from "prop-types";
 export default function IngredientList(props) {
   const { listHeader } = props;
 
-  IngredientList.propTypes = {
-    listHeader: PropTypes.string,
-  };
-
   return (
     <>
       <h2 className="pt-1 pb-5 text text_type_main-medium">{listHeader}</h2>
@@ -19,3 +15,7 @@ export default function IngredientList(props) {
     </>
   );
 }
+
+IngredientList.propTypes = {
+  listHeader: PropTypes.string,
+};

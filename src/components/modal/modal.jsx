@@ -11,10 +11,6 @@ const modalRoot = document.querySelector("#modal");
 export default function Modal(props) {
   const { onCLose } = props;
 
-  Modal.propTypes = {
-    onCLose: Proptypes.func,
-  };
-
   function checkClick(evt) {
     evt.stopPropagation();
     let answer = false;
@@ -67,3 +63,7 @@ export default function Modal(props) {
     modalRoot
   );
 }
+
+Modal.propTypes = {
+  onCLose: Proptypes.func,
+};

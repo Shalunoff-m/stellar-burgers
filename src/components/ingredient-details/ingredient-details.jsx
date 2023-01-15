@@ -6,10 +6,6 @@ import PropTypes from "prop-types";
 export default function IngredientDetails(props) {
   const { showData } = props;
 
-  IngredientDetails.propTypes = {
-    showData: ingredientType,
-  };
-
   return (
     <>
       <h2 className={`$text text_type_main-large pt-6 pb-2 ${styles.heading}`}>
@@ -46,3 +42,7 @@ export default function IngredientDetails(props) {
     </>
   );
 }
+
+IngredientDetails.propTypes = {
+  showData: ingredientType,
+};
