@@ -7,7 +7,7 @@ export default function Tabs(props) {
 
   return (
     <>
-      <div style={{ display: "flex" }} className="pb-10">
+      <div className={`${styles.tabGroup} pb-10`}>
         <Tab value="bun" active={current === "bun"} onClick={setCurrent}>
           Булки
         </Tab>

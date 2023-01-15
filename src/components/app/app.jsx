@@ -1,9 +1,9 @@
 import React from "react";
-import "./App.css";
-import { Header } from "./components/header/header";
-import { Layout } from "./components/layout/layout";
-import BurgerConstructor from "./components/burger-constructor/burger-constructor";
-import BurgerIngredients from "./components/burger-ingredients/burger-ingredients";
+import styles from "./app.module.css";
+import { Header } from "../header/header";
+import { Layout } from "../layout/layout";
+import BurgerConstructor from "../burger-constructor/burger-constructor";
+import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import { useEffect } from "react";
 
 const APIURL = "https://norma.nomoreparties.space/api/ingredients";
