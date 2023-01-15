@@ -13,7 +13,7 @@ export default function IngredientItems(props) {
   };
 
   const allItems = data.map((element, index) => {
-    return <Item key={index} data={element} clickHandler={onClick} />;
+    return <Item key={element._id} data={element} clickHandler={onClick} />;
   });
 
   return allItems;
