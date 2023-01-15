@@ -3,11 +3,16 @@ import ReactDOM from "react-dom";
 import styles from "./modal.module.css";
 import { useState, useEffect } from "react";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import Proptypes from "prop-types";
 
 const modalRoot = document.querySelector("#modal");
 
 export default function Modal(props) {
   const { onCLose } = props;
+
+  Modal.propTypes = {
+    onCLose: Proptypes.func,
+  };
 
   function checkClick(evt) {
     evt.stopPropagation();

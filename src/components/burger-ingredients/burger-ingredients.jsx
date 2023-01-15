@@ -7,6 +7,8 @@ import React from "react";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import Total from "../total/total";
+import PropTypes from "prop-types";
+import { ingredientType } from "../utils/types";
 
 export default function BurgerIngredients(props) {
   const { data } = props;
@@ -14,6 +16,10 @@ export default function BurgerIngredients(props) {
     visible: false,
     dataModal: {},
   });
+
+  BurgerIngredients.propTypes = {
+    data: PropTypes.arrayOf(ingredientType),
+  };
 
   function showModal({ data }) {
     setModalOptions({

@@ -1,4 +1,6 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import styles from "./burger-constructor.module.css";
 import Heading from "../heading/heading";
 import Tabs from "../tabs/tabs";
@@ -10,7 +12,7 @@ import IngredientItems from "../ingredient-items/ingredient-items";
 import IngredientItemConstructor from "../ingredient-item-constructor/ingredient-item-constructor";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import { useState, useEffect } from "react";
+import { ingredientType } from "../utils/types";
 
 export default function BurgerConstructor(props) {
   const { data } = props;
@@ -19,6 +21,10 @@ export default function BurgerConstructor(props) {
     visible: false,
     dataModal: {},
   });
+
+  IngredientDetails.propTypes = {
+    data: PropTypes.arrayOf(ingredientType),
+  };
 
   function showModal({ data }) {
     setModalOptions({
@@ -55,7 +61,7 @@ export default function BurgerConstructor(props) {
         })}
         {modalOptions.visible && (
           <Modal onCLose={closeModal}>
-            <IngredientDetails data={modalOptions.dataModal} />
+            <IngredientDetails showData={modalOptions.dataModal} />
           </Modal>
         )}
       </Scroll>
