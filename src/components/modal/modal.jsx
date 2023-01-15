@@ -11,13 +11,6 @@ const modalRoot = document.querySelector("#modal");
 export default function Modal(props) {
   const { onClose } = props;
 
-  function checkClick(evt) {
-    evt.stopPropagation();
-
-    const target = evt.currentTarget.getAttribute("id");
-    if (target === "modal-overlay" || target === "modal-close-icon") onClose();
-  }
-
   useEffect(() => {
     function closeByEscape(evt) {
       if (evt.key === "Escape") {
@@ -32,7 +25,7 @@ export default function Modal(props) {
   }, []);
 
   return ReactDOM.createPortal(
-    <ModalOverlay clickHandler={checkClick}>
+    <ModalOverlay clickHandler={onClose}>
       <div
         onClick={(evt) => {
           evt.stopPropagation();
@@ -43,9 +36,9 @@ export default function Modal(props) {
         {props.children}
 
         <div
+          onClick={onClose}
           className={`${styles.iconContainer} m-10 pt-8`}
           id="modal-close-icon"
-          onClick={checkClick}
         >
           <CloseIcon className="closeButton" type="primary" />
         </div>
