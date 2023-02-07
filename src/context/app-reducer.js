@@ -2,6 +2,8 @@ import { useReducer } from 'react';
 
 export const appReducer = (state, action) => {
   switch (action.type) {
+    case 'setRemoteData':
+      return { ...state, ingredients: action.payload };
     case 'showIngredient':
       return console.log('Показать ингредиент');
     case 'calculateTotal':
@@ -20,7 +22,15 @@ export const appReducer = (state, action) => {
 export const modalReducer = (state, action) => {
   switch (action.type) {
     case 'setDetails':
-      return console.log('Установить детали модалки');
+      return {
+        ...state,
+        details: {
+          ...state.details,
+          visible: action.visible,
+          data: action.payload,
+        },
+      };
+    //   return { ...state, visible: action.visible, data: action.payload };
     default:
       return console.log('Стандартное действие');
   }

@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { AppContextProvider } from '../../context/app-context';
 import { ModalContextProvider } from '../../context/app-context';
 import { appReducer, modalReducer } from '../../context/app-reducer';
+import { ModalContext, AppContext } from '../../context/app-context';
 
 const APIURL = 'https://norma.nomoreparties.space/api/ingredients';
 
@@ -21,7 +22,7 @@ async function apiGetData() {
 }
 
 const AppInitialState = { ingredients: {}, constructor: {}, total: {} };
-const ModalInitialState = { details: {}, total: {} };
+const ModalInitialState = { details: { visible: false, data: {} }, total: {} };
 
 function App() {
   const [appState, appDispatch] = useReducer(appReducer, AppInitialState);
@@ -44,6 +45,7 @@ function App() {
           ...ingredients,
           bread: remoteData.data[1],
         });
+        appDispatch({ type: 'setRemoteData', payload: remoteData.data });
         // console.log(data);
       })
       .catch((err) => {
@@ -52,15 +54,15 @@ function App() {
   }, []);
 
   return (
-    <AppContextProvider data={{ appState, appDispatch }}>
-      <ModalContextProvider data={{ modalState, modalDispatch }}>
+    <AppContext.Provider value={{ appState, appDispatch }}>
+      <ModalContext.Provider value={{ modalState, modalDispatch }}>
         <Header />
         <Layout>
           <BurgerConstructor data={localData} />
           <BurgerIngredients data={localData} ingredients={ingredients} />
         </Layout>
-      </ModalContextProvider>
-    </AppContextProvider>
+      </ModalContext.Provider>
+    </AppContext.Provider>
   );
 }
 

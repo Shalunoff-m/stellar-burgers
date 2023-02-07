@@ -1,20 +1,25 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import styles from "./burger-constructor.module.css";
-import Heading from "../heading/heading";
-import Tabs from "../tabs/tabs";
-import Scroll from "../scroll/scroll";
-import { sortData } from "../utils/utils";
-import IngredientList from "../ingredient-list/ingredient-list";
-import { productTypes } from "../utils/types";
-import IngredientItems from "../ingredient-items/ingredient-items";
-import IngredientItemConstructor from "../ingredient-item-constructor/ingredient-item-constructor";
-import Modal from "../modal/modal";
-import IngredientDetails from "../ingredient-details/ingredient-details";
-import { ingredientType } from "../utils/types";
+import React from 'react';
+import { useState, useEffect, useReducer } from 'react';
+import PropTypes from 'prop-types';
+import styles from './burger-constructor.module.css';
+import Heading from '../heading/heading';
+import Tabs from '../tabs/tabs';
+import Scroll from '../scroll/scroll';
+import { sortData } from '../utils/utils';
+import IngredientList from '../ingredient-list/ingredient-list';
+import { productTypes } from '../utils/types';
+import IngredientItems from '../ingredient-items/ingredient-items';
+import IngredientItemConstructor from '../ingredient-item-constructor/ingredient-item-constructor';
+import Modal from '../modal/modal';
+import IngredientDetails from '../ingredient-details/ingredient-details';
+import { ingredientType } from '../utils/types';
+// import { ModalContext } from '../../context/app-context';
+import { ModalContext } from '../../context/app-context';
+import { useContext } from 'react';
 
 export default function BurgerConstructor(props) {
+  const { modalState, modalDispatch } = useContext(ModalContext);
+
   const { data } = props;
   const sortedData = sortData(data, productTypes);
   const [modalOptions, setModalOptions] = React.useState({
@@ -30,6 +35,8 @@ export default function BurgerConstructor(props) {
         ...data,
       },
     });
+    modalDispatch({ type: 'setDetails', payload: data, visible: true });
+    console.log(modalState);
   }
 
   function closeModal() {
