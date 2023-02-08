@@ -5,10 +5,10 @@ import { Layout } from '../layout/layout';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import { useEffect } from 'react';
-import { AppContextProvider } from '../../context/app-context';
-import { ModalContextProvider } from '../../context/app-context';
-import { appReducer, modalReducer } from '../../context/app-reducer';
-import { ModalContext, AppContext } from '../../context/app-context';
+import { appReducer } from '../../context/app-reducer';
+import { AppContext } from '../../context/app-context';
+import { sortData } from '../utils/utils';
+import { productTypes } from '../utils/types';
 
 const APIURL = 'https://norma.nomoreparties.space/api/ingredients';
 
@@ -21,15 +21,18 @@ async function apiGetData() {
   return Promise.reject(`Ошибка: ${res.status}`);
 }
 
-const AppInitialState = { ingredients: {}, constructor: {}, total: {} };
-const ModalInitialState = { details: { visible: false, data: {} }, total: {} };
+const AppInitialState = {
+  data: {},
+  constructor: {},
+  ingredients: { bread: {}, components: [] },
+  total: {},
+  modalVisible: false,
+  modalType: '',
+  componentDetail: {},
+};
 
 function App() {
   const [appState, appDispatch] = useReducer(appReducer, AppInitialState);
-  const [modalState, modalDispatch] = useReducer(
-    modalReducer,
-    ModalInitialState
-  );
 
   const [localData, setData] = React.useState([]);
   const [ingredients, setIngredients] = React.useState({
@@ -46,6 +49,8 @@ function App() {
           bread: remoteData.data[1],
         });
         appDispatch({ type: 'setRemoteData', payload: remoteData.data });
+        const arrangeData = sortData(remoteData.data, productTypes);
+        appDispatch({ type: 'setConstructorData', payload: arrangeData });
         // console.log(data);
       })
       .catch((err) => {
@@ -55,13 +60,11 @@ function App() {
 
   return (
     <AppContext.Provider value={{ appState, appDispatch }}>
-      <ModalContext.Provider value={{ modalState, modalDispatch }}>
-        <Header />
-        <Layout>
-          <BurgerConstructor data={localData} />
-          <BurgerIngredients data={localData} ingredients={ingredients} />
-        </Layout>
-      </ModalContext.Provider>
+      <Header />
+      <Layout>
+        <BurgerConstructor />
+        <BurgerIngredients data={localData} ingredients={ingredients} />
+      </Layout>
     </AppContext.Provider>
   );
 }

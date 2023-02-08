@@ -1,11 +1,10 @@
 import React from 'react';
-import { useState, useEffect, useReducer } from 'react';
+import { useState, useEffect, useReducer, useContext } from 'react';
 import PropTypes from 'prop-types';
 import styles from './burger-constructor.module.css';
 import Heading from '../heading/heading';
 import Tabs from '../tabs/tabs';
 import Scroll from '../scroll/scroll';
-import { sortData } from '../utils/utils';
 import IngredientList from '../ingredient-list/ingredient-list';
 import { productTypes } from '../utils/types';
 import IngredientItems from '../ingredient-items/ingredient-items';
@@ -13,37 +12,15 @@ import IngredientItemConstructor from '../ingredient-item-constructor/ingredient
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { ingredientType } from '../utils/types';
-// import { ModalContext } from '../../context/app-context';
-import { ModalContext } from '../../context/app-context';
-import { useContext } from 'react';
+import { AppContext } from '../../context/app-context';
 
 export default function BurgerConstructor(props) {
-  const { modalState, modalDispatch } = useContext(ModalContext);
-
-  const { data } = props;
-  const sortedData = sortData(data, productTypes);
-  const [modalOptions, setModalOptions] = React.useState({
-    visible: false,
-    dataModal: {},
-  });
-
-  function showModal({ data }) {
-    setModalOptions({
-      ...modalOptions,
-      visible: true,
-      dataModal: {
-        ...data,
-      },
-    });
-    modalDispatch({ type: 'setDetails', payload: data, visible: true });
-    console.log(modalState);
-  }
+  const { appState, appDispatch } = useContext(AppContext);
+  const { modalVisible, modalType, componentDetail } = appState;
+  const { constructor: sortedData } = appState;
 
   function closeModal() {
-    setModalOptions({
-      ...modalOptions,
-      visible: false,
-    });
+    appDispatch({ type: 'closeModal' });
   }
 
   return (
@@ -57,14 +34,14 @@ export default function BurgerConstructor(props) {
               <IngredientItems
                 data={sortedData[List]}
                 Item={IngredientItemConstructor}
-                onClick={showModal}
+                // onClick={showModal}
               />
             </IngredientList>
           );
         })}
-        {modalOptions.visible && (
+        {modalVisible && modalType === 'details' && (
           <Modal onClose={closeModal}>
-            <IngredientDetails showData={modalOptions.dataModal} />
+            <IngredientDetails showData={componentDetail} />
           </Modal>
         )}
       </Scroll>

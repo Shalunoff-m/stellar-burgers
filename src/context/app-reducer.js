@@ -3,35 +3,69 @@ import { useReducer } from 'react';
 export const appReducer = (state, action) => {
   switch (action.type) {
     case 'setRemoteData':
-      return { ...state, ingredients: action.payload };
-    case 'showIngredient':
-      return console.log('Показать ингредиент');
-    case 'calculateTotal':
-      return console.log('Подсчет итоговой стоимости');
-    case 'addIngredient':
-      return console.log('Добавление ингредиента');
-    case 'deleteIngredient':
-      return console.log('Удаление ингредиента');
-    case 'setTotalCoast':
-      return console.log('Установить итоговую стоимость');
+      return { ...state, data: action.payload };
+    case 'setConstructorData':
+      return { ...state, constructor: action.payload };
+    case 'showModalDetail':
+      return {
+        ...state,
+        modalVisible: true,
+        modalType: 'details',
+        componentDetail: action.payload,
+      };
+    case 'closeModal':
+      return {
+        ...state,
+        modalVisible: false,
+        modalType: '',
+      };
+    case 'showOrderDetail':
+      return {
+        ...state,
+        modalVisible: true,
+        modalType: 'order',
+      };
+    case 'addComponent':
+      if (action.payload.type === 'bun') {
+        console.log('Это булка');
+        return {
+          ...state,
+          ingredients: { ...state.ingredients, bread: action.payload },
+        };
+      } else {
+        console.log('Это компонент');
+        return {
+          ...state,
+          ingredients: {
+            ...state.ingredients,
+            components: [...state.ingredients.components, action.payload],
+          },
+        };
+      }
+
     default:
       return console.log('Стандартное действие');
   }
 };
 
-export const modalReducer = (state, action) => {
-  switch (action.type) {
-    case 'setDetails':
-      return {
-        ...state,
-        details: {
-          ...state.details,
-          visible: action.visible,
-          data: action.payload,
-        },
-      };
-    //   return { ...state, visible: action.visible, data: action.payload };
-    default:
-      return console.log('Стандартное действие');
-  }
-};
+/* 
+
+  function showModal({ data }) {
+    setModalOptions({
+      ...modalOptions,
+      visible: true,
+      dataModal: {
+        ...data,
+      },
+    });
+  } */
+
+/* 
+  const AppInitialState = {
+  data: {},
+  constructor: {},
+  ingredients: { bread: {}, components: {} },
+  total: {},
+  modalVisible: false,
+  componentDetail: {},
+}; */
