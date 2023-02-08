@@ -29,10 +29,11 @@ export default function BurgerIngredients(props) {
       return item.type !== 'bun' && item.__v > 0;
     });
 
-    appDispatch({
-      type: 'addComponent',
-      payload: { bread: breadSelect[0], components: componentsSelect },
-    });
+    // TODO Здесь явная проблема при определении компонентов, которые выбраны
+    // appDispatch({
+    //   type: 'addComponent',
+    //   payload: { bread: breadSelect[0], components: componentsSelect },
+    // });
   });
 
   function showModal() {
