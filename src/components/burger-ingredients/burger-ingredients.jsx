@@ -17,17 +17,22 @@ export default function BurgerIngredients(props) {
   const { modalVisible, modalType } = appState;
   const { bread, components } = appState.ingredients;
 
-  const { data, ingredients } = props;
-
-  function onlyIngredients(data) {
-    // console.log(data);
-    const list = data.filter((item) => {
-      return item.type !== 'bun';
+  useEffect(() => {
+    const breadSelect = appState.data.filter((item) => {
+      return item.__v === 2 && item.type === 'bun';
     });
-    return list;
-  }
+    // newIngredientList.bread = breadChoise[0];
 
-  const dataWithoutBread = onlyIngredients(data);
+    const componentsSelect = appState.data.filter((item) => {
+      return item.type !== 'bun' && item.__v > 0;
+    });
+    // console.log({ bread: breadSelect[0], components: componentsSelect });
+    if (breadSelect && componentsSelect.length > 0)
+      appDispatch({
+        type: 'addComponent',
+        payload: { bread: breadSelect[0], components: componentsSelect },
+      });
+  }, [appState.data]);
 
   function showModal() {
     appDispatch({ type: 'showOrderDetail' });

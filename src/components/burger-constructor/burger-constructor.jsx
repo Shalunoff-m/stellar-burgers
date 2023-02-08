@@ -13,11 +13,18 @@ import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { ingredientType } from '../utils/types';
 import { AppContext } from '../../context/app-context';
+import { sortData } from '../utils/utils';
 
 export default function BurgerConstructor(props) {
   const { appState, appDispatch } = useContext(AppContext);
   const { modalVisible, modalType, componentDetail } = appState;
   const { constructor: sortedData } = appState;
+
+  useEffect(() => {
+    const arrangeData = sortData(appState.data, productTypes);
+    // console.log(arrangeData);
+    appDispatch({ type: 'setConstructorData', payload: arrangeData });
+  }, [appState.data]);
 
   function closeModal() {
     appDispatch({ type: 'closeModal' });

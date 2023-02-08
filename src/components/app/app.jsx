@@ -7,8 +7,6 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import { useEffect } from 'react';
 import { appReducer } from '../../context/app-reducer';
 import { AppContext } from '../../context/app-context';
-import { sortData } from '../utils/utils';
-import { productTypes } from '../utils/types';
 
 const APIURL = 'https://norma.nomoreparties.space/api/ingredients';
 
@@ -22,10 +20,10 @@ async function apiGetData() {
 }
 
 const AppInitialState = {
-  data: {},
+  data: [],
   constructor: {},
   ingredients: { bread: {}, components: [] },
-  total: {},
+  total: '',
   modalVisible: false,
   modalType: '',
   componentDetail: {},
@@ -34,23 +32,18 @@ const AppInitialState = {
 function App() {
   const [appState, appDispatch] = useReducer(appReducer, AppInitialState);
 
-  const [localData, setData] = React.useState([]);
-  const [ingredients, setIngredients] = React.useState({
-    bread: {},
-    components: [],
-  });
+  // const [localData, setData] = React.useState([]);
+  // const [ingredients, setIngredients] = React.useState({
+  //   bread: {},
+  //   components: [],
+  // });
 
   useEffect(() => {
     apiGetData()
       .then((remoteData) => {
-        setData(remoteData.data);
-        setIngredients({
-          ...ingredients,
-          bread: remoteData.data[1],
-        });
         appDispatch({ type: 'setRemoteData', payload: remoteData.data });
-        const arrangeData = sortData(remoteData.data, productTypes);
-        appDispatch({ type: 'setConstructorData', payload: arrangeData });
+        // const arrangeData = sortData(remoteData.data, productTypes);
+        // appDispatch({ type: 'setConstructorData', payload: arrangeData });
         // console.log(data);
       })
       .catch((err) => {
@@ -63,7 +56,7 @@ function App() {
       <Header />
       <Layout>
         <BurgerConstructor />
-        <BurgerIngredients data={localData} ingredients={ingredients} />
+        <BurgerIngredients />
       </Layout>
     </AppContext.Provider>
   );

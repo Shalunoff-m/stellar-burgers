@@ -26,46 +26,44 @@ export const appReducer = (state, action) => {
         modalType: 'order',
       };
     case 'addComponent':
+      return {
+        ...state,
+        ingredients: {
+          bread: action.payload.bread,
+          components: action.payload.components,
+        },
+      };
+
+    case 'setTotalPrice':
+      return {
+        ...state,
+        total: action.payload,
+      };
+
+    case 'addCount':
       if (action.payload.type === 'bun') {
-        console.log('Это булка');
-        return {
-          ...state,
-          ingredients: { ...state.ingredients, bread: action.payload },
-        };
-      } else {
-        console.log('Это компонент');
-        return {
-          ...state,
-          ingredients: {
-            ...state.ingredients,
-            components: [...state.ingredients.components, action.payload],
-          },
-        };
+        const newState = state.data.map((item) => {
+          if (item.type === 'bun' && item._id === action.payload._id)
+            return { ...item, __v: 2 };
+          // return item;
+          if (item.type === 'bun' && item._id !== action.payload._id)
+            return { ...item, __v: 0 };
+          return item;
+        });
+
+        return { ...state, data: newState };
+      }
+      if (action.payload.type !== 'bun') {
+        const newState = state.data.map((item) => {
+          if (item._id === action.payload._id)
+            return { ...item, __v: item.__v++ };
+          return item;
+        });
+
+        return { ...state, data: newState };
       }
 
     default:
       return console.log('Стандартное действие');
   }
 };
-
-/* 
-
-  function showModal({ data }) {
-    setModalOptions({
-      ...modalOptions,
-      visible: true,
-      dataModal: {
-        ...data,
-      },
-    });
-  } */
-
-/* 
-  const AppInitialState = {
-  data: {},
-  constructor: {},
-  ingredients: { bread: {}, components: {} },
-  total: {},
-  modalVisible: false,
-  componentDetail: {},
-}; */
