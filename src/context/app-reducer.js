@@ -62,6 +62,22 @@ export const appReducer = (state, action) => {
 
         return { ...state, data: newState };
       }
+      break;
+
+    case 'removeCount':
+      const newState = state.data.map((item) => {
+        // if (item.type === 'bun' && item._id === action.payload._id)
+        //   return (item.__v -= 2);
+        if (item._id === action.payload._id) {
+          return { ...item, __v: item.__v-- };
+        }
+        // if (item.__v === 0) return item.__v;
+        return item;
+      });
+      return {
+        ...state,
+        data: newState,
+      };
 
     default:
       return console.log('Стандартное действие');

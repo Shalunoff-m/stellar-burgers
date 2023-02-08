@@ -18,21 +18,22 @@ export default function BurgerIngredients(props) {
   const { bread, components } = appState.ingredients;
 
   useEffect(() => {
-    const breadSelect = appState.data.filter((item) => {
+    let breadSelect = [];
+    let componentsSelect = [];
+
+    breadSelect = appState.data.filter((item) => {
       return item.__v === 2 && item.type === 'bun';
     });
-    // newIngredientList.bread = breadChoise[0];
 
-    const componentsSelect = appState.data.filter((item) => {
+    componentsSelect = appState.data.filter((item) => {
       return item.type !== 'bun' && item.__v > 0;
     });
-    // console.log({ bread: breadSelect[0], components: componentsSelect });
-    if (breadSelect && componentsSelect.length > 0)
-      appDispatch({
-        type: 'addComponent',
-        payload: { bread: breadSelect[0], components: componentsSelect },
-      });
-  }, [appState.data]);
+
+    appDispatch({
+      type: 'addComponent',
+      payload: { bread: breadSelect[0], components: componentsSelect },
+    });
+  });
 
   function showModal() {
     appDispatch({ type: 'showOrderDetail' });
