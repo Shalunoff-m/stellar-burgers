@@ -11,7 +11,8 @@ export default function IngredientItemConstructor(props) {
 
   // TODO Привести в порядок функцию
   const clickHandler = () => {
-    appDispatch({ type: 'showModalDetail', payload: data });
+    // appDispatch({ type: 'showModalDetail', payload: data });
+    appDispatch({ type: 'removeComponent', payload: data });
   };
 
   const contextHandler = (e) => {
@@ -19,7 +20,6 @@ export default function IngredientItemConstructor(props) {
     e.nativeEvent.stopPropagation();
     // e.
     appDispatch({ type: 'addComponent', payload: data });
-    // appDispatch({ type: 'addCount', payload: data });
   };
 
   useEffect(() => {

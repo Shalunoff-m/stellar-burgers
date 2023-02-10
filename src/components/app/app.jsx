@@ -45,7 +45,7 @@ function App() {
       <Header />
       <Layout>
         <BurgerConstructor />
-        {/* <BurgerIngredients /> */}
+        <BurgerIngredients />
       </Layout>
     </AppContext.Provider>
   );

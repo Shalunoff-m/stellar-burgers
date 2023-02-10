@@ -27,6 +27,69 @@ export const appReducer = (state, action) => {
         modalType: '',
       };
 
+    case 'removeComponent':
+      if (action.payload.type === 'bun') {
+        return {
+          ...state,
+          ingredients: {
+            ...state.ingredients,
+            bread: '',
+          },
+        };
+      } else {
+        // TODO начал писать здесь
+
+        const currentElement = state.ingredients.components.findIndex(
+          (element) => action.payload._id === element._id
+        );
+
+        if (currentElement === -1) return { ...state };
+
+        const valueItem = state.ingredients.components[currentElement].__v;
+
+        if (valueItem === 1) {
+          // console.log('Значение равно 1');
+          const newComponents = state.ingredients.components.filter((item) => {
+            return action.payload._id !== item._id;
+          });
+          console.log(newComponents);
+          return {
+            ...state,
+            ingredients: {
+              ...state.ingredients,
+              components: newComponents,
+            },
+          };
+        } else {
+          // console.log('Значение больше одного');
+
+          const newComponents = state.ingredients.components.map(
+            (item, index) => {
+              if (index === currentElement) {
+                return { ...item, __v: valueItem - 1 };
+              }
+              return item;
+            }
+          );
+          // console.log(newComponents);
+
+          return {
+            ...state,
+            ingredients: {
+              ...state.ingredients,
+              components: newComponents,
+            },
+          };
+
+          // return {
+          //   ...state,
+          // };
+          // break;
+        }
+      }
+
+    // TODO Закончил здесь
+
     case 'addComponent':
       if (action.payload.type === 'bun') {
         return {
@@ -42,13 +105,12 @@ export const appReducer = (state, action) => {
         const currentElement = state.ingredients.components.findIndex(
           (element) => action.payload._id === element._id
         );
-        // console.log(currentElement);
         if (currentElement !== -1) {
           const newComponents = state.ingredients.components.map(
             (component) => {
               if (component._id === action.payload._id)
                 return { ...component, __v: component.__v + 1 };
-              return component;
+              else return component;
             }
           );
 
@@ -65,7 +127,10 @@ export const appReducer = (state, action) => {
             ...state,
             ingredients: {
               ...state.ingredients,
-              components: [...state.ingredients.components, action.payload],
+              components: [
+                ...state.ingredients.components,
+                { ...action.payload, __v: 1 },
+              ],
             },
           };
         }
