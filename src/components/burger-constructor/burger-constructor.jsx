@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect, useReducer, useContext } from 'react';
+import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import styles from './burger-constructor.module.css';
 import Heading from '../heading/heading';
@@ -15,20 +15,15 @@ import { ingredientType } from '../utils/types';
 import { AppContext } from '../../context/app-context';
 import { sortData } from '../utils/utils';
 
-export default function BurgerConstructor(props) {
+export default function BurgerConstructor() {
   const { appState, appDispatch } = useContext(AppContext);
-  const { modalVisible, modalType, componentDetail } = appState;
-  const { constructor: sortedData } = appState;
-
-  useEffect(() => {
-    const arrangeData = sortData(appState.data, productTypes);
-    // console.log(arrangeData);
-    appDispatch({ type: 'setConstructorData', payload: arrangeData });
-  }, [appState.data]);
+  const { modalType, componentDetail } = appState;
 
   function closeModal() {
     appDispatch({ type: 'closeModal' });
   }
+
+  const sortedData = sortData(appState.data, productTypes);
 
   return (
     <section className={`${styles.section} pt-10`}>
@@ -46,7 +41,7 @@ export default function BurgerConstructor(props) {
             </IngredientList>
           );
         })}
-        {modalVisible && modalType === 'details' && (
+        {modalType === 'details' && (
           <Modal onClose={closeModal}>
             <IngredientDetails showData={componentDetail} />
           </Modal>

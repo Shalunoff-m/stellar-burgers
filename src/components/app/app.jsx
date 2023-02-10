@@ -21,10 +21,8 @@ async function apiGetData() {
 
 const AppInitialState = {
   data: [],
-  constructor: {},
   ingredients: { bread: {}, components: [] },
   total: '',
-  modalVisible: false,
   modalType: '',
   componentDetail: {},
 };
@@ -32,19 +30,10 @@ const AppInitialState = {
 function App() {
   const [appState, appDispatch] = useReducer(appReducer, AppInitialState);
 
-  // const [localData, setData] = React.useState([]);
-  // const [ingredients, setIngredients] = React.useState({
-  //   bread: {},
-  //   components: [],
-  // });
-
   useEffect(() => {
     apiGetData()
       .then((remoteData) => {
         appDispatch({ type: 'setRemoteData', payload: remoteData.data });
-        // const arrangeData = sortData(remoteData.data, productTypes);
-        // appDispatch({ type: 'setConstructorData', payload: arrangeData });
-        // console.log(data);
       })
       .catch((err) => {
         console.log(`Ошибка получения данных с API: ${err}`);
@@ -56,7 +45,7 @@ function App() {
       <Header />
       <Layout>
         <BurgerConstructor />
-        <BurgerIngredients />
+        {/* <BurgerIngredients /> */}
       </Layout>
     </AppContext.Provider>
   );

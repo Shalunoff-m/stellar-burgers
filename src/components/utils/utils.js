@@ -1,4 +1,4 @@
-export function sortData(data, dataTypes) {
+export function sortData(data = [], dataTypes) {
   const sortedBuffer = {};
   for (let product in dataTypes) {
     const filterList = data.filter((element) => {

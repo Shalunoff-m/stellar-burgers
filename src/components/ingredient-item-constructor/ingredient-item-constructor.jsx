@@ -16,8 +16,10 @@ export default function IngredientItemConstructor(props) {
 
   const contextHandler = (e) => {
     e.preventDefault();
-    // appDispatch({ type: 'addComponent', payload: data });
-    appDispatch({ type: 'addCount', payload: data });
+    e.nativeEvent.stopPropagation();
+    // e.
+    appDispatch({ type: 'addComponent', payload: data });
+    // appDispatch({ type: 'addCount', payload: data });
   };
 
   useEffect(() => {
