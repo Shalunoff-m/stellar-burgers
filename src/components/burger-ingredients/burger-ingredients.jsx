@@ -10,42 +10,78 @@ import Total from '../total/total';
 import PropTypes from 'prop-types';
 import { ingredientType } from '../../utils/types';
 import Bread from '../bread/bread';
+import ComponentsPreset from '../components-preset/components-preset';
 import { AppContext } from '../../context/app-context';
+import { presetDefault } from '../../utils/preset';
 
 export default function BurgerIngredients() {
   const { appState, appDispatch } = useContext(AppContext);
-  const { data, modalType } = appState;
+  const { data, modalType, totalCoast } = appState;
 
   function closeModal() {
     appDispatch({ type: 'closeModal' });
   }
 
-  function calculateTotal(data) {
-    const totalCoast = data.reduce((acc, item) => {
-      return acc + item.type === 'bun' ? item.price * 2 : item.price;
+  function calculateTotal({ bun, ingredients }) {
+    let totalCoast = ingredients.reduce((acc, item) => {
+      return acc + item.price;
     }, 0);
-    return totalCoast;
+    return totalCoast + bun.price * 2;
   }
 
-  const totalPrice = useMemo(() => calculateTotal(data), [data]);
+  function filterIngredient(data) {
+    let bun = {};
+    let ingredients = [];
+
+    data.forEach((item) => {
+      if (item.__v > 0) {
+        item.type === 'bun'
+          ? (bun = item)
+          : ingredients.push({ ...item, price: item.price * item.__v });
+      }
+    });
+    return { bun, ingredients };
+  }
+
+  const { bun, ingredients } = useMemo(() => filterIngredient(data), [data]);
+  console.log(bun, ingredients);
+  const totalPrice = useMemo(
+    () => calculateTotal({ bun, ingredients }),
+    [bun, ingredients]
+  );
 
   useEffect(() => {
-    appDispatch({ type: 'setTotal', payload: totalPrice });
+    appDispatch({
+      type: 'setTotal',
+      payload: totalPrice,
+    });
   }, [data, totalPrice]);
 
   return (
     <section className={`pt-25 ${styles.wrapper}`}>
-      <Bread bread={data[0]} type='top' />
+      <ComponentsPreset />
+      <Bread
+        bread={Object.keys(bun).length !== 0 ? bun : presetDefault}
+        type='top'
+      />
       <Scroll type='ingredients'>
-        {<IngredientItems data={data} Item={IngredientItemIngredients} />}
+        {
+          <IngredientItems
+            data={ingredients}
+            Item={IngredientItemIngredients}
+          />
+        }
         {modalType === 'order' && (
           <Modal onClose={closeModal}>
             <OrderDetails />
           </Modal>
         )}
       </Scroll>
-      <Bread bread={data[0]} type='bottom' />
-      <Total />
+      <Bread
+        bread={Object.keys(bun).length !== 0 ? bun : presetDefault}
+        type='bottom'
+      />{' '}
+      {<Total />}
     </section>
   );
 }

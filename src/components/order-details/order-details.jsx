@@ -14,7 +14,7 @@ export default function OrderDetails(props) {
       >
         {modalData.order.number}
       </h2>
-      <p className='text text_type_main-medium pb-15'>{modalData.name}</p>
+      <p className='text text_type_main-medium pb-15'>идентификатор заказа</p>
       <img src={DoneIcon} alt='Done' className='pb-15' />
       <p className='text text_type_main-default pb-2'>
         Ваш заказ начали готовить

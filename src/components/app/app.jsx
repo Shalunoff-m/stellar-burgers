@@ -1,5 +1,4 @@
 import React, { useReducer } from 'react';
-import styles from './app.module.css';
 import { Header } from '../header/header';
 import { Layout } from '../layout/layout';
 import BurgerConstructor from '../burger-constructor/burger-constructor';

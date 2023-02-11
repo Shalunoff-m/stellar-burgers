@@ -22,7 +22,7 @@
   margin: 0;
   padding: 0;
   overflow-y: scroll;
-  height: calc(100vh - 536px);
+  height: calc(100vh - 580px);
   list-style: none;
   display: flex;
   flex-direction: column;

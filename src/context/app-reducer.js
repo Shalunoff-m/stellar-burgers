@@ -40,6 +40,12 @@ export const appReducer = (state, action) => {
         totalCoast: action.payload,
       };
 
+    case 'setPreset':
+      return {
+        ...state,
+        data: action.payload,
+      };
+
     default:
       return console.log('Стандартное действие');
   }

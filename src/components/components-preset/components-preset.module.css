@@ -1,0 +1,22 @@
+.list {
+  display: flex;
+  gap: 30px;
+}
+
+.item {
+  list-style: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.item:hover {
+  list-style: none;
+  cursor: pointer;
+  color: white;
+}
+
+.item:active {
+  list-style: none;
+  cursor: pointer;
+  color: white;
+}
