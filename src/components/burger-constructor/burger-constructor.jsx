@@ -5,14 +5,14 @@ import Heading from '../heading/heading';
 import Tabs from '../tabs/tabs';
 import Scroll from '../scroll/scroll';
 import IngredientList from '../ingredient-list/ingredient-list';
-import { productTypes } from '../utils/types';
+import { productTypes } from '../../utils/types';
 import IngredientItems from '../ingredient-items/ingredient-items';
 import IngredientItemConstructor from '../ingredient-item-constructor/ingredient-item-constructor';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import { ingredientType } from '../utils/types';
+import { ingredientType } from '../../utils/types';
 import { AppContext } from '../../context/app-context';
-import { sortData } from '../utils/utils';
+import { sortData } from '../../utils/utils';
 
 export default function BurgerConstructor() {
   const { appState, appDispatch } = useContext(AppContext);

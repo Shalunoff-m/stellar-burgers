@@ -7,32 +7,27 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import { useEffect } from 'react';
 import { appReducer } from '../../context/app-reducer';
 import { AppContext } from '../../context/app-context';
-
-const APIURL = 'https://norma.nomoreparties.space/api/ingredients';
-
-async function apiGetData() {
-  const res = await fetch(APIURL);
-  if (res.ok) {
-    const data = await res.json();
-    return data;
-  }
-  return Promise.reject(`Ошибка: ${res.status}`);
-}
+import { Loader } from '../loader/loader';
+import { apiGetData } from '../../utils/api';
 
 const AppInitialState = {
   data: [],
   totalCoast: '',
   modalType: '',
   modalData: {},
+  loader: true,
 };
 
 function App() {
   const [appState, appDispatch] = useReducer(appReducer, AppInitialState);
+  const { loader } = appState;
 
   useEffect(() => {
+    appDispatch({ type: 'setLoader' });
     apiGetData()
       .then((remoteData) => {
         appDispatch({ type: 'setRemoteData', payload: remoteData.data });
+        appDispatch({ type: 'removeLoader' });
       })
       .catch((err) => {
         console.log(`Ошибка получения данных с API: ${err}`);
@@ -42,10 +37,15 @@ function App() {
   return (
     <AppContext.Provider value={{ appState, appDispatch }}>
       <Header />
-      <Layout>
-        <BurgerConstructor />
-        {/* <BurgerIngredients /> */}
-      </Layout>
+      {/* Инициализация лоадера для загрузки данных */}
+      {loader ? (
+        <Loader />
+      ) : (
+        <Layout>
+          <BurgerConstructor />
+          <BurgerIngredients />
+        </Layout>
+      )}
     </AppContext.Provider>
   );
 }

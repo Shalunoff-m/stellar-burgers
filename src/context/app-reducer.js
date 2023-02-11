@@ -1,5 +1,11 @@
 export const appReducer = (state, action) => {
   switch (action.type) {
+    case 'setLoader':
+      return { ...state, loader: true };
+
+    case 'removeLoader':
+      return { ...state, loader: false };
+
     // Запись данных, пришедших с сервера
     case 'setRemoteData':
       return { ...state, data: action.payload };
@@ -17,6 +23,7 @@ export const appReducer = (state, action) => {
       return {
         ...state,
         modalType: 'order',
+        modalData: action.payload,
       };
 
     // Закрытие модалки
@@ -24,6 +31,13 @@ export const appReducer = (state, action) => {
       return {
         ...state,
         modalType: '',
+        modalData: {},
+      };
+
+    case 'setTotal':
+      return {
+        ...state,
+        totalCoast: action.payload,
       };
 
     default:
