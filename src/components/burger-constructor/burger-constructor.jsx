@@ -13,12 +13,14 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import { ingredientType } from '../../utils/types';
 import { AppContext } from '../../context/app-context';
 import { sortData } from '../../utils/utils';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function BurgerConstructor() {
   const { appState, appDispatch } = useContext(AppContext);
   const { modalType, modalData } = appState;
-  // const
-  // const headers = useRef();
+  const bunHeader = useRef(null);
+  const sauceHeader = useRef(null);
+  const mainHeader = useRef(null);
 
   function closeModal() {
     appDispatch({ type: 'closeModal' });
@@ -31,23 +33,42 @@ export default function BurgerConstructor() {
   return (
     <section className={`${styles.section} pt-10`}>
       <Heading>Соберите бургер</Heading>
-      <Tabs />
+      <Tabs dom={{ bunHeader, sauceHeader, mainHeader }} />
       <Scroll>
-        {Object.keys(sortedData).map((List, index) => {
-          return (
-            <IngredientList
-              listHeader={productTypes[List]}
-              id={List}
-              key={index}
-              // header={headers}
-            >
-              <IngredientItems
-                data={sortedData[List]}
-                Item={IngredientItemConstructor}
-              />
-            </IngredientList>
-          );
-        })}
+        <IngredientList
+          refElement={bunHeader}
+          listHeader={productTypes['bun']}
+          key={uuidv4()}
+          // header={headers}
+        >
+          <IngredientItems
+            data={sortedData['bun']}
+            Item={IngredientItemConstructor}
+          />
+        </IngredientList>
+        <IngredientList
+          refElement={sauceHeader}
+          listHeader={productTypes['sauce']}
+          key={uuidv4()}
+          // header={headers}
+        >
+          <IngredientItems
+            data={sortedData['sauce']}
+            Item={IngredientItemConstructor}
+          />
+        </IngredientList>
+        <IngredientList
+          refElement={mainHeader}
+          listHeader={productTypes['main']}
+          key={uuidv4()}
+          // header={headers}
+        >
+          <IngredientItems
+            data={sortedData['main']}
+            Item={IngredientItemConstructor}
+          />
+        </IngredientList>
+
         {modalType === 'details' && (
           <Modal onClose={closeModal}>
             <IngredientDetails showData={modalData} />

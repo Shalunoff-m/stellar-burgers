@@ -5,17 +5,14 @@ import PropTypes from 'prop-types';
 import { useRef } from 'react';
 
 export default function IngredientList(props) {
-  const { listHeader, id } = props;
-  const headerDOM = useRef();
+  const { listHeader, id, refElement } = props;
 
   return (
     <>
       <h2
-        // ref={header}
-        // id={listHeader}
+        ref={refElement}
         className='pt-1 pb-5 text text_type_main-medium'
         id={id}
-        ref={headerDOM}
       >
         {listHeader}
       </h2>
