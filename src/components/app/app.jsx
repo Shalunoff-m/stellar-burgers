@@ -25,6 +25,7 @@ function App() {
     appDispatch({ type: 'setLoader' });
     apiGetData()
       .then((remoteData) => {
+        console.log(remoteData.data);
         appDispatch({ type: 'setRemoteData', payload: remoteData.data });
         appDispatch({ type: 'removeLoader' });
       })

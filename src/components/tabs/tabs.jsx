@@ -15,8 +15,7 @@ export default function Tabs(props) {
           active={current === 'bun'}
           onClick={() => {
             bunHeader.current.scrollIntoView({ behavior: 'smooth' });
-
-            setCurrent('bun');
+            // setCurrent('bun');
           }}
         >
           Булки
@@ -26,8 +25,7 @@ export default function Tabs(props) {
           active={current === 'sauce'}
           onClick={() => {
             sauceHeader.current.scrollIntoView({ behavior: 'smooth' });
-
-            setCurrent('sauce');
+            // setCurrent('sauce');
           }}
         >
           Соусы
@@ -37,7 +35,7 @@ export default function Tabs(props) {
           active={current === 'main'}
           onClick={() => {
             mainHeader.current.scrollIntoView({ behavior: 'smooth' });
-            setCurrent('main');
+            // setCurrent('main');
           }}
         >
           Начинки

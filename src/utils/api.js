@@ -6,6 +6,7 @@ export async function apiGetData() {
 }
 
 export async function apiSendOrder() {
+  // console.log(data);
   const data = ['60d3b41abdacab0026a733c6', '60d3b41abdacab0026a733c9']; // console.log(data);
   const res = await fetch(API_ENDPOINT + 'orders', {
     method: 'POST',

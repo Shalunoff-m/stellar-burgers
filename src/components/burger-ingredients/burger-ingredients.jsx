@@ -50,6 +50,7 @@ export default function BurgerIngredients() {
   );
 
   useEffect(() => {
+    console.log(totalPrice);
     appDispatch({
       type: 'setTotal',
       payload: totalPrice,
@@ -80,7 +81,7 @@ export default function BurgerIngredients() {
         bread={Object.keys(bun).length !== 0 ? bun : presetDefault}
         type='bottom'
       />{' '}
-      {<Total />}
+      <Total />
     </section>
   );
 }
