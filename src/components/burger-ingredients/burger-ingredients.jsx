@@ -44,7 +44,6 @@ export default function BurgerIngredients() {
   }
 
   const { bun, ingredients } = useMemo(() => filterIngredient(data), [data]);
-  console.log(bun, ingredients);
   const totalPrice = useMemo(
     () => calculateTotal({ bun, ingredients }),
     [bun, ingredients]

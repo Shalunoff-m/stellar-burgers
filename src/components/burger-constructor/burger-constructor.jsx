@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext, useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styles from './burger-constructor.module.css';
 import Heading from '../heading/heading';
@@ -17,6 +17,8 @@ import { sortData } from '../../utils/utils';
 export default function BurgerConstructor() {
   const { appState, appDispatch } = useContext(AppContext);
   const { modalType, modalData } = appState;
+  // const
+  // const headers = useRef();
 
   function closeModal() {
     appDispatch({ type: 'closeModal' });
@@ -33,7 +35,12 @@ export default function BurgerConstructor() {
       <Scroll>
         {Object.keys(sortedData).map((List, index) => {
           return (
-            <IngredientList listHeader={productTypes[List]} key={index}>
+            <IngredientList
+              listHeader={productTypes[List]}
+              id={List}
+              key={index}
+              // header={headers}
+            >
               <IngredientItems
                 data={sortedData[List]}
                 Item={IngredientItemConstructor}

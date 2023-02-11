@@ -6,7 +6,7 @@ import { ingredientType } from '../../utils/types';
 export default function IngredientItems(props) {
   const { data, Item, onClick } = props;
 
-  const allItems = data.map((element, index) => {
+  const allItems = data.map((element) => {
     return <Item key={element._id} data={element} clickHandler={onClick} />;
   });
 

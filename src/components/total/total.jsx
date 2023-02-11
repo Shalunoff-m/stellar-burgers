@@ -19,10 +19,12 @@ export default function Total(props) {
   };
 
   const sendOrder = (e) => {
+    appDispatch({ type: 'setLoader' });
     apiSendOrder()
       .then((data) => {
         console.log(data);
         appDispatch({ type: 'showOrderDetail', payload: data });
+        appDispatch({ type: 'removeLoader' });
       })
       .catch((err) => {
         console.log(err);
