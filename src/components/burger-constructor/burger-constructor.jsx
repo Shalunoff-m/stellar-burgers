@@ -1,5 +1,4 @@
-import React from 'react';
-import { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styles from './burger-constructor.module.css';
 import Heading from '../heading/heading';
@@ -17,13 +16,15 @@ import { sortData } from '../utils/utils';
 
 export default function BurgerConstructor() {
   const { appState, appDispatch } = useContext(AppContext);
-  const { modalType, componentDetail } = appState;
+  const { modalType, modalData } = appState;
 
   function closeModal() {
     appDispatch({ type: 'closeModal' });
   }
-
-  const sortedData = sortData(appState.data, productTypes);
+  // Вытаскиваем ингриденты из контекста и сортируем
+  const sortedData = useMemo(() => {
+    return sortData(appState.data, productTypes);
+  }, [appState.data]);
 
   return (
     <section className={`${styles.section} pt-10`}>
@@ -36,14 +37,13 @@ export default function BurgerConstructor() {
               <IngredientItems
                 data={sortedData[List]}
                 Item={IngredientItemConstructor}
-                // onClick={showModal}
               />
             </IngredientList>
           );
         })}
         {modalType === 'details' && (
           <Modal onClose={closeModal}>
-            <IngredientDetails showData={componentDetail} />
+            <IngredientDetails showData={modalData} />
           </Modal>
         )}
       </Scroll>

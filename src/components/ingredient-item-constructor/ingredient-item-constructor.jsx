@@ -1,35 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styles from './ingredient-item-constructor.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState, useEffect, useContext } from 'react';
 import { AppContext } from '../../context/app-context';
 
 export default function IngredientItemConstructor(props) {
   const { appDispatch } = useContext(AppContext);
-  const [data, setData] = useState({});
   const { data: element } = props;
 
-  // TODO Привести в порядок функцию
   const clickHandler = () => {
-    // appDispatch({ type: 'showModalDetail', payload: data });
-    appDispatch({ type: 'removeComponent', payload: data });
+    appDispatch({ type: 'showModalDetail', payload: element });
   };
-
-  const contextHandler = (e) => {
-    e.preventDefault();
-    e.nativeEvent.stopPropagation();
-    // e.
-    appDispatch({ type: 'addComponent', payload: data });
-  };
-
-  useEffect(() => {
-    setData(element);
-  }, [data, element]);
 
   return (
     <li
       onClick={clickHandler}
-      onContextMenu={contextHandler}
       key={element._id}
       className={`pb-10 ${styles.listItem}`}
     >

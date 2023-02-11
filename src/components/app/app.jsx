@@ -21,10 +21,9 @@ async function apiGetData() {
 
 const AppInitialState = {
   data: [],
-  ingredients: { bread: {}, components: [] },
-  total: '',
+  totalCoast: '',
   modalType: '',
-  componentDetail: {},
+  modalData: {},
 };
 
 function App() {
@@ -45,7 +44,7 @@ function App() {
       <Header />
       <Layout>
         <BurgerConstructor />
-        <BurgerIngredients />
+        {/* <BurgerIngredients /> */}
       </Layout>
     </AppContext.Provider>
   );

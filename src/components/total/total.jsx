@@ -13,14 +13,14 @@ export default function Total(props) {
   useEffect(() => {
     const totalPrice = calculateTotal(ingredients);
     appDispatch({ type: 'setTotalPrice', payload: totalPrice });
-    console.log(totalPrice);
+    // console.log(totalPrice);
   }, [ingredients]);
 
   function calculateTotal({ bread, components }) {
     // console.log(bread, components);
     const breadTotal = bread.price * 2;
     const ingredientsTotal = components.reduce(
-      (acc, item) => acc + item.price,
+      (acc, item) => acc + item.price * item.__v,
       0
     );
     return breadTotal + ingredientsTotal;

@@ -1,33 +1,40 @@
-import { useReducer } from 'react';
-
 export const appReducer = (state, action) => {
   switch (action.type) {
+    // Запись данных, пришедших с сервера
     case 'setRemoteData':
       return { ...state, data: action.payload };
 
-    case 'setConstructorData':
-      return { ...state, constructor: action.payload };
-
+    // Модалка с подробностями ингридиента
     case 'showModalDetail':
       return {
         ...state,
         modalType: 'details',
-        componentDetail: action.payload,
+        modalData: action.payload,
       };
 
+    // Модалка с подробностями заказа
     case 'showOrderDetail':
       return {
         ...state,
         modalType: 'order',
       };
 
+    // Закрытие модалки
     case 'closeModal':
       return {
         ...state,
         modalType: '',
       };
 
-    case 'removeComponent':
+    default:
+      return console.log('Стандартное действие');
+  }
+};
+
+// case 'setConstructorData':
+//   return { ...state, constructor: action.payload };
+
+/* case 'removeComponent':
       if (action.payload.type === 'bun') {
         return {
           ...state,
@@ -52,7 +59,7 @@ export const appReducer = (state, action) => {
           const newComponents = state.ingredients.components.filter((item) => {
             return action.payload._id !== item._id;
           });
-          console.log(newComponents);
+          // console.log(newComponents);
           return {
             ...state,
             ingredients: {
@@ -88,9 +95,9 @@ export const appReducer = (state, action) => {
         }
       }
 
-    // TODO Закончил здесь
+    // TODO Закончил здесь */
 
-    case 'addComponent':
+/*  case 'addComponent':
       if (action.payload.type === 'bun') {
         return {
           ...state,
@@ -134,9 +141,9 @@ export const appReducer = (state, action) => {
             },
           };
         }
-      }
+      } */
 
-    case 'setTotalPrice':
+/*  case 'setTotalPrice':
       return {
         ...state,
         total: action.payload,
@@ -155,9 +162,4 @@ export const appReducer = (state, action) => {
       return {
         ...state,
         data: newState,
-      };
-
-    default:
-      return console.log('Стандартное действие');
-  }
-};
+      }; */
