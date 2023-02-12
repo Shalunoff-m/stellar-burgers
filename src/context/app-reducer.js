@@ -31,13 +31,7 @@ export const appReducer = (state, action) => {
       return {
         ...state,
         modalType: '',
-        modalData: {},
-      };
-
-    case 'setTotal':
-      return {
-        ...state,
-        totalCoast: action.payload,
+        modalData: null,
       };
 
     case 'setPreset':

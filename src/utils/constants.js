@@ -1,7 +1,6 @@
 export const appInitialState = {
-  data: [],
-  totalCoast: '',
+  data: null,
   modalType: '',
-  modalData: {},
-  loader: true,
+  modalData: null,
+  loader: false,
 };

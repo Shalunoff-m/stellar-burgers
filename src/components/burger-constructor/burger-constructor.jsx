@@ -10,7 +10,6 @@ import IngredientItems from '../ingredient-items/ingredient-items';
 import IngredientItemConstructor from '../ingredient-item-constructor/ingredient-item-constructor';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import { ingredientType } from '../../utils/types';
 import { AppContext } from '../../context/app-context';
 import { sortData } from '../../utils/utils';
 import { v4 as uuidv4 } from 'uuid';
@@ -27,7 +26,7 @@ export default function BurgerConstructor() {
   }
   // Вытаскиваем ингриденты из контекста и сортируем
   const sortedData = useMemo(() => {
-    return sortData(appState.data, productTypes);
+    return sortData(appState.data ? appState.data : [], productTypes);
   }, [appState.data]);
 
   return (
