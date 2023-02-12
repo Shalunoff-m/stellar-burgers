@@ -1,13 +1,9 @@
 import PropTypes from 'prop-types';
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styles from './tabs.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import { AppContext } from '../../context/app-context';
 
 export default function Tabs(props) {
-  const { appState } = useContext(AppContext);
-  // const {loader} = appState;
-
   const [current, setCurrent] = React.useState('one');
   const { dom } = props;
   const { bunHeader, sauceHeader, mainHeader, scrollContainer } = dom;
