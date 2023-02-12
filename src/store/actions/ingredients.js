@@ -25,4 +25,4 @@ export const getDataSuccess = (data) => ({
   type: GET_DATA_SUCCESS,
   payload: data,
 });
-export const getDataFailed = () => ({ type: GET_DATA_FAILED });
+export const getDataFailed = (err) => ({ type: GET_DATA_FAILED, payload: err });

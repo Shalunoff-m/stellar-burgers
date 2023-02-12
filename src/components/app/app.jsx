@@ -9,12 +9,16 @@ import { AppContext } from '../../context/app-context';
 import { Loader } from '../loader/loader';
 import { apiGetData } from '../../utils/api';
 import { appInitialState } from '../../utils/constants';
+import { loadFromApi } from '../../store/actions/ingredients';
+import { useDispatch } from 'react-redux';
 
 function App() {
   const [appState, appDispatch] = useReducer(appReducer, appInitialState);
   const { loader } = appState;
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(loadFromApi());
     appDispatch({ type: 'setLoader' });
     apiGetData()
       .then((remoteData) => {
