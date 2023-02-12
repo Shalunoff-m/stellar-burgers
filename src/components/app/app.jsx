@@ -38,7 +38,6 @@ function App() {
             <BurgerConstructor />
             <BurgerIngredients />
           </AppContext.Provider>
-          ;
         </Layout>
       )}
     </>
