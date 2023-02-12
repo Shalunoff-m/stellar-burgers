@@ -18,7 +18,6 @@ function App() {
     appDispatch({ type: 'setLoader' });
     apiGetData()
       .then((remoteData) => {
-        // console.log(remoteData.data);
         appDispatch({ type: 'setRemoteData', payload: remoteData.data });
         appDispatch({ type: 'removeLoader' });
       })
@@ -28,18 +27,21 @@ function App() {
   }, []);
 
   return (
-    <AppContext.Provider value={{ appState, appDispatch }}>
+    <>
       <Header />
       {/* Инициализация лоадера для загрузки данных */}
       {loader ? (
         <Loader />
       ) : (
         <Layout>
-          <BurgerConstructor />
-          <BurgerIngredients />
+          <AppContext.Provider value={{ appState, appDispatch }}>
+            <BurgerConstructor />
+            <BurgerIngredients />
+          </AppContext.Provider>
+          ;
         </Layout>
       )}
-    </AppContext.Provider>
+    </>
   );
 }
 

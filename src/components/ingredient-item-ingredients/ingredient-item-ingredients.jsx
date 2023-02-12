@@ -12,7 +12,6 @@ export default function IngredientItemIngredients(props) {
   const { appState, appDispatch } = useContext(AppContext);
 
   const removeHandle = (e) => {
-    // console.log(data);
     appDispatch({ type: 'removeCount', payload: data });
   };
 
