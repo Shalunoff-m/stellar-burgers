@@ -8,24 +8,17 @@ import { appReducer } from '../../context/app-reducer';
 import { AppContext } from '../../context/app-context';
 import { Loader } from '../loader/loader';
 import { apiGetData } from '../../utils/api';
-
-const AppInitialState = {
-  data: [],
-  totalCoast: '',
-  modalType: '',
-  modalData: {},
-  loader: true,
-};
+import { appInitialState } from '../../utils/constants';
 
 function App() {
-  const [appState, appDispatch] = useReducer(appReducer, AppInitialState);
+  const [appState, appDispatch] = useReducer(appReducer, appInitialState);
   const { loader } = appState;
 
   useEffect(() => {
     appDispatch({ type: 'setLoader' });
     apiGetData()
       .then((remoteData) => {
-        console.log(remoteData.data);
+        // console.log(remoteData.data);
         appDispatch({ type: 'setRemoteData', payload: remoteData.data });
         appDispatch({ type: 'removeLoader' });
       })

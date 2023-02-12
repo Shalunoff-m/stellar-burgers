@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 import styles from './ingredient-item-constructor.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -35,3 +36,13 @@ export default function IngredientItemConstructor(props) {
     </li>
   );
 }
+
+IngredientItemConstructor.propTypes = {
+  data: PropTypes.shape({
+    __v: PropTypes.number,
+    _id: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    price: PropTypes.number,
+  }),
+};

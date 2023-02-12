@@ -1,12 +1,13 @@
-import React from "react";
-import styles from "./bread.module.css";
-import { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
+import React from 'react';
+import styles from './bread.module.css';
+import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ingredientType } from '../../utils/types';
 
 export default function Bread(props) {
   const { bread, type } = props;
-  const orderType = type === "top" ? " (Верх)" : " (Низ)";
+  const orderType = type === 'top' ? ' (Верх)' : ' (Низ)';
   return (
     <div className={`${styles.breadContainer} p-2 pl-8 pr-4`}>
       <ConstructorElement
@@ -19,3 +20,12 @@ export default function Bread(props) {
     </div>
   );
 }
+
+Bread.propTypes = {
+  bread: PropTypes.shape({
+    image: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    price: PropTypes.number,
+  }),
+  type: PropTypes.string,
+};

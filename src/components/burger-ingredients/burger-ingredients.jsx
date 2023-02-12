@@ -50,7 +50,7 @@ export default function BurgerIngredients() {
   );
 
   useEffect(() => {
-    console.log(totalPrice);
+    // console.log(totalPrice);
     appDispatch({
       type: 'setTotal',
       payload: totalPrice,
@@ -85,7 +85,3 @@ export default function BurgerIngredients() {
     </section>
   );
 }
-
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(ingredientType),
-};

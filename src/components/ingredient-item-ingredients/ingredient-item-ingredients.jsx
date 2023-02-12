@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useRef, useContext } from 'react';
 import styles from './ingredient-item-ingredients.module.css';
 import {
@@ -32,3 +33,12 @@ export default function IngredientItemIngredients(props) {
     </li>
   );
 }
+
+IngredientItemIngredients.propTypes = {
+  data: PropTypes.shape({
+    image: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    price: PropTypes.number,
+    type: PropTypes.string,
+  }),
+};

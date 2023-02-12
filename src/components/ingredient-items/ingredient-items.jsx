@@ -4,17 +4,17 @@ import PropTypes from 'prop-types';
 import { ingredientType } from '../../utils/types';
 
 export default function IngredientItems(props) {
-  const { data, Item, onClick } = props;
+  const { data, Item } = props;
+  // console.log(Item);
 
   const allItems = data.map((element) => {
-    return <Item key={element._id} data={element} clickHandler={onClick} />;
+    return <Item key={element._id} data={element} />;
   });
 
   return allItems;
 }
 
 IngredientItems.propTypes = {
-  data: PropTypes.arrayOf(ingredientType),
   Item: PropTypes.func,
-  onClick: PropTypes.func,
+  data: PropTypes.arrayOf(ingredientType),
 };

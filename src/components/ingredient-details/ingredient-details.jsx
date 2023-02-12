@@ -44,5 +44,17 @@ export default function IngredientDetails(props) {
 }
 
 IngredientDetails.propTypes = {
-  showData: ingredientType,
+  showData: PropTypes.shape({
+    calories: PropTypes.number,
+    carbohydrates: PropTypes.number,
+    fat: PropTypes.number,
+    image_large: PropTypes.string,
+    name: PropTypes.string,
+    proteins: PropTypes.number,
+  }),
 };
+
+/* IngredientDetails.propTypes = {
+  showData: PropTypes.shape(ingredientType),
+};
+ */

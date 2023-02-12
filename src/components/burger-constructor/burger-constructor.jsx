@@ -78,7 +78,3 @@ export default function BurgerConstructor() {
     </section>
   );
 }
-
-IngredientDetails.propTypes = {
-  data: PropTypes.arrayOf(ingredientType),
-};

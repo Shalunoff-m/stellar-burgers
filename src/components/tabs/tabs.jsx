@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './tabs.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -44,3 +45,7 @@ export default function Tabs(props) {
     </>
   );
 }
+
+Tabs.propTypes = {
+  dom: PropTypes.object,
+};

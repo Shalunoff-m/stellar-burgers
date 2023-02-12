@@ -1,5 +1,6 @@
-import React from "react";
-import styles from "./nav-item.module.css";
+import PropTypes from 'prop-types';
+import React from 'react';
+import styles from './nav-item.module.css';
 
 export function NavItem(props) {
   const { Icon, type, children } = props;
@@ -11,3 +12,9 @@ export function NavItem(props) {
     </div>
   );
 }
+
+NavItem.propTypes = {
+  Icon: PropTypes.func.isRequired,
+  children: PropTypes.node,
+  type: PropTypes.string.isRequired,
+};
