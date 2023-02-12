@@ -58,7 +58,6 @@ export const appReducer = (state, action) => {
           },
         };
       } else {
-        // TODO начал писать здесь
 
         const currentElement = state.ingredients.components.findIndex(
           (element) => action.payload._id === element._id
@@ -109,7 +108,6 @@ export const appReducer = (state, action) => {
         }
       }
 
-    // TODO Закончил здесь */
 
 /*  case 'addComponent':
       if (action.payload.type === 'bun') {
