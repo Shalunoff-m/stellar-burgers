@@ -67,3 +67,5 @@ export default function BurgerIngredients() {
     </section>
   );
 }
+
+// Данные приходят не как пропсы, а через хук useContext, соответственно проверки на пропсы здесь неуместны.

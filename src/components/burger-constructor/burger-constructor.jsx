@@ -1,5 +1,4 @@
 import React, { useContext, useMemo, useRef } from 'react';
-import PropTypes from 'prop-types';
 import styles from './burger-constructor.module.css';
 import Heading from '../heading/heading';
 import Tabs from '../tabs/tabs';
@@ -35,7 +34,7 @@ export default function BurgerConstructor() {
       <Tabs dom={{ bunHeader, sauceHeader, mainHeader }} />
       <Scroll>
         <IngredientList
-          refElement={bunHeader}
+          ref={bunHeader}
           listHeader={productTypes['bun']}
           key={uuidv4()}
           // header={headers}
@@ -46,7 +45,7 @@ export default function BurgerConstructor() {
           />
         </IngredientList>
         <IngredientList
-          refElement={sauceHeader}
+          ref={sauceHeader}
           listHeader={productTypes['sauce']}
           key={uuidv4()}
           // header={headers}
@@ -57,7 +56,7 @@ export default function BurgerConstructor() {
           />
         </IngredientList>
         <IngredientList
-          refElement={mainHeader}
+          ref={mainHeader}
           listHeader={productTypes['main']}
           key={uuidv4()}
           // header={headers}

@@ -15,5 +15,5 @@ export default function IngredientItems(props) {
 
 IngredientItems.propTypes = {
   Item: PropTypes.func,
-  data: PropTypes.arrayOf(ingredientType),
+  data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
 };
