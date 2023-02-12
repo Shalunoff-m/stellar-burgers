@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import './total.module.css';
 import React, { useContext, useEffect, useMemo } from 'react';
 import style from './total.module.css';
@@ -5,6 +6,7 @@ import currencyIcon from '../../images/currency 36x36.svg';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { AppContext } from '../../context/app-context';
 import { apiSendOrder } from '../../utils/api';
+import { ingredientType } from '../../utils/types';
 
 export default function Total({ dataForCalc }) {
   const { appState, appDispatch } = useContext(AppContext);
@@ -30,16 +32,17 @@ export default function Total({ dataForCalc }) {
 
   // Формирование списка для отправки по АПИ
   const packSendData = (data) => {
-    const order = [];
-    data.forEach((item) => {
-      if (item.__v > 0) order.push(item._id);
-    });
+    const order = data.reduce((acc, item) => {
+      if (item.__v > 0) acc.push(item._id);
+      return acc;
+    }, []);
     return order;
   };
 
   // Отправка данных на сервер
   const sendOrder = (e) => {
     appDispatch({ type: 'setLoader' });
+    // packSendData2(data);
     apiSendOrder(packSendData(data))
       .then((data) => {
         appDispatch({ type: 'showOrderDetail', payload: data });
@@ -69,3 +72,10 @@ export default function Total({ dataForCalc }) {
     </div>
   );
 }
+
+Total.propTypes = {
+  dataForCalc: PropTypes.shape({
+    bun: PropTypes.object.isRequired,
+    ingredients: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
+  }),
+};

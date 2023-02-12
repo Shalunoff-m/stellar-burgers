@@ -27,18 +27,3 @@ IngredientList.propTypes = {
   listHeader: PropTypes.string,
   refElement: PropTypes.any,
 };
-
-/* export default function IngredientList(props) {
-  const { listHeader, refElement } = props;
-
-  return (
-    <>
-      <h2 ref={refElement} className='pt-1 pb-5 text text_type_main-medium'>
-        {listHeader}
-      </h2>
-      <ul className={`pt-6 pr-4 pl-4 pb-10 ${styles.ingredientList}`}>
-        {props.children}
-      </ul>
-    </>
-  );
-} */
