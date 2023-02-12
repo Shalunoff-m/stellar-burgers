@@ -19,6 +19,7 @@ export default function BurgerConstructor() {
   const bunHeader = useRef(null);
   const sauceHeader = useRef(null);
   const mainHeader = useRef(null);
+  const scrollContainer = useRef(null);
 
   function closeModal() {
     appDispatch({ type: 'closeModal' });
@@ -31,11 +32,12 @@ export default function BurgerConstructor() {
   return (
     <section className={`${styles.section} pt-10`}>
       <Heading>Соберите бургер</Heading>
-      <Tabs dom={{ bunHeader, sauceHeader, mainHeader }} />
-      <Scroll>
+      <Tabs dom={{ bunHeader, sauceHeader, mainHeader, scrollContainer }} />
+      <Scroll ref={scrollContainer}>
         <IngredientList
           ref={bunHeader}
           listHeader={productTypes['bun']}
+          id='bun'
           key={uuidv4()}
           // header={headers}
         >
@@ -47,6 +49,7 @@ export default function BurgerConstructor() {
         <IngredientList
           ref={sauceHeader}
           listHeader={productTypes['sauce']}
+          id='sauce'
           key={uuidv4()}
           // header={headers}
         >
@@ -58,6 +61,7 @@ export default function BurgerConstructor() {
         <IngredientList
           ref={mainHeader}
           listHeader={productTypes['main']}
+          id='main'
           key={uuidv4()}
           // header={headers}
         >

@@ -5,11 +5,11 @@ import PropTypes from 'prop-types';
 import { useRef } from 'react';
 
 const IngredientList = React.forwardRef((props, ref) => {
-  const { listHeader } = props;
+  const { listHeader, id } = props;
 
   return (
     <>
-      <h2 ref={ref} className='pt-1 pb-5 text text_type_main-medium'>
+      <h2 ref={ref} className='pt-1 pb-5 text text_type_main-medium' id={id}>
         {listHeader}
       </h2>
       <ul className={`pt-6 pr-4 pl-4 pb-10 ${styles.ingredientList}`}>

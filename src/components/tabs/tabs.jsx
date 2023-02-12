@@ -1,12 +1,39 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import styles from './tabs.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import { AppContext } from '../../context/app-context';
 
 export default function Tabs(props) {
+  const { appState } = useContext(AppContext);
+  // const {loader} = appState;
+
   const [current, setCurrent] = React.useState('one');
   const { dom } = props;
-  const { bunHeader, sauceHeader, mainHeader } = dom;
+  const { bunHeader, sauceHeader, mainHeader, scrollContainer } = dom;
+
+  useEffect(() => {
+    // console.log(scrollContainer.current);
+    const options = {
+      root: scrollContainer.current,
+      rootMargin: '0px 0px -90%',
+      threshold: 0.1,
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        // console.log(entry);
+        if (entry.isIntersecting) {
+          setCurrent(`${entry.target.id}`);
+          // console.log(entry.boundingClientRect);
+        }
+      });
+    }, options);
+
+    observer.observe(bunHeader.current);
+    observer.observe(sauceHeader.current);
+    observer.observe(mainHeader.current);
+  });
 
   return (
     <>
@@ -16,7 +43,7 @@ export default function Tabs(props) {
           active={current === 'bun'}
           onClick={() => {
             bunHeader.current.scrollIntoView({ behavior: 'smooth' });
-            // setCurrent('bun');
+            setCurrent('bun');
           }}
         >
           Булки
@@ -26,7 +53,7 @@ export default function Tabs(props) {
           active={current === 'sauce'}
           onClick={() => {
             sauceHeader.current.scrollIntoView({ behavior: 'smooth' });
-            // setCurrent('sauce');
+            setCurrent('sauce');
           }}
         >
           Соусы
@@ -36,7 +63,7 @@ export default function Tabs(props) {
           active={current === 'main'}
           onClick={() => {
             mainHeader.current.scrollIntoView({ behavior: 'smooth' });
-            // setCurrent('main');
+            setCurrent('main');
           }}
         >
           Начинки
