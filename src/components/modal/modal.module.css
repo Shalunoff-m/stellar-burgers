@@ -1,0 +1,20 @@
+.box {
+  min-width: 720px;
+  /* height: 718px; */
+  display: flex;
+  background-color: #1c1c21;
+  position: relative;
+  border-radius: 40px;
+  flex-direction: column;
+  align-items: center;
+  z-index: 5;
+  box-sizing: border-box;
+  cursor: default;
+}
+
+.iconContainer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+}
