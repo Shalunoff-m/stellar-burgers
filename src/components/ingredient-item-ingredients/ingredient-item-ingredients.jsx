@@ -22,6 +22,7 @@ export default function IngredientItemIngredients(props) {
     >
       <DragIcon type='primary' />
       <ConstructorElement
+        id={null}
         type={data.type}
         isLocked={false}
         text={data.name}

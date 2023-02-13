@@ -11,10 +11,13 @@ import Bread from '../bread/bread';
 import ComponentsPreset from '../components-preset/components-preset';
 import { AppContext } from '../../context/app-context';
 import { presetDefault } from '../../utils/preset';
+import { useSelector } from 'react-redux';
 
 export default function BurgerIngredients() {
   const { appState, appDispatch } = useContext(AppContext);
   const { data, modalType } = appState;
+  const { ingredients: data2 } = useSelector((store) => store.constructor);
+  console.log(data2);
 
   function closeModal() {
     appDispatch({ type: 'closeModal' });

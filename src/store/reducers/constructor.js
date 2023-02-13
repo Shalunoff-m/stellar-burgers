@@ -5,6 +5,7 @@ import {
   SET_BUN,
   REMOVE_BUN,
 } from '../actions/constructor';
+import { v4 as uuidv4 } from 'uuid';
 
 const inintialState = {
   bun: null,
@@ -12,5 +13,19 @@ const inintialState = {
 };
 
 export const constructorReducer = (state = inintialState, action) => {
-  // TODO Остановился здесь
+  switch (action.type) {
+    case ADD_INGREDIENT:
+      const allIngredients = state.ingredients ? state.ingredients : [];
+      allIngredients.push({ _lisdId: uuidv4(), ...action.payload });
+      // return state;
+      return {
+        ...state,
+        ingredients: allIngredients,
+      };
+    // TODO Остановился здесь
+    // case 'REMOVE_INGREDIENT':
+    //   const removeElement
+    default:
+      return state;
+  }
 };

@@ -11,6 +11,8 @@ import { apiGetData } from '../../utils/api';
 import { appInitialState } from '../../utils/constants';
 import { loadFromApi } from '../../store/actions/ingredients';
 import { useDispatch } from 'react-redux';
+import { sampleData } from '../../utils/preset';
+import { ADD_INGREDIENT } from '../../store/actions/constructor';
 
 function App() {
   const [appState, appDispatch] = useReducer(appReducer, appInitialState);
@@ -18,6 +20,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch({ type: ADD_INGREDIENT, payload: sampleData });
     dispatch(loadFromApi());
     appDispatch({ type: 'setLoader' });
     apiGetData()

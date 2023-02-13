@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import styles from './ingredient-item-constructor.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { AppContext } from '../../context/app-context';
-
+import { v4 as uuidv4 } from 'uuid';
 export default function IngredientItemConstructor(props) {
   const { appDispatch } = useContext(AppContext);
   const { data: element } = props;
@@ -15,7 +15,7 @@ export default function IngredientItemConstructor(props) {
   return (
     <li
       onClick={clickHandler}
-      key={element._id}
+      key={uuidv4()}
       className={`pb-10 ${styles.listItem}`}
     >
       <img src={element.image} alt={element.name} className='pt-0 pb-1' />
