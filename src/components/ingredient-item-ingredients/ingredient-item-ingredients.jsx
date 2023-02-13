@@ -1,28 +1,33 @@
-import PropTypes from 'prop-types';
-import React, { useRef, useContext } from 'react';
-import styles from './ingredient-item-ingredients.module.css';
+import PropTypes from "prop-types";
+import React, { useRef, useContext } from "react";
+import styles from "./ingredient-item-ingredients.module.css";
 import {
   DragIcon,
   ConstructorElement,
-} from '@ya.praktikum/react-developer-burger-ui-components';
-import { AppContext } from '../../context/app-context';
+} from "@ya.praktikum/react-developer-burger-ui-components";
+import { AppContext } from "../../context/app-context";
+import { useDispatch } from "react-redux";
+import { REMOVE_INGREDIENT } from "../../store/actions/constructor";
 
 export default function IngredientItemIngredients(props) {
   const { data } = props;
   const { appState, appDispatch } = useContext(AppContext);
+  // console.log(data);
+  const dispatch = useDispatch();
 
   const removeHandle = (e) => {
-    appDispatch({ type: 'removeCount', payload: data });
+    // appDispatch({ type: "removeCount", payload: data });
+    dispatch({ type: REMOVE_INGREDIENT, payload: data });
   };
 
   return (
     <li
       className={`${styles.listItem} pl-4 pr-4 pt-2 pb-2`}
-      data-type='listItem'
+      data-type="listItem"
+      id={data._listId}
     >
-      <DragIcon type='primary' />
+      <DragIcon type="primary" />
       <ConstructorElement
-        id={null}
         type={data.type}
         isLocked={false}
         text={data.name}

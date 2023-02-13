@@ -1,26 +1,25 @@
-import styles from './burger-ingredients.module.css';
-import Scroll from '../scroll/scroll';
-import IngredientItems from '../ingredient-items/ingredient-items';
-import IngredientItemIngredients from '../ingredient-item-ingredients/ingredient-item-ingredients';
-import { useContext, useMemo } from 'react';
-import React from 'react';
-import Modal from '../modal/modal';
-import OrderDetails from '../order-details/order-details';
-import Total from '../total/total';
-import Bread from '../bread/bread';
-import ComponentsPreset from '../components-preset/components-preset';
-import { AppContext } from '../../context/app-context';
-import { presetDefault } from '../../utils/preset';
-import { useSelector } from 'react-redux';
+import styles from "./burger-ingredients.module.css";
+import Scroll from "../scroll/scroll";
+import IngredientItems from "../ingredient-items/ingredient-items";
+import IngredientItemIngredients from "../ingredient-item-ingredients/ingredient-item-ingredients";
+import { useContext, useMemo } from "react";
+import React from "react";
+import Modal from "../modal/modal";
+import OrderDetails from "../order-details/order-details";
+import Total from "../total/total";
+import Bread from "../bread/bread";
+import ComponentsPreset from "../components-preset/components-preset";
+import { AppContext } from "../../context/app-context";
+import { presetDefault } from "../../utils/preset";
+import { useSelector } from "react-redux";
 
 export default function BurgerIngredients() {
   const { appState, appDispatch } = useContext(AppContext);
   const { data, modalType } = appState;
   const { ingredients: data2 } = useSelector((store) => store.constructor);
-  console.log(data2);
 
   function closeModal() {
-    appDispatch({ type: 'closeModal' });
+    appDispatch({ type: "closeModal" });
   }
 
   function filterIngredient(data) {
@@ -28,35 +27,37 @@ export default function BurgerIngredients() {
     let ingredients = [];
 
     data.forEach((item) => {
+      if (item.type === "bun") bun = item;
+      else ingredients.push(item);
+    });
+
+    /*   data.forEach((item) => {
       if (item.__v > 0) {
-        item.type === 'bun'
+        item.type === "bun"
           ? (bun = item)
           : ingredients.push({ ...item, price: item.price * item.__v });
-      }
-    });
+      }*/
+
     return { bun, ingredients };
   }
 
-  const { bun, ingredients } = useMemo(
-    () => filterIngredient(data ? data : []),
-    [data]
-  );
+  const { bun, ingredients } = filterIngredient(data2 ? data2 : []);
 
   return (
     <section className={`pt-25 ${styles.wrapper}`}>
       <ComponentsPreset />
       <Bread
         bread={Object.keys(bun).length !== 0 ? bun : presetDefault}
-        type='top'
+        type="top"
       />
-      <Scroll type='ingredients'>
+      <Scroll type="ingredients">
         {
           <IngredientItems
             data={ingredients}
             Item={IngredientItemIngredients}
           />
         }
-        {modalType === 'order' && (
+        {modalType === "order" && (
           <Modal onClose={closeModal}>
             <OrderDetails />
           </Modal>
@@ -64,8 +65,8 @@ export default function BurgerIngredients() {
       </Scroll>
       <Bread
         bread={Object.keys(bun).length !== 0 ? bun : presetDefault}
-        type='bottom'
-      />{' '}
+        type="bottom"
+      />{" "}
       <Total dataForCalc={{ bun, ingredients }} />
     </section>
   );
