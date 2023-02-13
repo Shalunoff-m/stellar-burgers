@@ -1,10 +1,10 @@
-import styles from './loader.module.css';
-import rocketLoader from '../../images/rocket.gif';
+import styles from "./loader.module.css";
+import rocketLoader from "../../images/rocket.gif";
 
-export function Loader(props) {
+export function Loader() {
   return (
     <div className={styles.layout}>
-      <img className={styles.img} src={rocketLoader} alt='Loader' />
+      <img className={styles.img} src={rocketLoader} alt="Loader" />
     </div>
   );
 }

@@ -1,13 +1,13 @@
-import styles from './components-preset.module.css';
-import { useContext } from 'react';
-import { AppContext } from '../../context/app-context';
-import { preset1, preset2, preset3 } from '../../utils/preset';
+import styles from "./components-preset.module.css";
+import { useContext } from "react";
+import { AppContext } from "../../context/app-context";
+import { preset1, preset2, preset3 } from "../../utils/preset";
 
-export default function ComponentsPreset(props) {
-  const { appState, appDispatch } = useContext(AppContext);
+export default function ComponentsPreset() {
+  const { appDispatch } = useContext(AppContext);
 
   const setPresetHandler = (data) => {
-    appDispatch({ type: 'setPreset', payload: data });
+    appDispatch({ type: "setPreset", payload: data });
   };
 
   return (
@@ -39,3 +39,5 @@ export default function ComponentsPreset(props) {
     </ul>
   );
 }
+
+// У данного компонента нет пропсов, методы приходят со Store

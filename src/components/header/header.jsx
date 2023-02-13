@@ -9,7 +9,7 @@ import {
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-export function Header(props) {
+export function Header() {
   return (
     <header className={`${styles.header} `}>
       <div className={styles.wrapper}>
