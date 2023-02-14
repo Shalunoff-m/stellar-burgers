@@ -7,11 +7,15 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { AppContext } from '../../context/app-context';
 import { apiSendOrder } from '../../utils/api';
 import { ingredientType } from '../../utils/types';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Total({ dataForCalc }) {
   const { appState, appDispatch } = useContext(AppContext);
-  const { data } = appState;
+  // const { data } = appState;
   const { bun, ingredients } = dataForCalc;
+  const dispatch = useDispatch;
+  const data = useSelector((store) => store.constructor);
+  // console.log(data);
 
   // Подсчет общей стоимости на основании булки и компонентов
   function calculateTotal({ bun, ingredients }) {
@@ -21,36 +25,37 @@ export default function Total({ dataForCalc }) {
     return totalCoast + bun.price * 2;
   }
 
-  // кеширование результатов подсчета
-  const totalPrice = useMemo(
-    () => calculateTotal({ bun, ingredients }),
-    [bun, ingredients]
-  );
+  // Подсчет итоговой стоимости
+  const totalPrice = calculateTotal({ bun, ingredients });
 
   // Проверка на наличие данных для отображения
   const isShow = !Number.isNaN(totalPrice);
 
   // Формирование списка для отправки по АПИ
   const packSendData = (data) => {
-    const order = data.reduce((acc, item) => {
-      if (item.__v > 0) acc.push(item._id);
-      return acc;
-    }, []);
-    return order;
+    const list = data.ingredients.reduce(
+      (acc, item) => {
+        acc.push(item._id);
+        return acc;
+      },
+      [data.bun._id]
+    );
+    return list;
   };
 
   // Отправка данных на сервер
   const sendOrder = (e) => {
-    appDispatch({ type: 'setLoader' });
-    // packSendData2(data);
-    apiSendOrder(packSendData(data))
-      .then((data) => {
-        appDispatch({ type: 'showOrderDetail', payload: data });
-        appDispatch({ type: 'removeLoader' });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    console.log(packSendData(data));
+    // appDispatch({ type: 'setLoader' });
+    // // packSendData2(data);
+    // apiSendOrder(packSendData(data))
+    //   .then((data) => {
+    //     appDispatch({ type: 'showOrderDetail', payload: data });
+    //     appDispatch({ type: 'removeLoader' });
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
 
   return (
@@ -58,6 +63,7 @@ export default function Total({ dataForCalc }) {
       {isShow && (
         <div className={style.total}>
           <p className='text text_type_digits-medium'>{totalPrice}</p>
+          {/* {totalPrice} */}
           <img src={currencyIcon} alt='Валюта' className='pl-2 pr-10' />
           <Button
             htmlType='button'

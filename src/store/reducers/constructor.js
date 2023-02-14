@@ -1,15 +1,21 @@
 import {
-  SET_DATA,
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
   SET_BUN,
-  REMOVE_BUN,
-} from "../actions/constructor";
-import { v4 as uuidv4 } from "uuid";
+  SEND_ORDER,
+  SEND_ORDER_SUCCESS,
+  SEND_ORDER_ERROR,
+  SET_ORDER_DATA,
+  RESET_ORDER,
+} from '../actions/constructor';
+import { v4 as uuidv4 } from 'uuid';
 
 const inintialState = {
   bun: null,
   ingridients: null,
+  loading: false,
+  error: '',
+  order: null,
 };
 
 export const constructorReducer = (state = inintialState, action) => {
@@ -27,17 +33,20 @@ export const constructorReducer = (state = inintialState, action) => {
         ingredients: allIngredients,
       };
     // TODO Остановился здесь
-    case "REMOVE_INGREDIENT":
-      const ingridients = state.ingridients;
-      // const filtered =
-      // ingridients.forEach((item) => {
-      // item._listId !== action.payload._listId;
+    case REMOVE_INGREDIENT:
+      return {
+        ...state,
+        ingredients: state.ingredients.filter(
+          (item) => item._lisdId !== action.payload._lisdId
+        ),
+      };
 
-      console.log(ingridients);
-      // });
-      // console.log(action.payload._lisdId);
-      // const filteredList =
-      return state;
+    case SET_BUN:
+      return {
+        ...state,
+        bun: action.payload,
+      };
+
     default:
       return state;
   }
