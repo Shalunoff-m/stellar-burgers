@@ -47,6 +47,38 @@ export const constructorReducer = (state = inintialState, action) => {
         bun: action.payload,
       };
 
+    case SEND_ORDER:
+      return {
+        ...state,
+        loading: true,
+        error: '',
+        order: null,
+      };
+
+    case SEND_ORDER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: '',
+        order: action.payload,
+      };
+
+    case SEND_ORDER_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+        order: null,
+      };
+
+    case RESET_ORDER:
+      return {
+        ...state,
+        loading: false,
+        error: '',
+        order: null,
+      };
+
     default:
       return state;
   }

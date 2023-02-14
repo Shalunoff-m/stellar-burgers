@@ -5,7 +5,8 @@ import style from './total.module.css';
 import currencyIcon from '../../images/currency 36x36.svg';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { AppContext } from '../../context/app-context';
-import { apiSendOrder } from '../../utils/api';
+// import { apiSendOrder } from '../../utils/api';
+import { sendDataApi } from '../../store/actions/constructor';
 import { ingredientType } from '../../utils/types';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -13,9 +14,10 @@ export default function Total({ dataForCalc }) {
   const { appState, appDispatch } = useContext(AppContext);
   // const { data } = appState;
   const { bun, ingredients } = dataForCalc;
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
   const data = useSelector((store) => store.constructor);
   // console.log(data);
+  // console.log(data.bun);
 
   // Подсчет общей стоимости на основании булки и компонентов
   function calculateTotal({ bun, ingredients }) {
@@ -30,6 +32,8 @@ export default function Total({ dataForCalc }) {
 
   // Проверка на наличие данных для отображения
   const isShow = !Number.isNaN(totalPrice);
+  let canOrder =
+    Object.keys(bun).length > 0 && ingredients.length > 0 ? true : false;
 
   // Формирование списка для отправки по АПИ
   const packSendData = (data) => {
@@ -38,14 +42,15 @@ export default function Total({ dataForCalc }) {
         acc.push(item._id);
         return acc;
       },
-      [data.bun._id]
+      [data.bun ? data.bun._id : []]
     );
     return list;
   };
 
   // Отправка данных на сервер
   const sendOrder = (e) => {
-    console.log(packSendData(data));
+    // console.log(packSendData(data));
+    dispatch(sendDataApi(packSendData(data)));
     // appDispatch({ type: 'setLoader' });
     // // packSendData2(data);
     // apiSendOrder(packSendData(data))
@@ -65,14 +70,16 @@ export default function Total({ dataForCalc }) {
           <p className='text text_type_digits-medium'>{totalPrice}</p>
           {/* {totalPrice} */}
           <img src={currencyIcon} alt='Валюта' className='pl-2 pr-10' />
-          <Button
-            htmlType='button'
-            type='primary'
-            size='large'
-            onClick={sendOrder}
-          >
-            Оформить заказ
-          </Button>
+          {canOrder && (
+            <Button
+              htmlType='button'
+              type='primary'
+              size='large'
+              onClick={sendOrder}
+            >
+              Оформить заказ
+            </Button>
+          )}
         </div>
       )}
     </div>

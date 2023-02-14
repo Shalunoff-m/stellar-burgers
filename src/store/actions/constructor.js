@@ -9,17 +9,18 @@ export const SET_BUN = 'SET_BUN';
 export const SEND_ORDER = 'SEND_ORDER';
 export const SEND_ORDER_SUCCESS = 'SEND_ORDER_SUCCESS';
 export const SEND_ORDER_ERROR = 'SEND_ORDER_ERROR';
-export const SET_ORDER_DATA = 'SET_ORDER_DATA';
 export const RESET_ORDER = 'RESET_ORDER';
 
 // усилитель для отправки данных на сервер
 export const sendDataApi = (data) => (dispatch, getState) => {
-  dispatch(sendOrder);
+  dispatch(sendOrder());
   apiSendOrder(data)
     .then((res) => {
-      dispatch(sendOrderSuccess(res.data));
+      // console.log(res);
+      dispatch(sendOrderSuccess(res));
     })
     .catch((err) => {
+      // console.log(err);
       dispatch(sendOrderError(err));
     });
 
