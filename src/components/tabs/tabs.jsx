@@ -1,17 +1,17 @@
-import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
-import styles from './tabs.module.css';
-import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from "prop-types";
+import React, { useEffect } from "react";
+import styles from "./tabs.module.css";
+import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
 export default function Tabs(props) {
-  const [current, setCurrent] = React.useState('one');
+  const [current, setCurrent] = React.useState("one");
   const { dom } = props;
   const { bunHeader, sauceHeader, mainHeader, scrollContainer } = dom;
 
   useEffect(() => {
     const options = {
       root: scrollContainer.current,
-      rootMargin: '0px 0px -90%',
+      rootMargin: "0px 0px -90%",
       threshold: 0.1,
     };
 
@@ -32,31 +32,31 @@ export default function Tabs(props) {
     <>
       <div className={`${styles.tabGroup} pb-10`}>
         <Tab
-          value='bun'
-          active={current === 'bun'}
+          value="bun"
+          active={current === "bun"}
           onClick={() => {
-            bunHeader.current.scrollIntoView({ behavior: 'smooth' });
-            setCurrent('bun');
+            bunHeader.current.scrollIntoView({ behavior: "smooth" });
+            setCurrent("bun");
           }}
         >
           Булки
         </Tab>
         <Tab
-          value='sauce'
-          active={current === 'sauce'}
+          value="sauce"
+          active={current === "sauce"}
           onClick={() => {
-            sauceHeader.current.scrollIntoView({ behavior: 'smooth' });
-            setCurrent('sauce');
+            sauceHeader.current.scrollIntoView({ behavior: "smooth" });
+            setCurrent("sauce");
           }}
         >
           Соусы
         </Tab>
         <Tab
-          value='main'
-          active={current === 'main'}
+          value="main"
+          active={current === "main"}
           onClick={() => {
-            mainHeader.current.scrollIntoView({ behavior: 'smooth' });
-            setCurrent('main');
+            mainHeader.current.scrollIntoView({ behavior: "smooth" });
+            setCurrent("main");
           }}
         >
           Начинки

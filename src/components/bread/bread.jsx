@@ -22,8 +22,8 @@ export default function Bread(props) {
 Bread.propTypes = {
   bread: PropTypes.shape({
     image: PropTypes.string.isRequired,
-    name: PropTypes.string,
-    price: PropTypes.number,
-  }),
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  }).isRequired,
   type: PropTypes.string,
 };

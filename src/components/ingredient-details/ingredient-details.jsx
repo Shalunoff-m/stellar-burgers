@@ -52,5 +52,5 @@ IngredientDetails.propTypes = {
     image_large: PropTypes.string,
     name: PropTypes.string,
     proteins: PropTypes.number,
-  }),
+  }).isRequired,
 };
