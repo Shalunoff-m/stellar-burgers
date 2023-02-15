@@ -4,13 +4,36 @@ import styles from './ingredient-item-constructor.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { AppContext } from '../../context/app-context';
 import { v4 as uuidv4 } from 'uuid';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ADD_INGREDIENT, SET_BUN } from '../../store/actions/constructor';
 import { sampleData } from '../../utils/preset';
 export default function IngredientItemConstructor(props) {
   const { appDispatch } = useContext(AppContext);
   const dispatch = useDispatch();
+  const dataCounter = useSelector((store) => store.constructor);
   const { data: element } = props;
+
+  //  Функция подсчета кол-ва для счетчика
+  const calculateCount = (data) => {
+    const checkItem = (id) => {
+      if (id === element._id) return true;
+      return false;
+    };
+
+    const { bun, ingredients } = data;
+    const bunCount = bun ? (checkItem(bun._id) ? 2 : 0) : 0;
+    const ingredientCounter = ingredients
+      ? ingredients.reduce((acc, item) => {
+          if (checkItem(item._id)) acc++;
+          return acc;
+        }, 0)
+      : 0;
+
+    const summ = bunCount + ingredientCounter;
+    return summ;
+  };
+
+  const counter = calculateCount(dataCounter);
 
   const clickHandler = () => {
     appDispatch({ type: 'showModalDetail', payload: element });
@@ -38,9 +61,9 @@ export default function IngredientItemConstructor(props) {
       <p className={`text text_type_main-default ${styles.description}`}>
         {element.name}
       </p>
-      {element.__v > 0 ? (
+      {counter > 0 ? (
         <div className={styles.count}>
-          <p className='text text_type_digits-default'>{element.__v}</p>
+          <p className='text text_type_digits-default'>{counter}</p>
         </div>
       ) : (
         ''

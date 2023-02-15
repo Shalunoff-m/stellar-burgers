@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 const inintialState = {
   bun: null,
-  ingridients: null,
+  ingredients: null,
   loading: false,
   error: '',
   order: null,
