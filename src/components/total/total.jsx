@@ -70,16 +70,15 @@ export default function Total({ dataForCalc }) {
           <p className='text text_type_digits-medium'>{totalPrice}</p>
           {/* {totalPrice} */}
           <img src={currencyIcon} alt='Валюта' className='pl-2 pr-10' />
-          {canOrder && (
-            <Button
-              htmlType='button'
-              type='primary'
-              size='large'
-              onClick={sendOrder}
-            >
-              Оформить заказ
-            </Button>
-          )}
+          <Button
+            htmlType='button'
+            type='primary'
+            size='large'
+            onClick={sendOrder}
+            disabled={!canOrder ? true : false}
+          >
+            Оформить заказ
+          </Button>
         </div>
       )}
     </div>
