@@ -5,7 +5,6 @@ import {
   SEND_ORDER,
   SEND_ORDER_SUCCESS,
   SEND_ORDER_ERROR,
-  SET_ORDER_DATA,
   RESET_ORDER,
 } from '../actions/constructor';
 import { v4 as uuidv4 } from 'uuid';
@@ -45,38 +44,6 @@ export const constructorReducer = (state = inintialState, action) => {
       return {
         ...state,
         bun: action.payload,
-      };
-
-    case SEND_ORDER:
-      return {
-        ...state,
-        loading: true,
-        error: '',
-        order: null,
-      };
-
-    case SEND_ORDER_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        error: '',
-        order: action.payload,
-      };
-
-    case SEND_ORDER_ERROR:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-        order: null,
-      };
-
-    case RESET_ORDER:
-      return {
-        ...state,
-        loading: false,
-        error: '',
-        order: null,
       };
 
     default:

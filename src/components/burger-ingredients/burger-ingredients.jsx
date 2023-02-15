@@ -11,37 +11,20 @@ import Bread from '../bread/bread';
 import ComponentsPreset from '../components-preset/components-preset';
 import { AppContext } from '../../context/app-context';
 import { presetDefault } from '../../utils/preset';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { closeOrderModal, resetOrder } from '../../store/actions/order-detail';
 
 export default function BurgerIngredients() {
   const { appState, appDispatch } = useContext(AppContext);
   const { modalType } = appState;
   const { ingredients, bun = null } = useSelector((store) => store.constructor);
+  const { visible } = useSelector((store) => store.order);
+  const dispatch = useDispatch();
 
   function closeModal() {
-    appDispatch({ type: 'closeModal' });
+    // appDispatch({ type: 'closeModal' });
+    dispatch(resetOrder());
   }
-
-  // function filterIngredient(data) {
-  //   let bun = {};
-  //   let ingredients = [];
-
-  //   data.forEach((item) => {
-  //     if (item.type === "bun") bun = item;
-  //     else ingredients.push(item);
-  //   });
-
-  //   /*   data.forEach((item) => {
-  //     if (item.__v > 0) {
-  //       item.type === "bun"
-  //         ? (bun = item)
-  //         : ingredients.push({ ...item, price: item.price * item.__v });
-  //     }*/
-
-  //   return { bun, ingredients };
-  // }
-
-  // const { bun, ingredients } = filterIngredient(data2 ? data2 : []);
 
   return (
     <section className={`pt-25 ${styles.wrapper}`}>
@@ -55,7 +38,7 @@ export default function BurgerIngredients() {
               Item={IngredientItemIngredients}
             />
           }
-          {modalType === 'order' && (
+          {visible && (
             <Modal onClose={closeModal}>
               <OrderDetails />
             </Modal>

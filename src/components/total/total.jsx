@@ -6,7 +6,7 @@ import currencyIcon from '../../images/currency 36x36.svg';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { AppContext } from '../../context/app-context';
 // import { apiSendOrder } from '../../utils/api';
-import { sendDataApi } from '../../store/actions/constructor';
+import { sendDataApi } from '../../store/actions/order-detail';
 import { ingredientType } from '../../utils/types';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -16,6 +16,8 @@ export default function Total({ dataForCalc }) {
   const { bun, ingredients } = dataForCalc;
   const dispatch = useDispatch();
   const data = useSelector((store) => store.constructor);
+  const { loading } = useSelector((store) => store.order);
+  // console.log(loading);
   // console.log(data);
   // console.log(data.bun);
 
@@ -66,7 +68,8 @@ export default function Total({ dataForCalc }) {
             onClick={sendOrder}
             disabled={!canOrder ? true : false}
           >
-            Оформить заказ
+            {/* Оформить заказ{' '} */}
+            {loading ? 'Отправляем заказ...' : 'Оформить заказ'}
           </Button>
         </div>
       )}
