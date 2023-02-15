@@ -5,3 +5,5 @@ export const showModalDetail = (data) => ({
   type: SHOW_MODAL_DETAIL,
   payload: data,
 });
+
+export const closeIngredModal = () => ({ type: CLOSE_MODAL_DETAIL });

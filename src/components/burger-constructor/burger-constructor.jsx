@@ -12,6 +12,8 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import { AppContext } from '../../context/app-context';
 import { sortData } from '../../utils/utils';
 import { v4 as uuidv4 } from 'uuid';
+import { closeIngredModal } from '../../store/actions/ingredient-detail';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function BurgerConstructor() {
   const { appState, appDispatch } = useContext(AppContext);
@@ -20,9 +22,13 @@ export default function BurgerConstructor() {
   const sauceHeader = useRef(null);
   const mainHeader = useRef(null);
   const scrollContainer = useRef(null);
+  const dispatch = useDispatch();
+  const { ingredientDetail } = useSelector((store) => store);
+  const { visible } = ingredientDetail;
 
   function closeModal() {
-    appDispatch({ type: 'closeModal' });
+    // appDispatch({ type: 'closeModal' });
+    dispatch(closeIngredModal());
   }
   // Вытаскиваем ингриденты из контекста и сортируем
   const sortedData = useMemo(() => {
@@ -71,9 +77,9 @@ export default function BurgerConstructor() {
           />
         </IngredientList>
 
-        {modalType === 'details' && (
+        {visible && (
           <Modal onClose={closeModal}>
-            <IngredientDetails showData={modalData} />
+            <IngredientDetails />
           </Modal>
         )}
       </Scroll>

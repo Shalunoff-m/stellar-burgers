@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from 'react-redux';
 import { ADD_INGREDIENT, SET_BUN } from '../../store/actions/constructor';
 import { sampleData } from '../../utils/preset';
+import { showModalDetail } from '../../store/actions/ingredient-detail';
 export default function IngredientItemConstructor(props) {
   const { appDispatch } = useContext(AppContext);
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ export default function IngredientItemConstructor(props) {
 
   const clickHandler = () => {
     appDispatch({ type: 'showModalDetail', payload: element });
+    dispatch(showModalDetail(element));
   };
 
   const contextHandler = (e) => {

@@ -49,18 +49,7 @@ export default function Total({ dataForCalc }) {
 
   // Отправка данных на сервер
   const sendOrder = (e) => {
-    // console.log(packSendData(data));
     dispatch(sendDataApi(packSendData(data)));
-    // appDispatch({ type: 'setLoader' });
-    // // packSendData2(data);
-    // apiSendOrder(packSendData(data))
-    //   .then((data) => {
-    //     appDispatch({ type: 'showOrderDetail', payload: data });
-    //     appDispatch({ type: 'removeLoader' });
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
   };
 
   return (

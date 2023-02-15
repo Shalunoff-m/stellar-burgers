@@ -2,9 +2,13 @@ import React from 'react';
 import styles from './ingredient-details.module.css';
 import { ingredientType } from '../../utils/types';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 export default function IngredientDetails(props) {
-  const { showData } = props;
+  // const { showData } = props;
+  const { ingredientDetail } = useSelector((store) => store);
+  const { data: showData } = ingredientDetail;
+  // console.log(showData);
 
   return (
     <>
