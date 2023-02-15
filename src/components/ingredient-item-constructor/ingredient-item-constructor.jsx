@@ -1,16 +1,12 @@
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
 import styles from './ingredient-item-constructor.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { AppContext } from '../../context/app-context';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from 'react-redux';
 import { ADD_INGREDIENT, SET_BUN } from '../../store/actions/constructor';
-import { sampleData } from '../../utils/preset';
 import { showModalDetail } from '../../store/actions/ingredient-detail';
 import { useDrag } from 'react-dnd';
 export default function IngredientItemConstructor(props) {
-  const { appDispatch } = useContext(AppContext);
   const dispatch = useDispatch();
   const dataCounter = useSelector((store) => store.constructor);
   const { data: element } = props;
@@ -44,7 +40,6 @@ export default function IngredientItemConstructor(props) {
   const counter = calculateCount(dataCounter);
 
   const clickHandler = () => {
-    appDispatch({ type: 'showModalDetail', payload: element });
     dispatch(showModalDetail(element));
   };
 

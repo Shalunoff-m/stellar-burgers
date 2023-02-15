@@ -1,12 +1,9 @@
 import styles from './order-details.module.css';
-import React, { useContext } from 'react';
+import React from 'react';
 import DoneIcon from '../../images/done.png';
-import { AppContext } from '../../context/app-context';
 import { useSelector } from 'react-redux';
 
 export default function OrderDetails(props) {
-  const { appState, appDispatch } = useContext(AppContext);
-  const { modalData } = appState;
   const { order } = useSelector((store) => store.order);
 
   return (

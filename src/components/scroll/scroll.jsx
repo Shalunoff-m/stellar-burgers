@@ -19,10 +19,3 @@ Scroll.propTypes = {
 };
 
 export default Scroll;
-
-/* export default function Scroll(props) {
-  const { type } = props;
-  if (type === 'ingredients')
-    return <ul className={styles.allContentIngredients}>{props.children}</ul>;
-  return <div className={styles.allContent}>{props.children}</div>;
-} */

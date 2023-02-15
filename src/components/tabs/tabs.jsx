@@ -9,7 +9,6 @@ export default function Tabs(props) {
   const { bunHeader, sauceHeader, mainHeader, scrollContainer } = dom;
 
   useEffect(() => {
-    // console.log(scrollContainer.current);
     const options = {
       root: scrollContainer.current,
       rootMargin: '0px 0px -90%',
@@ -18,10 +17,8 @@ export default function Tabs(props) {
 
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach((entry) => {
-        // console.log(entry);
         if (entry.isIntersecting) {
           setCurrent(`${entry.target.id}`);
-          // console.log(entry.boundingClientRect);
         }
       });
     }, options);

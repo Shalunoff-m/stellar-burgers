@@ -1,25 +1,17 @@
 import PropTypes from 'prop-types';
 import './total.module.css';
-import React, { useContext, useEffect, useMemo } from 'react';
 import style from './total.module.css';
 import currencyIcon from '../../images/currency 36x36.svg';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { AppContext } from '../../context/app-context';
-// import { apiSendOrder } from '../../utils/api';
 import { sendDataApi } from '../../store/actions/order-detail';
 import { ingredientType } from '../../utils/types';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function Total({ dataForCalc }) {
-  const { appState, appDispatch } = useContext(AppContext);
-  // const { data } = appState;
   const { bun, ingredients } = dataForCalc;
   const dispatch = useDispatch();
   const data = useSelector((store) => store.constructor);
   const { loading } = useSelector((store) => store.order);
-  // console.log(loading);
-  // console.log(data);
-  // console.log(data.bun);
 
   // Подсчет общей стоимости на основании булки и компонентов
   function calculateTotal({ bun, ingredients }) {
@@ -34,8 +26,7 @@ export default function Total({ dataForCalc }) {
 
   // Проверка на наличие данных для отображения
   const isShow = !Number.isNaN(totalPrice);
-  let canOrder =
-    Object.keys(bun).length > 0 && ingredients.length > 0 ? true : false;
+  let canOrder = bun.price !== 0 && ingredients.length > 0 ? true : false;
 
   // Формирование списка для отправки по АПИ
   const packSendData = (data) => {
@@ -68,7 +59,6 @@ export default function Total({ dataForCalc }) {
             onClick={sendOrder}
             disabled={!canOrder ? true : false}
           >
-            {/* Оформить заказ{' '} */}
             {loading ? 'Отправляем заказ...' : 'Оформить заказ'}
           </Button>
         </div>

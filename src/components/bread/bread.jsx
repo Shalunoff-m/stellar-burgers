@@ -1,9 +1,7 @@
 import React from 'react';
 import styles from './bread.module.css';
-import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ingredientType } from '../../utils/types';
 
 export default function Bread(props) {
   const { bread, type } = props;

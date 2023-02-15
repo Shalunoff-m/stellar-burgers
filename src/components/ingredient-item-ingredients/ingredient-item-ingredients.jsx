@@ -5,7 +5,6 @@ import {
   DragIcon,
   ConstructorElement,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { AppContext } from '../../context/app-context';
 import { useDispatch } from 'react-redux';
 import { REMOVE_INGREDIENT } from '../../store/actions/constructor';
 import { useDrag } from 'react-dnd';
@@ -15,9 +14,6 @@ import { sortIngredient } from '../../store/actions/constructor';
 export default function IngredientItemIngredients(props) {
   const ref = useRef(null);
   const { data } = props;
-  // import {}
-  const { appState, appDispatch } = useContext(AppContext);
-  // console.log(data);
   const dispatch = useDispatch();
 
   // Реализация Dnd функционала
@@ -40,7 +36,6 @@ export default function IngredientItemIngredients(props) {
   });
 
   const removeHandle = (e) => {
-    // appDispatch({ type: "removeCount", payload: data });
     dispatch({ type: REMOVE_INGREDIENT, payload: data });
   };
 

@@ -1,8 +1,6 @@
 import React from 'react';
 import styles from './ingredient-list.module.css';
-import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
-import { useRef } from 'react';
 
 const IngredientList = React.forwardRef((props, ref) => {
   const { listHeader, id } = props;

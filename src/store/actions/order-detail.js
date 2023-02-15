@@ -8,19 +8,16 @@ export const RESET_ORDER = 'RESET_ORDER';
 export const CLOSE_ORDER_MODAL = 'CLOSE_ORDER_MODAL';
 
 // усилитель для отправки данных на сервер
-export const sendDataApi = (data) => (dispatch, getState) => {
+export const sendDataApi = (data) => (dispatch) => {
   dispatch(sendOrder());
   apiSendOrder(data)
     .then((res) => {
-      // console.log(res);
       dispatch(sendOrderSuccess(res));
     })
     .catch((err) => {
-      // console.log(err);
+      console.log(err);
       dispatch(sendOrderError(err));
     });
-
-  //   const store = getState();
 };
 
 // функции-конструкторы для работы с АПИ

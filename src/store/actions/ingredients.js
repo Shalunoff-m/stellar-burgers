@@ -14,6 +14,7 @@ export const loadFromApi = () => (dispatch) => {
     })
     .catch((err) => {
       dispatch(getDataFailed(err));
+      console.log(err);
     });
 };
 
