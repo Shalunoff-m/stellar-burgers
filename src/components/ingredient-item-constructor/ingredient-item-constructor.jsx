@@ -8,11 +8,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ADD_INGREDIENT, SET_BUN } from '../../store/actions/constructor';
 import { sampleData } from '../../utils/preset';
 import { showModalDetail } from '../../store/actions/ingredient-detail';
+import { useDrag } from 'react-dnd';
 export default function IngredientItemConstructor(props) {
   const { appDispatch } = useContext(AppContext);
   const dispatch = useDispatch();
   const dataCounter = useSelector((store) => store.constructor);
   const { data: element } = props;
+
+  // Функциональность DragnDrop
+  const [, dragRef] = useDrag({
+    type: 'baseIngredient',
+    item: element,
+  });
 
   //  Функция подсчета кол-ва для счетчика
   const calculateCount = (data) => {
@@ -54,6 +61,7 @@ export default function IngredientItemConstructor(props) {
       onContextMenu={contextHandler}
       key={uuidv4()}
       className={`pb-10 ${styles.listItem}`}
+      ref={dragRef}
     >
       <img src={element.image} alt={element.name} className='pt-0 pb-1' />
       <div className={styles.currency}>

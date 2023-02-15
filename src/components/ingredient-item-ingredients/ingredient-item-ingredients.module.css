@@ -1,6 +1,18 @@
 .listItem {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  gap: 8px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.isOver {
+    /* outline: 1px solid red; */
+    background-color: rgba(76, 76, 255, 0.3);
+    border-radius: 50px;
+}
+
+.isDrag {
+    /* opacity: 50%; */
+    border: 2px solid #4c4cff;
+    border-radius: 50px;
 }

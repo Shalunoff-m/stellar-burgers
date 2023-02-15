@@ -2,10 +2,7 @@ import {
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
   SET_BUN,
-  SEND_ORDER,
-  SEND_ORDER_SUCCESS,
-  SEND_ORDER_ERROR,
-  RESET_ORDER,
+  SORT_INGREDIENT,
 } from '../actions/constructor';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -23,7 +20,7 @@ export const constructorReducer = (state = inintialState, action) => {
       const allIngredients = state.ingredients ? state.ingredients : [];
 
       allIngredients.push({
-        _lisdId: uuidv4(),
+        _listId: uuidv4(),
         ...action.payload,
       });
       // return state;
@@ -31,12 +28,11 @@ export const constructorReducer = (state = inintialState, action) => {
         ...state,
         ingredients: allIngredients,
       };
-    // TODO Остановился здесь
     case REMOVE_INGREDIENT:
       return {
         ...state,
         ingredients: state.ingredients.filter(
-          (item) => item._lisdId !== action.payload._lisdId
+          (item) => item._listId !== action.payload._listId
         ),
       };
 
@@ -44,6 +40,24 @@ export const constructorReducer = (state = inintialState, action) => {
       return {
         ...state,
         bun: action.payload,
+      };
+
+    case SORT_INGREDIENT:
+      const { dragged, drop } = action.payload;
+      let indexDrag = null;
+      let indexDrop = null;
+      state.ingredients.forEach((element, index) => {
+        if (dragged._listId === element._listId) indexDrag = index;
+        if (drop._listId === element._listId) indexDrop = index;
+      });
+
+      const clearIngredientList = state.ingredients;
+      clearIngredientList.splice(indexDrag, 1);
+      clearIngredientList.splice(indexDrop, 0, dragged);
+
+      return {
+        ...state,
+        ingredients: clearIngredientList,
       };
 
     default:

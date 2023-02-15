@@ -3,6 +3,7 @@ import styles from './ingredient-items.module.css';
 import PropTypes from 'prop-types';
 import { ingredientType } from '../../utils/types';
 import { v4 as uuidv4 } from 'uuid';
+import { useDrop } from 'react-dnd';
 export default function IngredientItems(props) {
   const { data, Item } = props;
 

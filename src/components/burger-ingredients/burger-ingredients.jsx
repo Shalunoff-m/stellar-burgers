@@ -13,13 +13,31 @@ import { AppContext } from '../../context/app-context';
 import { presetDefault } from '../../utils/preset';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeOrderModal, resetOrder } from '../../store/actions/order-detail';
+import { useDrop } from 'react-dnd';
+import { ADD_INGREDIENT, SET_BUN } from '../../store/actions/constructor';
 
 export default function BurgerIngredients() {
   const { appState, appDispatch } = useContext(AppContext);
   const { modalType } = appState;
-  const { ingredients, bun = null } = useSelector((store) => store.constructor);
+  const { ingredients, bun = presetDefault } = useSelector(
+    (store) => store.constructor
+  );
   const { visible } = useSelector((store) => store.order);
   const dispatch = useDispatch();
+
+  // Часть отвечающая за DND
+  const [{ isHover, isDrag }, dropTarget] = useDrop({
+    accept: 'baseIngredient',
+    drop(item) {
+      item.type !== 'bun'
+        ? dispatch({ type: ADD_INGREDIENT, payload: item })
+        : dispatch({ type: SET_BUN, payload: item });
+    },
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+      isDrag: monitor.canDrop(),
+    }),
+  });
 
   function closeModal() {
     // appDispatch({ type: 'closeModal' });
@@ -27,25 +45,31 @@ export default function BurgerIngredients() {
   }
 
   return (
-    <section className={`pt-25 ${styles.wrapper}`}>
+    <section ref={dropTarget} className={`pt-25 ${styles.wrapper}`}>
       {/* <ComponentsPreset /> */}
-      {bun && <Bread bread={bun} type='top' />}
-      {ingredients && (
-        <Scroll type='ingredients'>
-          {
-            <IngredientItems
-              data={ingredients ? ingredients : []}
-              Item={IngredientItemIngredients}
-            />
-          }
-          {visible && (
-            <Modal onClose={closeModal}>
-              <OrderDetails />
-            </Modal>
-          )}
-        </Scroll>
-      )}
-      {bun && <Bread bread={bun} type='bottom' />}
+      <div
+        className={`${styles.dropContainer} ${isDrag && styles.activeDrag} ${
+          isHover && styles.activeDrop
+        } `}
+      >
+        {bun && <Bread bread={bun} type='top' />}
+        {ingredients && (
+          <Scroll type='ingredients'>
+            {
+              <IngredientItems
+                data={ingredients ? ingredients : []}
+                Item={IngredientItemIngredients}
+              />
+            }
+            {visible && (
+              <Modal onClose={closeModal}>
+                <OrderDetails />
+              </Modal>
+            )}
+          </Scroll>
+        )}
+        {bun && <Bread bread={bun} type='bottom' />}
+      </div>
       <Total
         dataForCalc={{
           bun: bun ? bun : {},
