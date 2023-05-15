@@ -9,13 +9,14 @@ import { Register } from '../../pages/register/register';
 import { ForgotPassword } from '../../pages/forgot-password/forgot-password';
 import { ResetPassword } from '../../pages/reset-password/reset-password';
 import { Ingredient } from '../../pages/ingredient/ingredient';
+import { Profile } from '../../pages/profile/profile';
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path='/' element={<LayoutPage />}>
-          <Route index element={<Ingredient />} />
+          <Route index element={<Profile />} />
         </Route>
       </Routes>
     </Router>
