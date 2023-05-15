@@ -39,7 +39,7 @@ function OrderFeed() {
           maxime cupiditate harum, sint eos neque illo dolore debitis maiores
           suscipit.
         </section>
-        <section>
+        <section className={styles.orderSection}>
           <div className={styles.statusTable}>
             <div>
               <h3 className='text text_type_main-medium pb-6'>Готовы:</h3>
@@ -106,23 +106,16 @@ function OrderFeed() {
               </p>
             </div>
           </div>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis
-          exercitationem fugiat minima reprehenderit placeat, voluptatem quidem
-          tempora nesciunt repellat ut vel quo delectus, doloremque natus
-          architecto obcaecati labore a eveniet. Consequatur maxime aliquam eum
-          nemo quasi reprehenderit ratione culpa labore. Non incidunt obcaecati
-          aspernatur, necessitatibus quam inventore a placeat iste eaque eveniet
-          ipsa officia magni commodi ad! Deserunt, tempora laborum! Inventore et
-          iste, ex, quae illo alias esse officia laudantium in sit veniam
-          exercitationem aliquid mollitia dolor officiis? Alias provident error
-          at sed natus ab mollitia perspiciatis harum quia eius! Magnam nam
-          officia commodi nemo sunt dolorum, eligendi porro natus corrupti.
-          Quidem id non quam, odit esse dolorum sit iste minus consequatur
-          tempore pariatur voluptatum est, alias illo accusamus error. Sit eius
-          ipsum beatae maxime velit praesentium voluptatem reiciendis facilis
-          veniam sed. Impedit voluptates provident voluptatum vel eaque rem
-          maxime cupiditate harum, sint eos neque illo dolore debitis maiores
-          suscipit.
+          <div>
+            <h3 className='text text_type_main-medium'>
+              Выполнено за все время:
+            </h3>
+          </div>
+          <div>
+            <h3 className='text text_type_main-medium'>
+              Выполнено за сегодня:
+            </h3>
+          </div>
         </section>
       </div>
     </main>

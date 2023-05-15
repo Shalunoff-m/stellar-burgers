@@ -22,7 +22,6 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 36px;
-  row-gap: 60px;
 }
 
 h3,
@@ -32,4 +31,10 @@ p {
 
 .orderNumber {
   color: #00cccc;
+}
+
+.orderSection {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
 }
