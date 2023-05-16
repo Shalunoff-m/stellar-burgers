@@ -3,8 +3,13 @@
 import React from 'react';
 import styles from './order-feed.module.css';
 import classNames from 'classnames';
+import { api } from '../../utils/data';
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function OrderFeed() {
+  const img = api[0].image;
+  // console.log(img);
+
   return (
     <main className={classNames(styles.box, 'show')}>
       <h2
@@ -20,24 +25,56 @@ function OrderFeed() {
       </h2>
       <div className={styles.orderLayout}>
         <section>
-          <p>Секция слева</p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis
-          exercitationem fugiat minima reprehenderit placeat, voluptatem quidem
-          tempora nesciunt repellat ut vel quo delectus, doloremque natus
-          architecto obcaecati labore a eveniet. Consequatur maxime aliquam eum
-          nemo quasi reprehenderit ratione culpa labore. Non incidunt obcaecati
-          aspernatur, necessitatibus quam inventore a placeat iste eaque eveniet
-          ipsa officia magni commodi ad! Deserunt, tempora laborum! Inventore et
-          iste, ex, quae illo alias esse officia laudantium in sit veniam
-          exercitationem aliquid mollitia dolor officiis? Alias provident error
-          at sed natus ab mollitia perspiciatis harum quia eius! Magnam nam
-          officia commodi nemo sunt dolorum, eligendi porro natus corrupti.
-          Quidem id non quam, odit esse dolorum sit iste minus consequatur
-          tempore pariatur voluptatum est, alias illo accusamus error. Sit eius
-          ipsum beatae maxime velit praesentium voluptatem reiciendis facilis
-          veniam sed. Impedit voluptates provident voluptatum vel eaque rem
-          maxime cupiditate harum, sint eos neque illo dolore debitis maiores
-          suscipit.
+          <ul className={styles.orderBox}>
+            <li className={styles.orderItem}>
+              <div className={styles.itemTopString}>
+                <p className='text text_type_digits-default'>#034535</p>
+                <p className='text text_type_main-default text_color_inactive'>
+                  Сегодня, 16:20 i-GMT+3
+                </p>
+              </div>
+              <p className='text text_type_main-medium'>
+                Death Star Starship Main бургер
+              </p>
+              <div className={styles.ingredientsTotal}>
+                <ul className={styles.orderIngredients}>
+                  <li className={styles.imgContainer}>
+                    <img
+                      className={styles.imgIngredient}
+                      src={api[0].image}
+                      alt=''
+                    />
+                  </li>
+                  <li className={styles.imgContainer}>
+                    <img
+                      className={styles.imgIngredient}
+                      src={api[1].image}
+                      alt=''
+                    />
+                  </li>
+                  <li className={styles.imgContainer}>
+                    <img
+                      className={styles.imgIngredient}
+                      src={api[2].image}
+                      alt=''
+                    />
+                  </li>
+                </ul>
+                <div className={styles.sumTotal}>
+                  <p
+                    className={classNames(
+                      styles.sum,
+                      'text',
+                      'text_type_digits-default'
+                    )}
+                  >
+                    480
+                  </p>
+                  <CurrencyIcon type='primary' />
+                </div>
+              </div>
+            </li>
+          </ul>
         </section>
         <section className={styles.orderSection}>
           <div className={styles.statusTable}>
