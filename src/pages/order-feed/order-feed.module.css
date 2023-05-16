@@ -38,3 +38,7 @@ p {
   flex-direction: column;
   gap: 60px;
 }
+
+.ordersDigits {
+  text-shadow: 0 0 30px #262684;
+}

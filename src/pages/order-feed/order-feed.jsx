@@ -110,11 +110,29 @@ function OrderFeed() {
             <h3 className='text text_type_main-medium'>
               Выполнено за все время:
             </h3>
+            <p
+              className={classNames(
+                'text',
+                'text_type_digits-large',
+                styles.ordersDigits
+              )}
+            >
+              28 752
+            </p>
           </div>
           <div>
             <h3 className='text text_type_main-medium'>
               Выполнено за сегодня:
             </h3>
+            <p
+              className={classNames(
+                'text',
+                'text_type_digits-large',
+                styles.ordersDigits
+              )}
+            >
+              138
+            </p>
           </div>
         </section>
       </div>
