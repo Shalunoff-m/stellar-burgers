@@ -11,7 +11,7 @@ function OrderFeed() {
   // console.log(img);
 
   return (
-    <main className={classNames(styles.box, 'show')}>
+    <main className={classNames(styles.box)}>
       <h2
         className={classNames(
           styles.heading,
