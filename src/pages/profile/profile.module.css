@@ -45,3 +45,7 @@ p {
 .section:first-child {
   width: 320px;
 }
+
+.tip {
+  opacity: 40%;
+}

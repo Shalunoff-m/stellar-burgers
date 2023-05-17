@@ -60,7 +60,8 @@ function Profile() {
           className={classNames(
             'text',
             'text_type_main-default',
-            'text_color_inactive'
+            'text_color_inactive',
+            styles.tip
           )}
         >
           В этом разделе вы можете изменить свои персональные данные
