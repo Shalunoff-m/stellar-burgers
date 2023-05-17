@@ -12,13 +12,14 @@ import { Ingredient } from '../../pages/ingredient/ingredient';
 import { Profile } from '../../pages/profile/profile';
 import { OrderFeed } from '../../pages/order-feed/order-feed';
 import { OrderHistory } from '../../pages/order-history/order-history';
+import { OrderInfo } from '../../pages/order-info/order-info';
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path='/' element={<LayoutPage />}>
-          <Route index element={<OrderHistory />} />
+          <Route index element={<OrderInfo />} />
         </Route>
       </Routes>
     </Router>
