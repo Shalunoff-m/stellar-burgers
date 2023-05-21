@@ -1,8 +1,10 @@
+import { clearToken } from '../../utils/utils';
 import {
   USER_REGISTER,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_ERROR,
   RESET_USER,
+  GET_TOKENS,
 } from '../actions/user';
 
 const inintialState = {
@@ -24,6 +26,8 @@ export const userReducer = (state = inintialState, action) => {
       // console.log(action.payload);
       const {
         user: { email, name },
+        accessToken,
+        refreshToken,
       } = action.payload;
       return {
         ...state,
@@ -31,12 +35,20 @@ export const userReducer = (state = inintialState, action) => {
         userEmail: email,
         userName: name,
         password: action.password,
+        accessToken: clearToken(accessToken),
+        refreshToken: refreshToken,
       };
     case USER_REGISTER_ERROR:
       console.log(action.payload);
       return { ...state, loading: false, error: action.payload };
     case RESET_USER:
       return inintialState;
+    case GET_TOKENS:
+      return {
+        ...state,
+        accessToken: action.payload.acc,
+        refreshToken: action.payload.refr,
+      };
 
     default:
       return state;

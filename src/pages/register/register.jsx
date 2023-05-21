@@ -10,7 +10,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { userRegister, resetUser } from '../../store/actions/user';
+import { userRegister, resetUser, getTokens } from '../../store/actions/user';
 import { useNavigate } from 'react-router-dom';
 
 function Register() {
@@ -33,6 +33,7 @@ function Register() {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    // dispatch(getTokens());
     dispatch(userRegister(formData));
   };
 

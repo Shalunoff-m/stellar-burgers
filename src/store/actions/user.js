@@ -1,12 +1,32 @@
 import { userRegisterApi } from '../../utils/api';
-import { setCookies } from '../../utils/localSaver';
-import { saveToLocalStorage } from '../../utils/localSaver';
+import {
+  setCookies,
+  saveToLocalStorage,
+  readFromLocalStorage,
+  getCookies,
+} from '../../utils/localSaver';
 import { clearToken } from '../../utils/utils';
 
 export const USER_REGISTER = 'USER_REGISTER';
 export const USER_REGISTER_SUCCESS = 'USER_REGISTER_SUCCESS';
 export const USER_REGISTER_ERROR = 'USER_REGISTER_ERROR';
 export const RESET_USER = 'RESET_USER';
+export const GET_TOKENS = 'GET_TOKENS';
+
+export const getTokens = () => (dispatch) => {
+  // console.log('Был клик');
+  const localAccessToken = getCookies('accesstoken');
+  const localRefreshToken = readFromLocalStorage('refreshtoken');
+  // console.log(localAccessToken, localRefreshToken);
+
+  dispatch({
+    type: GET_TOKENS,
+    payload: {
+      acc: localAccessToken,
+      refr: localRefreshToken,
+    },
+  });
+};
 
 export const userRegister = (data) => (dispatch) => {
   dispatch(userRegisterStart());
@@ -16,7 +36,7 @@ export const userRegister = (data) => (dispatch) => {
       setCookies('accesstoken', clearToken(res.accessToken), {
         expires: 60 * 20,
       });
-      saveToLocalStorage('reftoken', res.refreshToken);
+      saveToLocalStorage('refreshtoken', res.refreshToken);
       //   saveToLocalStorage(res.refreshToken);
     })
     .catch((err) => {
