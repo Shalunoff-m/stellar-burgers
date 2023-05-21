@@ -23,8 +23,6 @@ export const userReducer = (state = inintialState, action) => {
       // console.log(action.payload);
       const {
         user: { email, name },
-        accessToken,
-        refreshToken,
       } = action.payload;
       return {
         ...state,
@@ -32,8 +30,6 @@ export const userReducer = (state = inintialState, action) => {
         userEmail: email,
         userName: name,
         password: action.password,
-        accessToken: accessToken,
-        refreshToken: refreshToken,
       };
     case USER_REGISTER_ERROR:
       console.log(action.payload);

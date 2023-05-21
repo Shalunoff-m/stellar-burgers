@@ -8,3 +8,9 @@ export function sortData(data, dataTypes) {
   }
   return sortedBuffer;
 }
+
+export const clearToken = (accToken) => {
+  // сщтые;
+  let authToken = accToken.split('Bearer ')[1];
+  return authToken;
+};

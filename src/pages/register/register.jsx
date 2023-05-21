@@ -12,8 +12,6 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { userRegister } from '../../store/actions/user';
 
-import { saveToCookies, readFromCookies } from '../../utils/localSaver';
-
 function Register() {
   const dispatch = useDispatch();
   const userData = useSelector((store) => store.user);
@@ -31,9 +29,6 @@ function Register() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    saveToCookies(formData);
-    readFromCookies();
-    // console.log(formData);
     // dispatch(userRegister(formData));
   };
 
