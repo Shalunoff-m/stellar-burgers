@@ -2,6 +2,7 @@ import {
   USER_REGISTER,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_ERROR,
+  RESET_USER,
 } from '../actions/user';
 
 const inintialState = {
@@ -34,6 +35,9 @@ export const userReducer = (state = inintialState, action) => {
     case USER_REGISTER_ERROR:
       console.log(action.payload);
       return { ...state, loading: false, error: action.payload };
+    case RESET_USER:
+      return inintialState;
+
     default:
       return state;
   }

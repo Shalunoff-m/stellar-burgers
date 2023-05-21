@@ -10,11 +10,15 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { userRegister } from '../../store/actions/user';
+import { userRegister, resetUser } from '../../store/actions/user';
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userData = useSelector((store) => store.user);
+  const { loading, userEmail, userName, error } = useSelector(
+    (store) => store.user
+  );
   // const [value, setValue] = React.useState('password');
   const [formData, setFormData] = React.useState({
     userName: null,
@@ -29,8 +33,22 @@ function Register() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    // dispatch(userRegister(formData));
+    dispatch(userRegister(formData));
   };
+
+  if (error) {
+    setTimeout(() => {
+      dispatch(resetUser());
+      setFormData({ userName: '', userEmail: '', password: '' });
+      navigate('/register', { replace: true });
+    }, 2000);
+  }
+
+  if (userEmail && userName && !error) {
+    setTimeout(() => {
+      navigate('/login');
+    }, 1000);
+  }
 
   return (
     <div className={classNames(styles.box)}>
@@ -88,7 +106,13 @@ function Register() {
           size='medium'
           extraClass='mb-20'
         >
-          Зарегистрироваться
+          {loading
+            ? 'Отправка данных...'
+            : userEmail && userName
+            ? 'Регистрация успешна'
+            : error
+            ? 'Что-то пошло не так...'
+            : 'Зарегистрироваться'}
         </Button>
       </form>
 

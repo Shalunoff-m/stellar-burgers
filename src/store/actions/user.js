@@ -6,6 +6,7 @@ import { clearToken } from '../../utils/utils';
 export const USER_REGISTER = 'USER_REGISTER';
 export const USER_REGISTER_SUCCESS = 'USER_REGISTER_SUCCESS';
 export const USER_REGISTER_ERROR = 'USER_REGISTER_ERROR';
+export const RESET_USER = 'RESET_USER';
 
 export const userRegister = (data) => (dispatch) => {
   dispatch(userRegisterStart());
@@ -39,4 +40,8 @@ export const userRegisterSuccess = (res, data) => ({
 export const userRegisterFailed = (data) => ({
   type: USER_REGISTER_ERROR,
   payload: data,
+});
+
+export const resetUser = () => ({
+  type: RESET_USER,
 });
