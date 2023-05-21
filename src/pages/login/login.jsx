@@ -11,9 +11,19 @@ import {
 import { Link } from 'react-router-dom';
 
 function Login() {
-  const [value, setValue] = React.useState('password');
+  const [formData, setFormData] = React.useState({
+    userEmail: '',
+    password: '',
+  });
+
   const onChange = (e) => {
-    setValue(e.target.value);
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
   };
 
   return (
@@ -28,31 +38,38 @@ function Login() {
       >
         Вход
       </p>
-      <Input
-        // className='m-6'
-        type={'text'}
-        placeholder={'E-mail'}
-        // onChange={(e) => setValue(e.target.value)}
-        // icon={'CurrencyIcon'}
-        // value={value}
-        name={'name'}
-        error={false}
-        // ref={inputRef}
-        // onIconClick={onIconClick}
-        errorText={'Ошибка'}
-        size={'default'}
-        extraClass='mb-6'
-      />
-      <PasswordInput
-        onChange={onChange}
-        value={value}
-        name={'password'}
-        extraClass='mb-6'
-        icon='ShowIcon'
-      />
-      <Button htmlType='button' type='primary' size='medium' extraClass='mb-20'>
-        Войти
-      </Button>
+      <form name='auth-data' className={styles.form} onSubmit={onSubmit}>
+        <Input
+          // className='m-6'
+          type={'text'}
+          placeholder={'E-mail'}
+          onChange={onChange}
+          // icon={'CurrencyIcon'}
+          value={formData.userEmail}
+          name={'userEmail'}
+          error={false}
+          // ref={inputRef}
+          // onIconClick={onIconClick}
+          errorText={'Ошибка'}
+          size={'default'}
+          extraClass='mb-6'
+        />
+        <PasswordInput
+          onChange={onChange}
+          value={formData.password}
+          name={'password'}
+          extraClass='mb-6'
+          icon='ShowIcon'
+        />
+        <Button
+          htmlType='submit'
+          type='primary'
+          size='medium'
+          extraClass='mb-20'
+        >
+          Войти
+        </Button>
+      </form>
       <p className='p-4'>
         <span
           className={classNames(

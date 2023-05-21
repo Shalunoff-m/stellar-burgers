@@ -1,4 +1,4 @@
-import { userRegisterApi } from '../../utils/api';
+import { updateAccessTokenApi, userRegisterApi } from '../../utils/api';
 import {
   setCookies,
   saveToLocalStorage,
@@ -15,9 +15,13 @@ export const GET_TOKENS = 'GET_TOKENS';
 
 export const getTokens = () => (dispatch) => {
   // console.log('Был клик');
-  const localAccessToken = getCookies('accesstoken');
-  const localRefreshToken = readFromLocalStorage('refreshtoken');
-  // console.log(localAccessToken, localRefreshToken);
+  let localAccessToken = getCookies('accesstoken');
+  let localRefreshToken = readFromLocalStorage('refreshtoken');
+
+  if (!localAccessToken) {
+    // console.log('Нет токена доступа');
+    dispatch(refreshTokens());
+  }
 
   dispatch({
     type: GET_TOKENS,
@@ -26,6 +30,22 @@ export const getTokens = () => (dispatch) => {
       refr: localRefreshToken,
     },
   });
+};
+
+const refreshTokens = () => (dispatch) => {
+  updateAccessTokenApi()
+    .then((res) => {
+      console.log(res);
+      setCookies('accesstoken', clearToken(res.accessToken), {
+        expires: 60 * 20,
+      });
+      saveToLocalStorage('refreshtoken', res.refreshToken);
+      dispatch(getTokens());
+      console.log('Оба токена были обновлены');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 export const userRegister = (data) => (dispatch) => {
