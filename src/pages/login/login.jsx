@@ -1,6 +1,6 @@
 // Содержимое файла component.jsx.hbs
 // pascalCase и kebabCase - модификаторы регистров
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './login.module.css';
 import classNames from 'classnames';
 import {
@@ -8,9 +8,15 @@ import {
   Button,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { userLogin } from '../../store/actions/user';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Login() {
+  const dispatch = useDispatch();
+  const [buttonText, setButtonText] = useState('Войти');
+  const navigate = useNavigate();
+  // const userData = useSelector((store) => store.user);
   const [formData, setFormData] = React.useState({
     userEmail: '',
     password: '',
@@ -23,7 +29,14 @@ function Login() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    dispatch(
+      userLogin(formData, () => {
+        setTimeout(() => {
+          navigate('/', { replace: true });
+        }, 2000);
+      })
+    );
+    // console.log(formData);
   };
 
   return (

@@ -1,4 +1,5 @@
 // import { func } from 'prop-types';
+import { getCookies } from './localSaver';
 
 import { readFromLocalStorage } from './localSaver';
 
@@ -48,6 +49,23 @@ export async function updateAccessTokenApi() {
     },
     body: JSON.stringify({
       token: refToken,
+    }),
+  });
+
+  return checkResult(res);
+}
+
+export async function userLoginApi(data) {
+  // console.log('Данные попавшие в запрос', data);
+  const res = await fetch(API_ENDPOINT + 'auth/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: 'Bearer ' + getCookies('accesstoken'),
+    },
+    body: JSON.stringify({
+      email: data.userEmail,
+      password: data.password,
     }),
   });
 

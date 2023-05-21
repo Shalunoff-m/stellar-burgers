@@ -56,3 +56,7 @@ export const getCookies = (name) => {
 export const deleteCookie = (name) => {
   setCookies(name, null, { expires: -1 });
 };
+
+export const deleteLocalStorage = (name) => {
+  localStorage.removeItem(name);
+};

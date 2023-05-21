@@ -1,6 +1,6 @@
 // Содержимое файла component.jsx.hbs
 // pascalCase и kebabCase - модификаторы регистров
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './register.module.css';
 import classNames from 'classnames';
 import {
@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom';
 function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading, userEmail, userName, error } = useSelector(
+  const { loading, userEmail, userName, error, accessToken } = useSelector(
     (store) => store.user
   );
   // const [value, setValue] = React.useState('password');
@@ -26,6 +26,10 @@ function Register() {
     password: null,
   });
 
+  useEffect(() => {
+    dispatch(resetUser());
+  }, []);
+
   const onChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -34,22 +38,24 @@ function Register() {
   const onSubmit = (e) => {
     e.preventDefault();
     // dispatch(getTokens());
-    dispatch(userRegister(formData));
+    dispatch(
+      userRegister(
+        formData,
+        () => {
+          setTimeout(() => {
+            navigate('/login');
+          }, 1000);
+        },
+        () => {
+          setTimeout(() => {
+            dispatch(resetUser());
+            setFormData({ userName: '', userEmail: '', password: '' });
+            navigate('/register', { replace: true });
+          }, 2000);
+        }
+      )
+    );
   };
-
-  if (error) {
-    setTimeout(() => {
-      dispatch(resetUser());
-      setFormData({ userName: '', userEmail: '', password: '' });
-      navigate('/register', { replace: true });
-    }, 2000);
-  }
-
-  if (userEmail && userName && !error) {
-    setTimeout(() => {
-      navigate('/login');
-    }, 1000);
-  }
 
   return (
     <div className={classNames(styles.box)}>
