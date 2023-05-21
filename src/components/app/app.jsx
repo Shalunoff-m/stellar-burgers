@@ -13,13 +13,21 @@ import { Profile } from '../../pages/profile/profile';
 import { OrderFeed } from '../../pages/order-feed/order-feed';
 import { OrderHistory } from '../../pages/order-history/order-history';
 import { OrderInfo } from '../../pages/order-info/order-info';
+import { NotFound } from '../../pages/not-found/not-found';
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path='/' element={<LayoutPage />}>
-          <Route index element={<OrderInfo />} />
+          <Route index element={<MainPage />} />
+          <Route path='login' element={<Login />} />
+          <Route path='register' element={<Register />} />
+          <Route path='forgot-password' element={<ForgotPassword />} />
+          <Route path='reset-password' element={<ResetPassword />} />
+          <Route path='profile' element={<Profile />} />
+          <Route path='ingredients/:id' element={<Ingredient />} />
+          <Route path='*' element={<NotFound />} />
         </Route>
       </Routes>
     </Router>
