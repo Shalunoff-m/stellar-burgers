@@ -6,13 +6,18 @@ import classNames from 'classnames';
 import {
   Input,
   Button,
-  PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Link } from 'react-router-dom';
 
 function ForgotPassword() {
-  const [value, setValue] = React.useState('password');
+  const [email, setEmail] = React.useState('password');
   const onChange = (e) => {
-    setValue(e.target.value);
+    setEmail(e.target.value);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    console.log(email);
   };
 
   return (
@@ -27,25 +32,33 @@ function ForgotPassword() {
       >
         Восстановление пароля
       </p>
-      <Input
-        // className='m-6'
-        type={'text'}
-        placeholder={'Укажите e-mail'}
-        // onChange={(e) => setValue(e.target.value)}
-        // icon={'CurrencyIcon'}
-        // value={value}
-        name={'name'}
-        error={false}
-        // ref={inputRef}
-        // onIconClick={onIconClick}
-        errorText={'Ошибка'}
-        size={'default'}
-        extraClass='mb-6'
-      />
-
-      <Button htmlType='button' type='primary' size='medium' extraClass='mb-20'>
-        Восстановить
-      </Button>
+      <form className={styles.form} onSubmit={onSubmit} name='forgot-password'>
+        <Input
+          // className='m-6'
+          type={'text'}
+          placeholder={'Укажите e-mail'}
+          onChange={onChange}
+          // icon={'CurrencyIcon'}
+          // value={value}
+          name={'email'}
+          error={false}
+          // ref={inputRef}
+          // onIconClick={onIconClick}
+          errorText={'Ошибка'}
+          size={'default'}
+          extraClass='mb-6'
+          value={email}
+        />
+        <Button
+          htmlType='submit'
+          type='primary'
+          size='medium'
+          extraClass='mb-20'
+          // onClick={}
+        >
+          Восстановить
+        </Button>
+      </form>
 
       <p className='p-0'>
         <span
@@ -58,12 +71,12 @@ function ForgotPassword() {
         >
           Вспомнили пароль?
         </span>
-        <a
-          href='/login'
+        <Link
+          to='/login'
           className={classNames('text', 'text_type_main-default', styles.link)}
         >
           Войти
-        </a>
+        </Link>
       </p>
     </div>
   );

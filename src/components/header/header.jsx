@@ -17,12 +17,12 @@ export function Header() {
           <NavItem Icon={BurgerIcon} to='/'>
             Конструктор
           </NavItem>
-          <NavItem Icon={ListIcon} to='/123'>
+          <NavItem Icon={ListIcon} to='/order-feed'>
             Лента заказов
           </NavItem>
         </Navigation>
         <Logo />
-        <NavItem Icon={ProfileIcon} to='/467'>
+        <NavItem Icon={ProfileIcon} to='/profile'>
           Личный кабинет
         </NavItem>
       </div>

@@ -8,6 +8,7 @@ import {
   Button,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Link } from 'react-router-dom';
 
 function Login() {
   const [value, setValue] = React.useState('password');
@@ -63,12 +64,12 @@ function Login() {
         >
           Вы новый пользователь?
         </span>
-        <a
-          href='/register'
+        <Link
+          to='/register'
           className={classNames('text', 'text_type_main-default', styles.link)}
         >
           Зарегистрироваться
-        </a>
+        </Link>
       </p>
       <p className='p-0'>
         <span
@@ -81,12 +82,12 @@ function Login() {
         >
           Забыли пароль?
         </span>
-        <a
-          href='/forgot-password'
+        <Link
+          to='/forgot-password'
           className={classNames('text', 'text_type_main-default', styles.link)}
         >
           Восстановить пароль
-        </a>
+        </Link>
       </p>
     </div>
   );

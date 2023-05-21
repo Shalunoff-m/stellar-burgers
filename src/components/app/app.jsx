@@ -26,6 +26,7 @@ function App() {
           <Route path='forgot-password' element={<ForgotPassword />} />
           <Route path='reset-password' element={<ResetPassword />} />
           <Route path='profile' element={<Profile />} />
+          <Route path='order-feed' element={<OrderFeed />} />
           <Route path='ingredients/:id' element={<Ingredient />} />
           <Route path='*' element={<NotFound />} />
         </Route>

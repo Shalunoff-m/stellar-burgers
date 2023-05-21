@@ -8,11 +8,33 @@ import {
   Button,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { userRegister } from '../../store/actions/user';
+
+import { saveToCookies, readFromCookies } from '../../utils/localSaver';
 
 function Register() {
-  const [value, setValue] = React.useState('password');
+  const dispatch = useDispatch();
+  const userData = useSelector((store) => store.user);
+  // const [value, setValue] = React.useState('password');
+  const [formData, setFormData] = React.useState({
+    userName: null,
+    userEmail: null,
+    password: null,
+  });
+
   const onChange = (e) => {
-    setValue(e.target.value);
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    saveToCookies(formData);
+    readFromCookies();
+    // console.log(formData);
+    // dispatch(userRegister(formData));
   };
 
   return (
@@ -27,46 +49,53 @@ function Register() {
       >
         Регистрация
       </p>
-      <Input
-        // className='m-6'
-        type={'text'}
-        placeholder={'Имя'}
-        // onChange={(e) => setValue(e.target.value)}
-        // icon={'CurrencyIcon'}
-        // value={value}
-        name={'name'}
-        error={false}
-        // ref={inputRef}
-        // onIconClick={onIconClick}
-        errorText={'Ошибка'}
-        size={'default'}
-        extraClass='mb-6'
-      />
-      <Input
-        // className='m-6'
-        type={'text'}
-        placeholder={'E-mail'}
-        // onChange={(e) => setValue(e.target.value)}
-        // icon={'CurrencyIcon'}
-        // value={value}
-        name={'name'}
-        error={false}
-        // ref={inputRef}
-        // onIconClick={onIconClick}
-        errorText={'Ошибка'}
-        size={'default'}
-        extraClass='mb-6'
-      />
-      <PasswordInput
-        onChange={onChange}
-        value={value}
-        name={'password'}
-        extraClass='mb-6'
-        icon='ShowIcon'
-      />
-      <Button htmlType='button' type='primary' size='medium' extraClass='mb-20'>
-        Зарегистрироваться
-      </Button>
+      <form name='register' className={styles.form} onSubmit={onSubmit}>
+        <Input
+          // className='m-6'
+          onChange={onChange}
+          type={'text'}
+          placeholder={'Имя'}
+          // icon={'CurrencyIcon'}
+          value={formData.userName}
+          name={'userName'}
+          error={false}
+          // ref={inputRef}
+          // onIconClick={onIconClick}
+          errorText={'Ошибка'}
+          size={'default'}
+          extraClass='mb-6'
+        />
+        <Input
+          // className='m-6'
+          type={'text'}
+          placeholder={'E-mail'}
+          onChange={onChange}
+          // icon={'CurrencyIcon'}
+          value={formData.userEmail}
+          name={'userEmail'}
+          error={false}
+          // ref={inputRef}
+          // onIconClick={onIconClick}
+          errorText={'Ошибка'}
+          size={'default'}
+          extraClass='mb-6'
+        />
+        <PasswordInput
+          onChange={onChange}
+          value={formData.password}
+          name={'password'}
+          extraClass='mb-6'
+          icon='ShowIcon'
+        />
+        <Button
+          htmlType='submit'
+          type='primary'
+          size='medium'
+          extraClass='mb-20'
+        >
+          Зарегистрироваться
+        </Button>
+      </form>
 
       <p className='p-0'>
         <span
@@ -79,12 +108,12 @@ function Register() {
         >
           Уже зарегистрированы?
         </span>
-        <a
-          href='/login'
+        <Link
+          to='/login'
           className={classNames('text', 'text_type_main-default', styles.link)}
         >
           Войти
-        </a>
+        </Link>
       </p>
     </div>
   );
