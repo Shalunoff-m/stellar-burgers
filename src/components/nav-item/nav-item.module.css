@@ -2,9 +2,21 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+  text-decoration: none;
+
 }
 
 .navItem:last-child {
   justify-self: end;
   margin-right: 13px;
+}
+
+.link {
+  cursor: pointer;
+  color: #8585AD;
+  text-decoration: none;
+}
+
+.activeLink {
+  color: white;
 }

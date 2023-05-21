@@ -64,7 +64,7 @@ function Login() {
           Вы новый пользователь?
         </span>
         <a
-          href=''
+          href='/register'
           className={classNames('text', 'text_type_main-default', styles.link)}
         >
           Зарегистрироваться
@@ -82,7 +82,7 @@ function Login() {
           Забыли пароль?
         </span>
         <a
-          href=''
+          href='/forgot-password'
           className={classNames('text', 'text_type_main-default', styles.link)}
         >
           Восстановить пароль

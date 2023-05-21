@@ -14,6 +14,8 @@ import { useDrop } from 'react-dnd';
 import { ADD_INGREDIENT, SET_BUN } from '../../store/actions/constructor';
 
 export default function BurgerIngredients() {
+  // Временная часть, для навигации
+
   const { ingredients, bun = presetDefault } = useSelector(
     (store) => store.constructor
   );

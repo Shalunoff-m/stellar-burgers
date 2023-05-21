@@ -6,8 +6,10 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { sendDataApi } from '../../store/actions/order-detail';
 import { ingredientType } from '../../utils/types';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 export default function Total({ dataForCalc }) {
+  const navigate = useNavigate();
   const { bun, ingredients } = dataForCalc;
   const dispatch = useDispatch();
   const data = useSelector((store) => store.constructor);
@@ -43,6 +45,7 @@ export default function Total({ dataForCalc }) {
   // Отправка данных на сервер
   const sendOrder = (e) => {
     dispatch(sendDataApi(packSendData(data)));
+    navigate('/login');
   };
 
   return (

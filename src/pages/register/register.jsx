@@ -80,7 +80,7 @@ function Register() {
           Уже зарегистрированы?
         </span>
         <a
-          href=''
+          href='/login'
           className={classNames('text', 'text_type_main-default', styles.link)}
         >
           Войти
