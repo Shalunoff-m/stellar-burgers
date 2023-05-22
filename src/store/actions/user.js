@@ -1,5 +1,7 @@
 import {
+  getUserApi,
   logoutApi,
+  refreshTokens,
   updateAccessTokenApi,
   userLoginApi,
   userRegisterApi,
@@ -21,6 +23,7 @@ export const USER_LOGIN = 'USER_LOGIN';
 export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
 export const USER_LOGIN_ERROR = 'USER_LOGIN_ERROR';
 export const USER_LOGOUT = 'USER_LOGOUT';
+export const USER_RELOGIN = 'USER_RELOGIN';
 
 // USER_REGISTER ///////////////////////////////////////
 
@@ -97,4 +100,30 @@ export const userLogout = () => (dispatch) => {
     .catch((err) => {
       console.log(err);
     });
+};
+
+// USER_RELOGIN ///////////////////////////////
+export const tryRelogin = () => (dispatch) => {
+  // Проверка токенов
+  const getLocalToken = readFromLocalStorage('refreshtoken');
+  console.log(getLocalToken);
+
+  // Если есть рефреш токен - обновляем токены
+  if (getLocalToken) {
+    refreshTokens();
+
+    // Запрашиваем пользователя с сервера
+    getUserApi()
+      .then((res) => {
+        // Записываем пользователя в систему
+        console.log(res);
+        dispatch({
+          type: USER_LOGIN_SUCCESS,
+          payload: res,
+        });
+      })
+      .catch((err) => {
+        console.log('Не удалось получить пользователя', err);
+      });
+  }
 };

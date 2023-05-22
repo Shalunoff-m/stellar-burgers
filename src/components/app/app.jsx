@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // Загрузка страниц
@@ -14,8 +14,26 @@ import { OrderFeed } from '../../pages/order-feed/order-feed';
 import { OrderHistory } from '../../pages/order-history/order-history';
 import { OrderInfo } from '../../pages/order-info/order-info';
 import { NotFound } from '../../pages/not-found/not-found';
+import { useDispatch, useSelector } from 'react-redux';
+import { tryRelogin } from '../../store/actions/user';
+import { checkTokens } from '../../utils/api';
 
 function App() {
+  const dispatch = useDispatch();
+  const { isAuthentificated } = useSelector((store) => store.user);
+
+  useEffect(() => {
+    // Попытка повторной авторизации,
+    // если сохранился refreshToken
+    dispatch(tryRelogin());
+    if (isAuthentificated) {
+      setInterval(checkTokens, 60000);
+    }
+    return () => {
+      clearInterval(checkTokens);
+    };
+  }, [isAuthentificated, dispatch]);
+
   return (
     <Router>
       <Routes>

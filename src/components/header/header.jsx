@@ -8,10 +8,11 @@ import {
   ListIcon,
   ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import classNames from 'classnames';
 
 export function Header() {
   return (
-    <header className={`${styles.header} `}>
+    <header className={classNames(styles.header)}>
       <div className={styles.wrapper}>
         <Navigation>
           <NavItem Icon={BurgerIcon} to='/'>
@@ -22,9 +23,11 @@ export function Header() {
           </NavItem>
         </Navigation>
         <Logo />
-        <NavItem Icon={ProfileIcon} to='/profile'>
-          Личный кабинет
-        </NavItem>
+        <Navigation>
+          <NavItem Icon={ProfileIcon} to='/profile'>
+            Личный кабинет
+          </NavItem>
+        </Navigation>
       </div>
     </header>
   );

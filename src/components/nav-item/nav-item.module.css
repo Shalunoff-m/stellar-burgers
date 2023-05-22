@@ -3,21 +3,16 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-
-}
-
-.navItem:last-child {
-  justify-self: end;
-  margin-right: 13px;
 }
 
 .link {
   cursor: pointer;
-  color: #8585AD;
+  color: #8585ad;
   text-decoration: none;
+  transition: color 1s;
 }
 
 .activeLink {
   color: white;
+  transition: color 1s;
 }
-

@@ -98,7 +98,7 @@ export const checkTokens = () => {
   }
 };
 
-const refreshTokens = () => {
+export const refreshTokens = () => {
   updateAccessTokenApi()
     .then((res) => {
       console.log(res);
@@ -124,6 +124,18 @@ export async function logoutApi() {
     body: JSON.stringify({
       token: readFromLocalStorage('refreshtoken'),
     }),
+  });
+
+  return checkResult(res);
+}
+
+export async function getUserApi() {
+  const res = await fetch(API_ENDPOINT + 'auth/user', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: 'Bearer ' + getCookies('accesstoken'),
+    },
   });
 
   return checkResult(res);
