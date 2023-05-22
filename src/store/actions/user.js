@@ -108,7 +108,7 @@ export const userLogout = () => (dispatch) => {
 export const tryRelogin = () => (dispatch) => {
   // Проверка токенов
   const getLocalToken = readFromLocalStorage('refreshtoken');
-  console.log(getLocalToken);
+  // console.log(getLocalToken);
 
   // Если есть рефреш токен - обновляем токены
   if (getLocalToken) {
@@ -118,7 +118,7 @@ export const tryRelogin = () => (dispatch) => {
     getUserApi()
       .then((res) => {
         // Записываем пользователя в систему
-        console.log(res);
+        // console.log(res);
         dispatch({
           type: USER_LOGIN_SUCCESS,
           payload: res,

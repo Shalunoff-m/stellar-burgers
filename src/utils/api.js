@@ -91,22 +91,22 @@ async function checkResult(res) {
 
 export const checkTokens = () => {
   if (!getCookies('accesstoken')) {
-    console.log('Нет токена доступа');
+    // console.log('Нет токена доступа');
     refreshTokens();
   } else {
-    console.log('Токены в порядке');
+    // console.log('Токены в порядке');
   }
 };
 
 export const refreshTokens = () => {
   updateAccessTokenApi()
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       setCookies('accesstoken', clearToken(res.accessToken), {
         expires: 60 * 20,
       });
       saveToLocalStorage('refreshtoken', res.refreshToken);
-      console.log('Оба токена были обновлены');
+      // console.log('Оба токена были обновлены');
       checkTokens();
     })
     .catch((err) => {
