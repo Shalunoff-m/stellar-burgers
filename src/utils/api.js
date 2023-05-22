@@ -1,7 +1,8 @@
 // import { func } from 'prop-types';
-import { getCookies } from './localSaver';
+import { getCookies, saveToLocalStorage, setCookies } from './localSaver';
 
 import { readFromLocalStorage } from './localSaver';
+import { clearToken } from './utils';
 
 const API_ENDPOINT = 'https://norma.nomoreparties.space/api/';
 
@@ -87,3 +88,28 @@ async function checkResult(res) {
     ? await res.json()
     : Promise.reject(`Ошибка загрузки данных с сервера: ${res.status}`);
 }
+
+export const checkTokens = () => {
+  if (!getCookies('accesstoken')) {
+    console.log('Нет токена доступа');
+    refreshTokens();
+  } else {
+    console.log('Токены в порядке');
+  }
+};
+
+const refreshTokens = () => {
+  updateAccessTokenApi()
+    .then((res) => {
+      console.log(res);
+      setCookies('accesstoken', clearToken(res.accessToken), {
+        expires: 60 * 20,
+      });
+      saveToLocalStorage('refreshtoken', res.refreshToken);
+      console.log('Оба токена были обновлены');
+      checkTokens();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};

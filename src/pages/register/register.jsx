@@ -1,6 +1,6 @@
 // Содержимое файла component.jsx.hbs
 // pascalCase и kebabCase - модификаторы регистров
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './register.module.css';
 import classNames from 'classnames';
 import {
@@ -10,51 +10,45 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { userRegister, resetUser, getTokens } from '../../store/actions/user';
+import { userRegister } from '../../store/actions/user';
 import { useNavigate } from 'react-router-dom';
 
 function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading, userEmail, userName, error, accessToken } = useSelector(
-    (store) => store.user
-  );
-  // const [value, setValue] = React.useState('password');
+  const [buttonText, setButtonText] = useState('Зарегистрироваться');
+  const { loading } = useSelector((store) => store.user);
+  // const
   const [formData, setFormData] = React.useState({
-    userName: null,
-    userEmail: null,
-    password: null,
+    userName: '',
+    userEmail: '',
+    password: '',
   });
-
-  useEffect(() => {
-    dispatch(resetUser());
-  }, []);
 
   const onChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  const successCb = () => {
+    setButtonText('Успешно!');
+    setTimeout(() => {
+      navigate('/login');
+    }, 5000);
+  };
+
+  const errorCb = () => {
+    setButtonText('Что-то не так ...');
+    setTimeout(() => {
+      setFormData({ userName: '', userEmail: '', password: '' });
+      navigate('/register', { replace: true });
+    }, 5000);
+  };
+
   const onSubmit = (e) => {
     e.preventDefault();
-    // dispatch(getTokens());
-    dispatch(
-      userRegister(
-        formData,
-        () => {
-          setTimeout(() => {
-            navigate('/login');
-          }, 1000);
-        },
-        () => {
-          setTimeout(() => {
-            dispatch(resetUser());
-            setFormData({ userName: '', userEmail: '', password: '' });
-            navigate('/register', { replace: true });
-          }, 2000);
-        }
-      )
-    );
+    setButtonText('Отправляем данные...');
+    dispatch(userRegister(formData, successCb, errorCb));
   };
 
   return (
@@ -113,13 +107,7 @@ function Register() {
           size='medium'
           extraClass='mb-20'
         >
-          {loading
-            ? 'Отправка данных...'
-            : userEmail && userName
-            ? 'Регистрация успешна'
-            : error
-            ? 'Что-то пошло не так...'
-            : 'Зарегистрироваться'}
+          {buttonText}
         </Button>
       </form>
 

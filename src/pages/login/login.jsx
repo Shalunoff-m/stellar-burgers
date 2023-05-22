@@ -27,15 +27,25 @@ function Login() {
     setFormData({ ...formData, [name]: value });
   };
 
+  const successCb = () => {
+    setButtonText('Успешно вошли!');
+    setTimeout(() => {
+      navigate('/');
+    }, 5000);
+  };
+
+  const errorCb = () => {
+    setButtonText('Ключи не подходят');
+    setTimeout(() => {
+      setFormData({ userEmail: '', password: '' });
+      navigate('/login', { replace: true });
+    }, 5000);
+  };
+
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(
-      userLogin(formData, () => {
-        setTimeout(() => {
-          navigate('/', { replace: true });
-        }, 2000);
-      })
-    );
+    setButtonText('Отправляем данные...');
+    dispatch(userLogin(formData, successCb, errorCb));
     // console.log(formData);
   };
 
@@ -80,7 +90,7 @@ function Login() {
           size='medium'
           extraClass='mb-20'
         >
-          Войти
+          {buttonText}
         </Button>
       </form>
       <p className='p-4'>
