@@ -8,18 +8,27 @@ import {
   Button,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { userLogout } from '../../store/actions/user';
 
 function Profile() {
   const [value, setValue] = React.useState('password');
   const onChange = (e) => {
     setValue(e.target.value);
   };
+  const dispatch = useDispatch();
+
+  const exitHandler = (e) => {
+    e.preventDefault();
+    dispatch(userLogout());
+  };
 
   return (
     <div className={classNames(styles.box)}>
       <div className={classNames(styles.section, 'pr-15')}>
         <nav className={classNames(styles.nav, 'pb-20')}>
-          <a
+          <Link
             className={classNames(
               'text',
               'text_type_main-medium',
@@ -27,11 +36,11 @@ function Profile() {
               'pt-4',
               'pb-4'
             )}
-            href=''
+            to='/'
           >
             Профиль
-          </a>
-          <a
+          </Link>
+          <Link
             className={classNames(
               'text',
               'text_type_main-medium',
@@ -39,11 +48,11 @@ function Profile() {
               'pt-4',
               'pb-4'
             )}
-            href=''
+            to='/'
           >
             История заказов
-          </a>
-          <a
+          </Link>
+          <Link
             className={classNames(
               'text',
               'text_type_main-medium',
@@ -51,10 +60,11 @@ function Profile() {
               'pt-4',
               'pb-4'
             )}
-            href=''
+            to='/'
+            onClick={exitHandler}
           >
             Выход
-          </a>
+          </Link>
         </nav>
         <span
           className={classNames(
