@@ -73,7 +73,7 @@ export async function userLoginApi(data) {
   return checkResult(res);
 }
 
-export async function forgotPassword(email) {
+/* export async function forgotPassword(email) {
   const res = await fetch(API_ENDPOINT + 'password-reset', {
     method: 'POST',
     header: {
@@ -81,7 +81,7 @@ export async function forgotPassword(email) {
     },
     body: { email: email },
   });
-}
+} */
 
 async function checkResult(res) {
   return res.ok
@@ -113,3 +113,18 @@ const refreshTokens = () => {
       console.log(err);
     });
 };
+
+export async function logoutApi() {
+  const res = await fetch(API_ENDPOINT + 'auth/logout', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: 'Bearer ' + getCookies('accesstoken'),
+    },
+    body: JSON.stringify({
+      token: readFromLocalStorage('refreshtoken'),
+    }),
+  });
+
+  return checkResult(res);
+}

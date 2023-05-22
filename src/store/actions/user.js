@@ -1,4 +1,5 @@
 import {
+  logoutApi,
   updateAccessTokenApi,
   userLoginApi,
   userRegisterApi,
@@ -19,6 +20,7 @@ export const USER_REGISTER_ERROR = 'USER_REGISTER_ERROR';
 export const USER_LOGIN = 'USER_LOGIN';
 export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
 export const USER_LOGIN_ERROR = 'USER_LOGIN_ERROR';
+export const USER_LOGOUT = 'USER_LOGOUT';
 
 // USER_REGISTER ///////////////////////////////////////
 
@@ -78,5 +80,21 @@ export const userLogin = (data, successCb, errorCb) => (dispatch) => {
         payload: err,
       });
       errorCb();
+    });
+};
+
+// USER_LOGOUT ///////////////////////////////
+export const userLogout = () => (dispatch) => {
+  logoutApi()
+    .then((res) => {
+      console.log(res);
+      deleteCookie('accesstoken');
+      deleteLocalStorage('refreshtoken');
+      dispatch({
+        type: USER_LOGOUT,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
     });
 };
