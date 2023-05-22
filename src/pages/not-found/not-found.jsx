@@ -3,6 +3,7 @@
 import React from 'react';
 import styles from './not-found.module.css';
 import classNames from 'classnames';
+import { Link } from 'react-router-dom';
 
 function NotFound() {
   return (
@@ -20,9 +21,9 @@ function NotFound() {
       <p className={classNames('text', 'text_type_main-medium', 'pb-2')}>
         Может быть вы искали что-то другое?
       </p>
-      <a href='/' className='text text_type_main-default text_color_inactive'>
+      <Link to='/' className='text text_type_main-default text_color_inactive'>
         Вернуться обратно
-      </a>
+      </Link>
     </div>
   );
 }

@@ -140,3 +140,21 @@ export async function getUserApi() {
 
   return checkResult(res);
 }
+
+export async function userUpdateApi(data) {
+  // console.log('Данные попавшие в запрос', data);
+  const res = await fetch(API_ENDPOINT + 'auth/user', {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: 'Bearer ' + getCookies('accesstoken'),
+    },
+    body: JSON.stringify({
+      email: data.userEmail,
+      password: data.password,
+      name: data.userName,
+    }),
+  });
+
+  return checkResult(res);
+}

@@ -7,6 +7,7 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_ERROR,
   USER_LOGOUT,
+  USER_UPDATE,
 } from '../actions/user';
 
 const inintialState = {
@@ -56,6 +57,13 @@ export const userReducer = (state = inintialState, action) => {
 
     case USER_LOGOUT:
       return inintialState;
+
+    case USER_UPDATE:
+      return {
+        ...state,
+        userName: action.payload.user.name,
+        userEmail: action.payload.user.email,
+      };
 
     default:
       return state;

@@ -5,6 +5,7 @@ import {
   updateAccessTokenApi,
   userLoginApi,
   userRegisterApi,
+  userUpdateApi,
 } from '../../utils/api';
 import {
   setCookies,
@@ -24,6 +25,7 @@ export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
 export const USER_LOGIN_ERROR = 'USER_LOGIN_ERROR';
 export const USER_LOGOUT = 'USER_LOGOUT';
 export const USER_RELOGIN = 'USER_RELOGIN';
+export const USER_UPDATE = 'USER_UPDATE';
 
 // USER_REGISTER ///////////////////////////////////////
 
@@ -126,4 +128,24 @@ export const tryRelogin = () => (dispatch) => {
         console.log('Не удалось получить пользователя', err);
       });
   }
+};
+
+// USER_UPDATE //////////////////////////////////////////
+export const userUpdate = (data, successCb, failedCb) => (dispatch) => {
+  userUpdateApi(data)
+    .then((res) => {
+      console.log(res);
+      dispatch({
+        type: USER_UPDATE,
+        payload: res,
+      });
+      successCb();
+    })
+    .catch((err) => {
+      console.log(err);
+      failedCb();
+    });
+  // Данные формы отправляются на сервер
+  // В случае успеха, происходит перезапись данных в store
+  // В случае ошибки - ошибку выкидываем в консоль и на кнопке пишем - неудачу
 };
