@@ -8,72 +8,28 @@ import {
   Button,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, Navigate, Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogout, userUpdate } from '../../store/actions/user';
 import { ProfileLink } from '../../components/profile-link/profile-link';
 
 function Profile() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [buttonText, setButtonText] = useState('Сохранить');
-  const { userName: name, userEmail: email } = useSelector(
-    (store) => store.user
-  );
-  const [formData, setFormData] = React.useState({
-    userName: '',
-    userEmail: '',
-    password: '',
-  });
-
-  useEffect(() => {
-    setFormData({
-      userName: name,
-      userEmail: email,
-      password: '',
-    });
-  }, [name, email]);
-
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
 
   const exitHandler = (e) => {
     e.preventDefault();
     dispatch(userLogout());
-    navigate('/login');
-  };
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-    setButtonText('Сохраняем данные');
-    dispatch(
-      userUpdate(
-        formData,
-        () => {
-          setButtonText('Данные сохранены');
-          setTimeout(() => {
-            setButtonText('Сохранить');
-          }, 5000);
-        },
-        () => {
-          setButtonText('Не удалось');
-          setTimeout(() => {
-            setButtonText('Сохранить');
-          }, 5000);
-        }
-      )
-    );
-    // console.log('Был клик по кнопке');
+    Navigate('/login');
   };
 
   return (
     <div className={classNames(styles.box)}>
       <div className={classNames(styles.section, 'pr-15')}>
         <nav className={classNames(styles.nav, 'pb-20')}>
-          <ProfileLink to='/profile'>Профиль</ProfileLink>
-          <ProfileLink to='/history'>История заказов</ProfileLink>
+          <ProfileLink to='/profile' end>
+            Профиль
+          </ProfileLink>
+          <ProfileLink to='/profile/orders'>История заказов</ProfileLink>
           <ProfileLink to='/' onClick={exitHandler}>
             Выход
           </ProfileLink>
@@ -91,7 +47,8 @@ function Profile() {
       </div>
 
       <div className={styles.section}>
-        <form className={styles.form} name='userData' onSubmit={submitHandler}>
+        <Outlet />
+        {/* <form className={styles.form} name='userData' onSubmit={submitHandler}>
           <Input
             // className='m-6'
             type={'text'}
@@ -137,7 +94,7 @@ function Profile() {
           >
             {buttonText}
           </Button>
-        </form>
+        </form> */}
       </div>
     </div>
   );

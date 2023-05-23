@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { tryRelogin } from '../../store/actions/user';
 import { checkTokens } from '../../utils/api';
 import { ProtectedRouteElement } from '../protected-route-element/protected-route-element';
+import { ProfileEdit } from '../../pages/profile-edit/profile-edit';
 
 function App() {
   const dispatch = useDispatch();
@@ -45,10 +46,28 @@ function App() {
           <Route path='reset' element={<ResetPassword />} />
           <Route path='forgot-password' element={<ForgotPassword />} />
           <Route path='reset-password' element={<ResetPassword />} />
+
+          {/* Раздел профиля /////////////////////////*/}
           <Route
             path='profile'
             element={<ProtectedRouteElement element={<Profile />} />}
-          />
+          >
+            <Route
+              index
+              element={<ProtectedRouteElement element={<ProfileEdit />} />}
+            />
+
+            <Route
+              path='orders'
+              exact={true}
+              element={<ProtectedRouteElement element={<OrderHistory />} />}
+            />
+            <Route
+              path='orders/:id'
+              element={<ProtectedRouteElement element={<OrderInfo />} />}
+            />
+          </Route>
+          {/* //////////////////////////////// */}
 
           <Route path='order-feed' element={<OrderFeed />} />
           <Route path='ingredients/:id' element={<Ingredient />} />

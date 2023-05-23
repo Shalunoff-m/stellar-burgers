@@ -60,7 +60,7 @@ p {
   margin: 0;
   padding: 0 0 24px;
   overflow-y: scroll;
-  height: calc(100vh - 246px);
+  height: calc(100vh - 400px);
   min-width: 850px;
 }
 
