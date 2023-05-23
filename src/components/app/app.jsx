@@ -1,5 +1,10 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from 'react-router-dom';
 
 // Загрузка страниц
 import { LayoutPage } from '../../pages/layout-page/layout-page';
@@ -20,10 +25,13 @@ import { checkTokens } from '../../utils/api';
 import { ProtectedRouteElement } from '../protected-route-element/protected-route-element';
 import { ProfileEdit } from '../../pages/profile-edit/profile-edit';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import { ModalSwitch } from '../../pages/modal-switch/modal-switch';
 
 function App() {
   const dispatch = useDispatch();
   const { isAuthentificated } = useSelector((store) => store.user);
+  // let location = useLocation();
+  // let background = location.state && location.state.background;
 
   useEffect(() => {
     // Попытка повторной авторизации,
@@ -42,6 +50,7 @@ function App() {
       <Routes>
         <Route path='/' element={<LayoutPage />}>
           <Route index element={<MainPage />} />
+          {/* <ModalSwitch /> */}
           <Route path='/ingredients/:id' element={<IngredientDetails />} />
           <Route path='login' element={<Login />} />
           <Route path='register' element={<Register />} />

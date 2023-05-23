@@ -6,12 +6,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ADD_INGREDIENT, SET_BUN } from '../../store/actions/constructor';
 import { showModalDetail } from '../../store/actions/ingredient-detail';
 import { useDrag } from 'react-dnd';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 export default function IngredientItemConstructor(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const dataCounter = useSelector((store) => store.constructor);
   const { data: element } = props;
+  const location = useLocation();
 
   // Функциональность DragnDrop
   const [, dragRef] = useDrag({
@@ -43,7 +44,10 @@ export default function IngredientItemConstructor(props) {
 
   const clickHandler = () => {
     // TODO Вернуть обратно обработчик
-    navigate(`/ingredients/${element._id}`);
+    navigate(`/ingredients/${element._id}`, {
+      replace: false,
+      state: { background: location },
+    });
     console.log(element);
     // dispatch(showModalDetail(element));
   };
