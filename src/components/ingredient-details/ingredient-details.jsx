@@ -14,11 +14,6 @@ export default function IngredientDetails() {
     return element;
   }
 
-  useEffect(() => {
-    const el = findIngredient(id);
-    // console.log(el);
-  }, [findIngredient, id]);
-
   return (
     // <div>Компонент деталей</div>
     <div className={styles.wrapper}>
