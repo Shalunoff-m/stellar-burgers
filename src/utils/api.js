@@ -103,7 +103,7 @@ export const refreshTokens = () => {
     .then((res) => {
       // console.log(res);
       setCookies('accesstoken', clearToken(res.accessToken), {
-        expires: 60 * 20,
+        expires: 60 * 15,
       });
       saveToLocalStorage('refreshtoken', res.refreshToken);
       // console.log('Оба токена были обновлены');

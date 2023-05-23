@@ -17,6 +17,7 @@ import { NotFound } from '../../pages/not-found/not-found';
 import { useDispatch, useSelector } from 'react-redux';
 import { tryRelogin } from '../../store/actions/user';
 import { checkTokens } from '../../utils/api';
+import { ProtectedRouteElement } from '../protected-route-element/protected-route-element';
 
 function App() {
   const dispatch = useDispatch();
@@ -43,7 +44,11 @@ function App() {
           <Route path='register' element={<Register />} />
           <Route path='forgot-password' element={<ForgotPassword />} />
           <Route path='reset-password' element={<ResetPassword />} />
-          <Route path='profile' element={<Profile />} />
+          <Route
+            path='profile'
+            element={<ProtectedRouteElement element={<Profile />} />}
+          />
+
           <Route path='order-feed' element={<OrderFeed />} />
           <Route path='ingredients/:id' element={<Ingredient />} />
           <Route path='*' element={<NotFound />} />

@@ -35,7 +35,7 @@ export const userRegister = (data, successCb, errorCb) => (dispatch) => {
     .then((res) => {
       console.log('Ваши рестрационные данные:', res);
       // setCookies('accesstoken', clearToken(res.accessToken), {
-      //   expires: 60 * 20,
+      //   expires: 60 * 15,
       // });
       // saveToLocalStorage('refreshtoken', res.refreshToken);
       dispatch(userRegisterSuccess());
@@ -69,7 +69,7 @@ export const userLogin = (data, successCb, errorCb) => (dispatch) => {
     .then((res) => {
       console.log(res);
       setCookies('accesstoken', clearToken(res.accessToken), {
-        expires: 60 * 20,
+        expires: 60 * 15,
       });
       saveToLocalStorage('refreshtoken', res.refreshToken);
       dispatch({
