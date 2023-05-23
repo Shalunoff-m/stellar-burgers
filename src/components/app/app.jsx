@@ -19,6 +19,7 @@ import { tryRelogin } from '../../store/actions/user';
 import { checkTokens } from '../../utils/api';
 import { ProtectedRouteElement } from '../protected-route-element/protected-route-element';
 import { ProfileEdit } from '../../pages/profile-edit/profile-edit';
+import IngredientDetails from '../ingredient-details/ingredient-details';
 
 function App() {
   const dispatch = useDispatch();
@@ -41,6 +42,7 @@ function App() {
       <Routes>
         <Route path='/' element={<LayoutPage />}>
           <Route index element={<MainPage />} />
+          <Route path='/ingredients/:id' element={<IngredientDetails />} />
           <Route path='login' element={<Login />} />
           <Route path='register' element={<Register />} />
           <Route path='reset' element={<ResetPassword />} />

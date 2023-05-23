@@ -1,25 +1,33 @@
-.container{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 33px;
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 33px;
 }
 
 .cell {
-    display:flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.description{
-    margin: 0;
-    padding: 0;
-    padding-top: 5px;
+.description {
+  margin: 0;
+  padding: 0;
+  padding-top: 5px;
 }
 
 .heading {
-    /* display: block; */
-    text-align: left;
-    width: 100%;
-    box-sizing: border-box;
-    margin: 0;
+  /* display: block; */
+  /* text-align: left; */
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.wrapper {
+  max-width: 640px;
+  margin: 137px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

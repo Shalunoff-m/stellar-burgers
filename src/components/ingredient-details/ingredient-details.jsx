@@ -1,14 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './ingredient-details.module.css';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 export default function IngredientDetails() {
-  const { ingredientDetail } = useSelector((store) => store);
-  const { data: showData } = ingredientDetail;
+  const components = useSelector((store) => store.ingredients);
+  const { id } = useParams();
+  const showData = findIngredient(id);
+
+  function findIngredient(id) {
+    const element = components.data.find((item) => item._id === id);
+    return element;
+  }
+
+  useEffect(() => {
+    const el = findIngredient(id);
+    // console.log(el);
+  }, [findIngredient, id]);
 
   return (
-    <>
+    // <div>Компонент деталей</div>
+    <div className={styles.wrapper}>
       <h2 className={`$text text_type_main-large pt-6 pb-2 ${styles.heading}`}>
         Детали ингредиента
       </h2>
@@ -40,17 +53,17 @@ export default function IngredientDetails() {
           </p>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
-IngredientDetails.propTypes = {
-  showData: PropTypes.shape({
-    calories: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    fat: PropTypes.number,
-    image_large: PropTypes.string,
-    name: PropTypes.string,
-    proteins: PropTypes.number,
-  }).isRequired,
-};
+// IngredientDetails.propTypes = {
+//   showData: PropTypes.shape({
+//     calories: PropTypes.number,
+//     carbohydrates: PropTypes.number,
+//     fat: PropTypes.number,
+//     image_large: PropTypes.string,
+//     name: PropTypes.string,
+//     proteins: PropTypes.number,
+//   }).isRequired,
+// };
