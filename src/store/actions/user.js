@@ -1,7 +1,9 @@
 import {
+  forgotPasswordApi,
   getUserApi,
   logoutApi,
   refreshTokens,
+  resetPasswordApi,
   updateAccessTokenApi,
   userLoginApi,
   userRegisterApi,
@@ -148,4 +150,30 @@ export const userUpdate = (data, successCb, failedCb) => (dispatch) => {
   // Данные формы отправляются на сервер
   // В случае успеха, происходит перезапись данных в store
   // В случае ошибки - ошибку выкидываем в консоль и на кнопке пишем - неудачу
+};
+
+// PASSWORD_FORGOT //////////////////////////////////////////
+export const passwordForgot = (email, successCb, errorCb) => (dispatch) => {
+  forgotPasswordApi()
+    .then((res) => {
+      console.log(res);
+      successCb();
+    })
+    .catch((err) => {
+      console.log(err);
+      errorCb();
+    });
+};
+
+// PASSWORD_RESET //////////////////////////////////////////
+export const passwordReset = (data, successCb, errorCb) => (dispatch) => {
+  resetPasswordApi(data)
+    .then((res) => {
+      console.log(res);
+      successCb();
+    })
+    .catch((err) => {
+      console.log(err);
+      errorCb();
+    });
 };

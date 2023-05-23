@@ -158,3 +158,36 @@ export async function userUpdateApi(data) {
 
   return checkResult(res);
 }
+
+export async function forgotPasswordApi(email) {
+  // console.log('Данные попавшие в запрос', data);
+  const res = await fetch(API_ENDPOINT + 'password-reset', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      // authorization: 'Bearer ' + getCookies('accesstoken'),
+    },
+    body: JSON.stringify({
+      email: email,
+    }),
+  });
+
+  return checkResult(res);
+}
+
+export async function resetPasswordApi(data) {
+  console.log('Данные попавшие в запрос', data);
+  const res = await fetch(API_ENDPOINT + 'password-reset/reset', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      // authorization: 'Bearer ' + getCookies('accesstoken'),
+    },
+    body: JSON.stringify({
+      password: '',
+      token: '',
+    }),
+  });
+
+  return checkResult(res);
+}

@@ -42,6 +42,7 @@ function App() {
           <Route index element={<MainPage />} />
           <Route path='login' element={<Login />} />
           <Route path='register' element={<Register />} />
+          <Route path='reset' element={<ResetPassword />} />
           <Route path='forgot-password' element={<ForgotPassword />} />
           <Route path='reset-password' element={<ResetPassword />} />
           <Route

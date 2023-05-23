@@ -1,23 +1,57 @@
 // Содержимое файла component.jsx.hbs
 // pascalCase и kebabCase - модификаторы регистров
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './forgot-password.module.css';
 import classNames from 'classnames';
 import {
   Input,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { passwordForgot, passwordReset } from '../../store/actions/user';
 
 function ForgotPassword() {
-  const [email, setEmail] = React.useState('password');
+  const [email, setEmail] = React.useState('');
+  const [buttonText, setButtonText] = useState('Восстановить');
+  const dispatch = useDispatch();
   const onChange = (e) => {
     setEmail(e.target.value);
   };
+  const navigate = useNavigate();
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(email);
+    setButtonText('Отправляем...');
+
+    const successCb = () => {
+      console.log('Успешно');
+      setButtonText('Успешно');
+      setTimeout(() => {
+        navigate('/reset', {
+          replace: true,
+          state: {
+            success: true,
+          },
+        });
+      }, 5000);
+    };
+
+    const errorCb = () => {
+      console.log('Неудачно');
+      setButtonText('Что-то не так');
+      setTimeout(() => {
+        navigate('/forgot-password', {
+          replace: true,
+          state: {
+            success: true,
+          },
+        });
+      }, 5000);
+    };
+
+    dispatch(passwordForgot(email, successCb, errorCb));
+    // console.log(email);
   };
 
   return (
@@ -56,7 +90,7 @@ function ForgotPassword() {
           extraClass='mb-20'
           // onClick={}
         >
-          Восстановить
+          {buttonText}
         </Button>
       </form>
 
