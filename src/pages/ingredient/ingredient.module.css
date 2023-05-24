@@ -1,7 +1,7 @@
 .container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 20px;
+  gap: 33px;
 }
 
 .cell {
@@ -17,24 +17,43 @@
 }
 
 .heading {
-  /* display: block; */
-  /* text-align: left; */
+  display: block;
+  text-align: center;
   width: 100%;
   box-sizing: border-box;
   margin: 0;
 }
 
-.box {
-  max-width: 480px;
-  margin: 140px auto 0;
+.wrapper {
+  width: 720px;
+  box-sizing: border-box;
+  padding: 40px;
+  margin: 117px auto;
   display: flex;
   flex-direction: column;
+  /* background-color: #1c1c21; */
+  /* border-radius: 40px; */
+  cursor: default;
   align-items: center;
-  justify-content: flex-start;
 }
 
-h3,
-h2,
-p {
+.headline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.ingredientName {
   text-align: center;
+}
+
+.closeIcon {
+  cursor: pointer;
+  margin-top: 5px;
+  /* margin-left: 100px; */
+}
+
+.image {
+  max-width: 480px;
 }
