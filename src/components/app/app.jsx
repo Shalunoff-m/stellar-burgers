@@ -91,7 +91,11 @@ function App() {
           />
           <Route
             path='/order'
-            element={<ModalOverlay children={<OrderDetails />} />}
+            element={
+              <ModalOverlay
+                children={<ProtectedRouteElement element={<OrderDetails />} />}
+              />
+            }
           />
         </Routes>
       )}
