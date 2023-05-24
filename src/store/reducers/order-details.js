@@ -29,7 +29,7 @@ export const orderReducer = (state = inintialState, action) => {
         loading: false,
         error: '',
         order: action.payload,
-        visible: true,
+        // visible: true,
       };
 
     case SEND_ORDER_ERROR:

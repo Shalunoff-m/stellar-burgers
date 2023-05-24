@@ -26,6 +26,8 @@ import { ProtectedRouteElement } from '../protected-route-element/protected-rout
 import { ProfileEdit } from '../../pages/profile-edit/profile-edit';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import OrderDetails from '../order-details/order-details';
+import { loadFromApi } from '../../store/actions/ingredients';
 
 function App() {
   const dispatch = useDispatch();
@@ -38,6 +40,7 @@ function App() {
   useEffect(() => {
     // Попытка повторной авторизации,
     // если сохранился refreshToken
+    dispatch(loadFromApi());
     dispatch(tryRelogin());
     if (isAuthentificated) {
       setInterval(checkTokens, 60000);
@@ -45,7 +48,7 @@ function App() {
     return () => {
       clearInterval(checkTokens);
     };
-  }, [isAuthentificated, dispatch]);
+  }, []);
 
   return (
     <div>
@@ -85,6 +88,10 @@ function App() {
           <Route
             path='/ingredients/:id'
             element={<ModalOverlay children={<IngredientDetails />} />}
+          />
+          <Route
+            path='/order'
+            element={<ModalOverlay children={<OrderDetails />} />}
           />
         </Routes>
       )}

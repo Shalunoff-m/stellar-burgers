@@ -6,7 +6,7 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { sendDataApi } from '../../store/actions/order-detail';
 import { ingredientType } from '../../utils/types';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function Total({ dataForCalc }) {
   const navigate = useNavigate();
@@ -14,6 +14,7 @@ export default function Total({ dataForCalc }) {
   const dispatch = useDispatch();
   const data = useSelector((store) => store.constructor);
   const { loading } = useSelector((store) => store.order);
+  const location = useLocation();
 
   // Подсчет общей стоимости на основании булки и компонентов
   function calculateTotal({ bun, ingredients }) {
@@ -44,8 +45,13 @@ export default function Total({ dataForCalc }) {
 
   // Отправка данных на сервер
   const sendOrder = (e) => {
-    dispatch(sendDataApi(packSendData(data)));
-    navigate('/login');
+    dispatch(
+      sendDataApi(packSendData(data), () => {
+        navigate('/order', {
+          state: { background: location },
+        });
+      })
+    );
   };
 
   return (

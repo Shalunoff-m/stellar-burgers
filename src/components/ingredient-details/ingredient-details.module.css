@@ -34,12 +34,14 @@
   background-color: #1c1c21;
   border-radius: 40px;
   cursor: default;
+  align-items: center;
 }
 
 .headline {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 
 .ingredientName {
@@ -48,4 +50,10 @@
 
 .closeIcon {
   cursor: pointer;
+  margin-top: 5px;
+  /* margin-left: 100px; */
+}
+
+.image {
+  max-width: 480px;
 }
