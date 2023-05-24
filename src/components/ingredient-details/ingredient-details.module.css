@@ -17,17 +17,35 @@
 }
 
 .heading {
-  /* display: block; */
-  /* text-align: left; */
+  display: block;
+  text-align: left;
   width: 100%;
   box-sizing: border-box;
   margin: 0;
 }
 
 .wrapper {
-  max-width: 640px;
+  width: 720px;
+  box-sizing: border-box;
+  padding: 40px;
   margin: 137px auto;
   display: flex;
   flex-direction: column;
+  background-color: #1c1c21;
+  border-radius: 40px;
+  cursor: default;
+}
+
+.headline {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
+}
+
+.ingredientName {
+  text-align: center;
+}
+
+.closeIcon {
+  cursor: pointer;
 }

@@ -110,12 +110,29 @@ export const userLogout = () => (dispatch) => {
 export const tryRelogin = () => (dispatch) => {
   // Проверка токенов
   const getLocalToken = readFromLocalStorage('refreshtoken');
-  // console.log(getLocalToken);
+  const getAccessCookie = getCookies('accesstoken');
+  // console.log(getAccessCookie);
 
-  // Если есть рефреш токен - обновляем токены
-  if (getLocalToken) {
+  // Если есть рефреш токен и нет токена доступа - обновляем токены
+  if (getLocalToken && !getAccessCookie) {
     refreshTokens();
 
+    // Запрашиваем пользователя с сервера
+    getUserApi()
+      .then((res) => {
+        // Записываем пользователя в систему
+        // console.log(res);
+        dispatch({
+          type: USER_LOGIN_SUCCESS,
+          payload: res,
+        });
+      })
+      .catch((err) => {
+        console.log('Не удалось получить пользователя', err);
+      });
+  }
+
+  if (getLocalToken && getAccessCookie) {
     // Запрашиваем пользователя с сервера
     getUserApi()
       .then((res) => {

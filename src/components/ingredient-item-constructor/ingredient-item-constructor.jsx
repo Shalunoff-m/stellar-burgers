@@ -45,10 +45,10 @@ export default function IngredientItemConstructor(props) {
   const clickHandler = () => {
     // TODO Вернуть обратно обработчик
     navigate(`/ingredients/${element._id}`, {
-      replace: false,
       state: { background: location },
     });
-    console.log(element);
+
+    // console.log(location);
     // dispatch(showModalDetail(element));
   };
 

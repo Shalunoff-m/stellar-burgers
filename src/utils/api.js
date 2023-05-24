@@ -93,8 +93,6 @@ export const checkTokens = () => {
   if (!getCookies('accesstoken')) {
     // console.log('Нет токена доступа');
     refreshTokens();
-  } else {
-    // console.log('Токены в порядке');
   }
 };
 
