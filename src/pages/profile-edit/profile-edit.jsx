@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styles from './profile-edit.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { userLogout, userUpdate } from '../../store/actions/user';
+// import { useNavigate } from 'react-router-dom';
+import { userGet, userLogout, userUpdate } from '../../store/actions/user';
 import {
   Button,
   Input,
@@ -11,8 +11,9 @@ import {
 
 function ProfileEdit() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [buttonText, setButtonText] = useState('Сохранить');
+  const [contolsVisible, setControlsVisible] = useState(false);
   const { userName: name, userEmail: email } = useSelector(
     (store) => store.user
   );
@@ -33,6 +34,16 @@ function ProfileEdit() {
   const onChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    setControlsVisible(true);
+  };
+
+  const onReset = () => {
+    setFormData({
+      userName: name,
+      userEmail: email,
+      password: '',
+    });
+    setControlsVisible(false);
   };
 
   const submitHandler = (e) => {
@@ -45,6 +56,8 @@ function ProfileEdit() {
           setButtonText('Данные сохранены');
           setTimeout(() => {
             setButtonText('Сохранить');
+            setControlsVisible(false);
+            dispatch(userGet());
           }, 1000);
         },
         () => {
@@ -96,9 +109,27 @@ function ProfileEdit() {
         name={'password'}
         icon='EditIcon'
       />
-      <Button htmlType='submit' type='primary' size='medium' extraClass='mt-10'>
-        {buttonText}
-      </Button>
+      {contolsVisible && (
+        <div>
+          <Button
+            htmlType='submit'
+            type='primary'
+            size='medium'
+            extraClass='mt-10 mr-5'
+          >
+            {buttonText}
+          </Button>
+          <Button
+            htmlType='button'
+            type='primary'
+            size='medium'
+            extraClass='mt-10'
+            onClick={onReset}
+          >
+            Сбросить
+          </Button>
+        </div>
+      )}
     </form>
   );
 }

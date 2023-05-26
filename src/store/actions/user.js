@@ -28,6 +28,7 @@ export const USER_LOGIN_ERROR = 'USER_LOGIN_ERROR';
 export const USER_LOGOUT = 'USER_LOGOUT';
 export const USER_RELOGIN = 'USER_RELOGIN';
 export const USER_UPDATE = 'USER_UPDATE';
+export const USER_GET = 'USER_GET';
 
 // USER_REGISTER ///////////////////////////////////////
 
@@ -187,5 +188,20 @@ export const passwordReset = (data, successCb, errorCb) => (dispatch) => {
     .catch((err) => {
       console.log(err);
       errorCb();
+    });
+};
+
+// USER_GET //////////////////////////////////////////
+export const userGet = () => (dispatch) => {
+  getUserApi()
+    .then((res) => {
+      // Записываем пользователя в систему
+      dispatch({
+        type: USER_LOGIN_SUCCESS,
+        payload: res,
+      });
+    })
+    .catch((err) => {
+      console.log('Не удалось получить пользователя', err);
     });
 };
