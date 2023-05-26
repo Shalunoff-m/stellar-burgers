@@ -48,7 +48,6 @@ export default function IngredientItemConstructor(props) {
       state: { background: location },
     });
 
-    // console.log(location);
     // dispatch(showModalDetail(element));
   };
 

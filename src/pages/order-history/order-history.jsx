@@ -1,5 +1,3 @@
-// Содержимое файла component.jsx.hbs
-// pascalCase и kebabCase - модификаторы регистров
 import React from 'react';
 import styles from './order-history.module.css';
 import classNames from 'classnames';

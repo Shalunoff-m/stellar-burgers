@@ -1,5 +1,3 @@
-// Содержимое файла component.jsx.hbs
-// pascalCase и kebabCase - модификаторы регистров
 import React, { useEffect } from 'react';
 import styles from './reset-password.module.css';
 import classNames from 'classnames';
@@ -22,7 +20,7 @@ function ResetPassword() {
   const isSuccess = state ? state.success : false;
 
   useEffect(() => {
-    console.log(isSuccess);
+    // console.log(isSuccess);
   }, [isSuccess]);
 
   const onChange = (e) => {
@@ -32,7 +30,6 @@ function ResetPassword() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    // console.log(formData);
 
     const successCb = () => {
       console.log('success');

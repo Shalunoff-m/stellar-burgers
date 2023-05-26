@@ -24,7 +24,6 @@ export async function apiSendOrder(data) {
 }
 
 export async function userRegisterApi(data) {
-  // console.log(data);
   const res = await fetch(API_ENDPOINT + 'auth/register', {
     method: 'POST',
     headers: {
@@ -42,7 +41,6 @@ export async function userRegisterApi(data) {
 
 export async function updateAccessTokenApi() {
   const refToken = readFromLocalStorage('refreshtoken');
-  // console.log(refToken);
   const res = await fetch(API_ENDPOINT + 'auth/token', {
     method: 'POST',
     headers: {
@@ -57,7 +55,6 @@ export async function updateAccessTokenApi() {
 }
 
 export async function userLoginApi(data) {
-  // console.log('Данные попавшие в запрос', data);
   const res = await fetch(API_ENDPOINT + 'auth/login', {
     method: 'POST',
     headers: {
@@ -91,7 +88,6 @@ async function checkResult(res) {
 
 export const checkTokens = () => {
   if (!getCookies('accesstoken')) {
-    // console.log('Нет токена доступа');
     refreshTokens();
   }
 };
@@ -99,12 +95,10 @@ export const checkTokens = () => {
 export const refreshTokens = () => {
   updateAccessTokenApi()
     .then((res) => {
-      // console.log(res);
       setCookies('accesstoken', clearToken(res.accessToken), {
         expires: 60 * 15,
       });
       saveToLocalStorage('refreshtoken', res.refreshToken);
-      // console.log('Оба токена были обновлены');
       checkTokens();
     })
     .catch((err) => {
@@ -140,7 +134,6 @@ export async function getUserApi() {
 }
 
 export async function userUpdateApi(data) {
-  // console.log('Данные попавшие в запрос', data);
   const res = await fetch(API_ENDPOINT + 'auth/user', {
     method: 'PATCH',
     headers: {
@@ -158,7 +151,6 @@ export async function userUpdateApi(data) {
 }
 
 export async function forgotPasswordApi(email) {
-  // console.log('Данные попавшие в запрос', data);
   const res = await fetch(API_ENDPOINT + 'password-reset', {
     method: 'POST',
     headers: {
@@ -174,7 +166,6 @@ export async function forgotPasswordApi(email) {
 }
 
 export async function resetPasswordApi(data) {
-  console.log('Данные попавшие в запрос', data);
   const res = await fetch(API_ENDPOINT + 'password-reset/reset', {
     method: 'POST',
     headers: {

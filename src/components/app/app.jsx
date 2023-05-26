@@ -35,48 +35,104 @@ function App() {
   let location = useLocation();
   // let state = location.state as { backgroundLocation?: Location };
   let background = location.state && location.state.background;
-  // console.log(background.pathname);
 
   useEffect(() => {
     // Попытка повторной авторизации,
     // если сохранился refreshToken
     dispatch(loadFromApi());
     dispatch(tryRelogin());
-    if (isAuthentificated) {
-      setInterval(checkTokens, 60000);
-    }
-    return () => {
-      clearInterval(checkTokens);
-    };
-  }, []);
+    // if (isAuthentificated) {
+    //   setInterval(checkTokens, 60000);
+    // }
+    // return () => {
+    //   clearInterval(checkTokens);
+    // };
+  }, [isAuthentificated]);
 
   return (
     <div>
       <Routes location={background || location}>
         <Route path='/' element={<LayoutPage />}>
           <Route index element={<MainPage />} />
-          <Route path='/ingredients/:id' element={<Ingredient />} />
-          <Route path='login' element={<Login />} />
-          <Route path='register' element={<Register />} />
-          <Route path='reset' element={<ResetPassword />} />
-          <Route path='forgot-password' element={<ForgotPassword />} />
-          <Route path='reset-password' element={<ResetPassword />} />
+          <Route path='ingredients/:id' element={<Ingredient />} />
+
+          {/* Маршруты недоступные авторизованному пользователю */}
+          {/* <Route path='login' element={<Login />} /> */}
+          <Route
+            path='login'
+            element={
+              <ProtectedRouteElement type='offline' element={<Login />} />
+            }
+          />
+          {/* <Route path='register' element={<Register />} /> */}
+          <Route
+            path='register'
+            element={
+              <ProtectedRouteElement type='offline' element={<Register />} />
+            }
+          />
+          {/* <Route path='reset' element={<ResetPassword />} /> */}
+          <Route
+            path='reset'
+            element={
+              <ProtectedRouteElement
+                type='offline'
+                element={<ResetPassword />}
+              />
+            }
+          />
+          {/* <Route path='forgot-password' element={<ForgotPassword />} /> */}
+          <Route
+            path='forgot-password'
+            element={
+              <ProtectedRouteElement
+                type='offline'
+                element={<ForgotPassword />}
+              />
+            }
+          />
+          {/* <Route path='reset-password' element={<ResetPassword />} /> */}
+          <Route
+            path='reset-password'
+            element={
+              <ProtectedRouteElement
+                type='offline'
+                element={<ResetPassword />}
+              />
+            }
+          />
+          {/* ------------------------------------- */}
+
           <Route
             path='profile'
-            element={<ProtectedRouteElement element={<Profile />} />}
+            element={
+              <ProtectedRouteElement type='online' element={<Profile />} />
+            }
           >
             <Route
               index
-              element={<ProtectedRouteElement element={<ProfileEdit />} />}
+              element={
+                <ProtectedRouteElement
+                  type='online'
+                  element={<ProfileEdit />}
+                />
+              }
             />
             <Route
               path='orders'
               exact={true}
-              element={<ProtectedRouteElement element={<OrderHistory />} />}
+              element={
+                <ProtectedRouteElement
+                  type='online'
+                  element={<OrderHistory />}
+                />
+              }
             />
             <Route
               path='orders/:id'
-              element={<ProtectedRouteElement element={<OrderInfo />} />}
+              element={
+                <ProtectedRouteElement type='online' element={<OrderInfo />} />
+              }
             />
           </Route>
           <Route path='order-feed' element={<OrderFeed />} />
@@ -93,7 +149,12 @@ function App() {
             path='/order'
             element={
               <ModalOverlay
-                children={<ProtectedRouteElement element={<OrderDetails />} />}
+                children={
+                  <ProtectedRouteElement
+                    type='online'
+                    element={<OrderDetails />}
+                  />
+                }
               />
             }
           />

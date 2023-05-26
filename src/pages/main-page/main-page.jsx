@@ -1,5 +1,3 @@
-// Содержимое файла component.jsx.hbs
-// pascalCase и kebabCase - модификаторы регистров
 import React from 'react';
 import styles from './main-page.module.css';
 // import { Header } from '../header/header';

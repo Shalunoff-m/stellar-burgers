@@ -45,17 +45,16 @@ function ProfileEdit() {
           setButtonText('Данные сохранены');
           setTimeout(() => {
             setButtonText('Сохранить');
-          }, 5000);
+          }, 1000);
         },
         () => {
           setButtonText('Не удалось');
           setTimeout(() => {
             setButtonText('Сохранить');
-          }, 5000);
+          }, 1000);
         }
       )
     );
-    // console.log('Был клик по кнопке');
   };
 
   return (

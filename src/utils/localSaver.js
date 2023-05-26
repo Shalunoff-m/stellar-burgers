@@ -1,22 +1,17 @@
 // Функция записи в Local Storage
 export const saveToLocalStorage = (name, data) => {
-  //   console.log('Переданные данные: ', data);
   localStorage.setItem(name, JSON.stringify(data));
 };
 
 // Функци чтения из Local Storage
 export const readFromLocalStorage = (name) => {
-  //   console.log(data);
   const myData = JSON.parse(localStorage.getItem(name));
-  //   console.log('Прочитанные данные', myData);
   return myData;
 };
 
 // Запись в Cookies--------------------------------------
 
 export const setCookies = (name, value, props) => {
-  //   console.log('Данные для записи', name, value, props);
-
   props = props || {};
   let exp = props.expires;
   if (typeof exp == 'number' && exp) {

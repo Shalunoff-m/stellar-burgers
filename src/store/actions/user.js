@@ -35,16 +35,12 @@ export const userRegister = (data, successCb, errorCb) => (dispatch) => {
   dispatch(userRegisterStart());
   userRegisterApi(data)
     .then((res) => {
-      console.log('Ваши рестрационные данные:', res);
-      // setCookies('accesstoken', clearToken(res.accessToken), {
-      //   expires: 60 * 15,
-      // });
-      // saveToLocalStorage('refreshtoken', res.refreshToken);
       dispatch(userRegisterSuccess());
       successCb();
     })
     .catch((err) => {
       console.log(err);
+      refreshTokens();
       dispatch(userRegisterFailed(err));
       errorCb();
     });
@@ -69,7 +65,7 @@ export const userLogin = (data, successCb, errorCb) => (dispatch) => {
   });
   userLoginApi(data)
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       setCookies('accesstoken', clearToken(res.accessToken), {
         expires: 60 * 15,
       });
@@ -82,6 +78,7 @@ export const userLogin = (data, successCb, errorCb) => (dispatch) => {
     })
     .catch((err) => {
       console.log(err);
+      refreshTokens();
       dispatch({
         type: USER_LOGIN_ERROR,
         payload: err,
@@ -94,7 +91,7 @@ export const userLogin = (data, successCb, errorCb) => (dispatch) => {
 export const userLogout = () => (dispatch) => {
   logoutApi()
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       deleteCookie('accesstoken');
       deleteLocalStorage('refreshtoken');
       dispatch({
@@ -111,7 +108,6 @@ export const tryRelogin = () => (dispatch) => {
   // Проверка токенов
   const getLocalToken = readFromLocalStorage('refreshtoken');
   const getAccessCookie = getCookies('accesstoken');
-  // console.log(getAccessCookie);
 
   // Если есть рефреш токен и нет токена доступа - обновляем токены
   if (getLocalToken && !getAccessCookie) {
@@ -121,7 +117,6 @@ export const tryRelogin = () => (dispatch) => {
     getUserApi()
       .then((res) => {
         // Записываем пользователя в систему
-        // console.log(res);
         dispatch({
           type: USER_LOGIN_SUCCESS,
           payload: res,
@@ -137,7 +132,6 @@ export const tryRelogin = () => (dispatch) => {
     getUserApi()
       .then((res) => {
         // Записываем пользователя в систему
-        // console.log(res);
         dispatch({
           type: USER_LOGIN_SUCCESS,
           payload: res,
@@ -153,7 +147,7 @@ export const tryRelogin = () => (dispatch) => {
 export const userUpdate = (data, successCb, failedCb) => (dispatch) => {
   userUpdateApi(data)
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       dispatch({
         type: USER_UPDATE,
         payload: res,
@@ -162,6 +156,7 @@ export const userUpdate = (data, successCb, failedCb) => (dispatch) => {
     })
     .catch((err) => {
       console.log(err);
+      refreshTokens();
       failedCb();
     });
   // Данные формы отправляются на сервер
@@ -173,7 +168,7 @@ export const userUpdate = (data, successCb, failedCb) => (dispatch) => {
 export const passwordForgot = (email, successCb, errorCb) => (dispatch) => {
   forgotPasswordApi()
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       successCb();
     })
     .catch((err) => {
@@ -186,7 +181,7 @@ export const passwordForgot = (email, successCb, errorCb) => (dispatch) => {
 export const passwordReset = (data, successCb, errorCb) => (dispatch) => {
   resetPasswordApi(data)
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       successCb();
     })
     .catch((err) => {

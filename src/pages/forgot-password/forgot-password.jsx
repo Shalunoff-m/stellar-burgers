@@ -1,5 +1,3 @@
-// Содержимое файла component.jsx.hbs
-// pascalCase и kebabCase - модификаторы регистров
 import React, { useState } from 'react';
 import styles from './forgot-password.module.css';
 import classNames from 'classnames';
@@ -25,7 +23,7 @@ function ForgotPassword() {
     setButtonText('Отправляем...');
 
     const successCb = () => {
-      console.log('Успешно');
+      // console.log('Успешно');
       setButtonText('Успешно');
       setTimeout(() => {
         navigate('/reset', {
@@ -34,7 +32,7 @@ function ForgotPassword() {
             success: true,
           },
         });
-      }, 5000);
+      }, 1000);
     };
 
     const errorCb = () => {
@@ -47,11 +45,10 @@ function ForgotPassword() {
             success: true,
           },
         });
-      }, 5000);
+      }, 1000);
     };
 
     dispatch(passwordForgot(email, successCb, errorCb));
-    // console.log(email);
   };
 
   return (

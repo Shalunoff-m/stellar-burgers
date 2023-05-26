@@ -1,5 +1,3 @@
-// Содержимое файла component.jsx.hbs
-// pascalCase и kebabCase - модификаторы регистров
 import React from 'react';
 import styles from './order-feed.module.css';
 import classNames from 'classnames';
@@ -8,7 +6,6 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 
 function OrderFeed() {
   const img = api[0].image;
-  // console.log(img);
 
   return (
     <main className={classNames(styles.box)}>

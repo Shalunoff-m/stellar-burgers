@@ -30,7 +30,6 @@ export const userReducer = (state = inintialState, action) => {
       };
 
     case USER_REGISTER_ERROR:
-      console.log(action.payload);
       return { ...state, loading: false, error: action.payload };
 
     case USER_LOGIN:

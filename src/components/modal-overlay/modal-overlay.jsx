@@ -8,9 +8,7 @@ export default function ModalOverlay({ children }) {
   const navigate = useNavigate();
 
   const handleClose = (e) => {
-    if (e.key === 'Escape' || e.type === 'click')
-      navigate(-1, { replace: true });
-    // console.log(e);
+    if (e.key === 'Escape' || e.type === 'click') navigate(-1);
   };
 
   useEffect(() => {

@@ -19,10 +19,8 @@ export default function IngredientDetails() {
   }
 
   useEffect(() => {
-    console.log(components);
     if (components.data) {
       const searchElement = findIngredient(id);
-      console.log(searchElement);
       setShowData(searchElement);
     }
   }, [components]);

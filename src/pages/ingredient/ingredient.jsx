@@ -1,5 +1,3 @@
-// Содержимое файла component.jsx.hbs
-// pascalCase и kebabCase - модификаторы регистров
 import React, { useState, useEffect } from 'react';
 import styles from './ingredient.module.css';
 import { api } from '../../utils/data';
@@ -21,10 +19,8 @@ function Ingredient() {
   }
 
   useEffect(() => {
-    console.log(components);
     if (components.data) {
       const searchElement = findIngredient(id);
-      console.log(searchElement);
       setShowData(searchElement);
     }
   }, [components]);

@@ -1,5 +1,3 @@
-// Содержимое файла component.jsx.hbs
-// pascalCase и kebabCase - модификаторы регистров
 import React, { useEffect, useState } from 'react';
 import styles from './register.module.css';
 import classNames from 'classnames';
@@ -34,7 +32,7 @@ function Register() {
     setButtonText('Успешно!');
     setTimeout(() => {
       navigate('/login');
-    }, 5000);
+    }, 1000);
   };
 
   const errorCb = () => {
@@ -42,7 +40,7 @@ function Register() {
     setTimeout(() => {
       setFormData({ userName: '', userEmail: '', password: '' });
       navigate('/register', { replace: true });
-    }, 5000);
+    }, 1000);
   };
 
   const onSubmit = (e) => {
