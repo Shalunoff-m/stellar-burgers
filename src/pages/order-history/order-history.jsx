@@ -8,11 +8,18 @@ import {
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { api } from '../../utils/data';
+import { useNavigate } from 'react-router-dom';
 
 function OrderHistory() {
+  const navigate = useNavigate();
+
+  const toDetailHandler = () => {
+    navigate('/orders/detail');
+  };
+
   return (
     <ul className={classNames(styles.orderBox)}>
-      <li className={styles.orderItem}>
+      <li className={styles.orderItem} onClick={toDetailHandler}>
         <div className={styles.itemTopString}>
           <p className='text text_type_digits-default'>#034535</p>
           <p className='text text_type_main-default text_color_inactive'>
@@ -22,7 +29,11 @@ function OrderHistory() {
         <p className='text text_type_main-medium'>
           Death Star Starship Main бургер
         </p>
-        <p className='text text_type_main-default'>Создан</p>
+        <p
+          className={classNames('text', 'text_type_main-default', styles.link)}
+        >
+          Создан
+        </p>
         <div className={styles.ingredientsTotal}>
           <ul className={styles.orderIngredients}>
             <li className={styles.imgContainer}>

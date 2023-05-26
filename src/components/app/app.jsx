@@ -120,7 +120,7 @@ function App() {
             />
             <Route
               path='orders'
-              exact={true}
+              // exact={true}
               element={
                 <ProtectedRouteElement
                   type='online'
@@ -128,13 +128,13 @@ function App() {
                 />
               }
             />
-            <Route
-              path='orders/:id'
-              element={
-                <ProtectedRouteElement type='online' element={<OrderInfo />} />
-              }
-            />
           </Route>
+          <Route
+            path='orders/detail'
+            element={
+              <ProtectedRouteElement type='online' element={<OrderInfo />} />
+            }
+          />
           <Route path='order-feed' element={<OrderFeed />} />
           <Route path='*' element={<NotFound />} />
         </Route>

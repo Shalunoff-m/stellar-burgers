@@ -86,7 +86,15 @@ p {
   background-color: #1c1c21;
   border-radius: 30px;
   padding: 24px;
-  z-index: -5;
+  border: #4c4cff00 2px solid;
+  transition: border 1s;
+}
+
+.orderItem:hover {
+  /* background-color: red; */
+  /* outline: #4c4cff 1px solid; */
+  border: #4c4cff 2px solid;
+  cursor: pointer;
 }
 
 .itemTopString {
