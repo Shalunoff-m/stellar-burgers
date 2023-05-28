@@ -27,6 +27,21 @@ import ModalOverlay from '../modal-overlay/modal-overlay';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
 import { loadFromApi } from '../../store/actions/ingredients';
+import {
+  FORGOT_PASSWORD,
+  INDEX,
+  INGREDIENTS_ID,
+  LOGIN,
+  ORDER,
+  ORDERS,
+  ORDERS_DETAIL,
+  ORDERS_FEED,
+  PAGE404,
+  PROFILE,
+  REGISTER,
+  RESET,
+  RESET_PASSWORD,
+} from '../../pages/path';
 
 function App() {
   const dispatch = useDispatch();
@@ -43,23 +58,23 @@ function App() {
   return (
     <div>
       <Routes location={background || location}>
-        <Route path='/' element={<LayoutPage />}>
+        <Route path={INDEX} element={<LayoutPage />}>
           {/* Главная страница */}
           <Route index element={<MainPage />} />
-          <Route path='ingredients/:id' element={<Ingredient />} />
+          <Route path={INGREDIENTS_ID} element={<Ingredient />} />
 
           {/* ------------------------------------- */}
           {/* Маршруты недоступные авторизованному пользователю */}
-          <Route path='login' element={<Login />} />
-          <Route path='register' element={<Register />} />
-          <Route path='reset' element={<ResetPassword />} />
-          <Route path='forgot-password' element={<ForgotPassword />} />
-          <Route path='reset-password' element={<ResetPassword />} />
+          <Route path={LOGIN} element={<Login />} />
+          <Route path={REGISTER} element={<Register />} />
+          <Route path={RESET} element={<ResetPassword />} />
+          <Route path={FORGOT_PASSWORD} element={<ForgotPassword />} />
+          <Route path={RESET_PASSWORD} element={<ResetPassword />} />
 
           {/* ------------------------------------- */}
           {/* Защищенные маршруты */}
           <Route
-            path='profile'
+            path={PROFILE}
             element={<ProtectedRouteElement element={<Profile />} />}
           >
             <Route
@@ -67,31 +82,31 @@ function App() {
               element={<ProtectedRouteElement element={<ProfileEdit />} />}
             />
             <Route
-              path='orders'
+              path={ORDERS}
               // exact={true}
               element={<ProtectedRouteElement element={<OrderHistory />} />}
             />
           </Route>
           <Route
-            path='orders/detail'
+            path={ORDERS_DETAIL}
             element={<ProtectedRouteElement element={<OrderInfo />} />}
           />
 
           {/* ------------------------------------- */}
           {/* Прочие маршруты */}
 
-          <Route path='order-feed' element={<OrderFeed />} />
-          <Route path='*' element={<NotFound />} />
+          <Route path={ORDERS_FEED} element={<OrderFeed />} />
+          <Route path={PAGE404} element={<NotFound />} />
         </Route>
       </Routes>
       {background && (
         <Routes>
           <Route
-            path='/ingredients/:id'
+            path={INGREDIENTS_ID}
             element={<ModalOverlay children={<IngredientDetails />} />}
           />
           <Route
-            path='/order'
+            path={ORDER}
             element={<ModalOverlay children={<OrderDetails />} />}
           />
         </Routes>
