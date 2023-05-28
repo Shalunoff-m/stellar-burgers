@@ -10,7 +10,7 @@ export const loadFromApi = () => (dispatch) => {
   dispatch(getData());
   apiGetData()
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       dispatch(getDataSuccess(res.data));
     })
     .catch((err) => {

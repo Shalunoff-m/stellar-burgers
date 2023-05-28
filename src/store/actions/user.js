@@ -1,4 +1,5 @@
 import {
+  fetchWithRefresh,
   forgotPasswordApi,
   getUserApi,
   logoutApi,
@@ -37,8 +38,12 @@ export const userRegister = (data, successCb, errorCb) => (dispatch) => {
   userRegisterApi(data)
     .then((res) => {
       console.log(res);
-      dispatch(userRegisterSuccess());
-      successCb();
+      // dispatch(userRegisterSuccess());
+      // dispatch({
+      //   type: USER_LOGIN_SUCCESS,
+      //   payload: res,
+      // });
+      // successCb();
     })
     .catch((err) => {
       console.log(err);
@@ -70,6 +75,7 @@ export const userLogin = (data, successCb, errorCb) => (dispatch) => {
       // console.log(res);
       setCookies('accesstoken', clearToken(res.accessToken), {
         expires: 60 * 15,
+        path: '/',
       });
       saveToLocalStorage('refreshtoken', res.refreshToken);
       dispatch({
@@ -91,7 +97,10 @@ export const userLogin = (data, successCb, errorCb) => (dispatch) => {
 
 // USER_LOGOUT ///////////////////////////////
 export const userLogout = () => (dispatch) => {
-  logoutApi()
+  // TODO Добавить обертку здесь
+  // logoutApi()
+
+  fetchWithRefresh({ responce: logoutApi, data: null })
     .then((res) => {
       // console.log(res);
       deleteCookie('accesstoken');
@@ -116,7 +125,9 @@ export const tryRelogin = () => (dispatch) => {
     refreshTokens();
 
     // Запрашиваем пользователя с сервера
-    getUserApi()
+    // getUserApi()
+
+    fetchWithRefresh({ responce: getUserApi, data: null })
       .then((res) => {
         // Записываем пользователя в систему
         dispatch({
@@ -131,7 +142,8 @@ export const tryRelogin = () => (dispatch) => {
 
   if (getLocalToken && getAccessCookie) {
     // Запрашиваем пользователя с сервера
-    getUserApi()
+    // getUserApi()
+    fetchWithRefresh({ responce: getUserApi, data: null })
       .then((res) => {
         // Записываем пользователя в систему
         dispatch({
@@ -147,9 +159,9 @@ export const tryRelogin = () => (dispatch) => {
 
 // USER_UPDATE //////////////////////////////////////////
 export const userUpdate = (data, successCb, failedCb) => (dispatch) => {
-  userUpdateApi(data)
+  // userUpdateApi(data)
+  fetchWithRefresh({ responce: userUpdateApi, data: data })
     .then((res) => {
-      // console.log(res);
       dispatch({
         type: USER_UPDATE,
         payload: res,
@@ -158,7 +170,7 @@ export const userUpdate = (data, successCb, failedCb) => (dispatch) => {
     })
     .catch((err) => {
       console.log(err);
-      refreshTokens();
+      // refreshTokens();
       failedCb();
     });
   // Данные формы отправляются на сервер
@@ -196,7 +208,8 @@ export const passwordReset = (data, successCb, errorCb) => (dispatch) => {
 
 // USER_GET //////////////////////////////////////////
 export const userGet = () => (dispatch) => {
-  getUserApi()
+  // getUserApi()
+  fetchWithRefresh({ responce: getUserApi, data: null })
     .then((res) => {
       // Записываем пользователя в систему
       dispatch({

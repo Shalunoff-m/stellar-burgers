@@ -64,82 +64,34 @@ function App() {
 
           {/* Маршруты недоступные авторизованному пользователю */}
           {/* <Route path='login' element={<Login />} /> */}
-          <Route
-            path='login'
-            element={
-              <ProtectedRouteElement type='offline' element={<Login />} />
-            }
-          />
+          <Route path='login' element={<Login />} />
           {/* <Route path='register' element={<Register />} /> */}
-          <Route
-            path='register'
-            element={
-              <ProtectedRouteElement type='offline' element={<Register />} />
-            }
-          />
+          <Route path='register' element={<Register />} />
           {/* <Route path='reset' element={<ResetPassword />} /> */}
-          <Route
-            path='reset'
-            element={
-              <ProtectedRouteElement
-                type='offline'
-                element={<ResetPassword />}
-              />
-            }
-          />
+          <Route path='reset' element={<ResetPassword />} />
           {/* <Route path='forgot-password' element={<ForgotPassword />} /> */}
-          <Route
-            path='forgot-password'
-            element={
-              <ProtectedRouteElement
-                type='offline'
-                element={<ForgotPassword />}
-              />
-            }
-          />
+          <Route path='forgot-password' element={<ForgotPassword />} />
           {/* <Route path='reset-password' element={<ResetPassword />} /> */}
-          <Route
-            path='reset-password'
-            element={
-              <ProtectedRouteElement
-                type='offline'
-                element={<ResetPassword />}
-              />
-            }
-          />
+          <Route path='reset-password' element={<ResetPassword />} />
           {/* ------------------------------------- */}
 
           <Route
             path='profile'
-            element={
-              <ProtectedRouteElement type='online' element={<Profile />} />
-            }
+            element={<ProtectedRouteElement element={<Profile />} />}
           >
             <Route
               index
-              element={
-                <ProtectedRouteElement
-                  type='online'
-                  element={<ProfileEdit />}
-                />
-              }
+              element={<ProtectedRouteElement element={<ProfileEdit />} />}
             />
             <Route
               path='orders'
               // exact={true}
-              element={
-                <ProtectedRouteElement
-                  type='online'
-                  element={<OrderHistory />}
-                />
-              }
+              element={<ProtectedRouteElement element={<OrderHistory />} />}
             />
           </Route>
           <Route
             path='orders/detail'
-            element={
-              <ProtectedRouteElement type='online' element={<OrderInfo />} />
-            }
+            element={<ProtectedRouteElement element={<OrderInfo />} />}
           />
           <Route path='order-feed' element={<OrderFeed />} />
           <Route path='*' element={<NotFound />} />

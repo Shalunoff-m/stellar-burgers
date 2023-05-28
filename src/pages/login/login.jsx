@@ -6,13 +6,18 @@ import {
   Button,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { userLogin } from '../../store/actions/user';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '../../hooks/use-form';
 
 function Login() {
+  const { isAuthentificated } = useSelector((store) => store.user);
+
   const dispatch = useDispatch();
+  const location = useLocation();
+  const [buttonText, setButtonText] = useState('Войти');
+  const navigate = useNavigate();
   const { formData, onChange, setFormData, onSubmit } = useForm(
     {
       userEmail: '',
@@ -24,24 +29,21 @@ function Login() {
     }
   );
 
-  const [buttonText, setButtonText] = useState('Войти');
-  const navigate = useNavigate();
-
   const successCb = () => {
+    // console.log('Вход выполнен');
     setButtonText('Вход выполнен!');
-    // setTimeout(() => {
-    //   navigate('/', { replace: true });
-    // }, 1000);
+    // navigate(`${location?.state?.from || '/'}`, { replace: true });
   };
 
   const errorCb = () => {
     setButtonText('Вход не выполнен');
-    setTimeout(() => {
-      setFormData({ userEmail: '', password: '' });
-      setButtonText('Войти');
-      navigate('/login', { replace: true });
-    }, 1000);
+    setFormData({ userEmail: '', password: '' });
+    setButtonText('Войти');
+    navigate('/login', { replace: true });
   };
+
+  if (isAuthentificated)
+    return <Navigate to={`${location?.state?.from || '/'}`} replace />;
 
   return (
     <div className={classNames(styles.box)}>

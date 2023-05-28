@@ -34,27 +34,23 @@ function ForgotPassword() {
   const successCb = () => {
     // console.log('Успешно');
     setButtonText('Успешно');
-    setTimeout(() => {
-      navigate('/reset', {
-        replace: true,
-        state: {
-          success: true,
-        },
-      });
-    }, 1000);
+    navigate('/reset', {
+      replace: true,
+      state: {
+        success: true,
+      },
+    });
   };
 
   const errorCb = () => {
     console.log('Неудачно');
     setButtonText('Что-то не так');
-    setTimeout(() => {
-      navigate('/forgot-password', {
-        replace: true,
-        state: {
-          success: true,
-        },
-      });
-    }, 1000);
+    navigate('/forgot-password', {
+      replace: true,
+      state: {
+        success: true,
+      },
+    });
   };
 
   /*  const onSubmit = (e) => {

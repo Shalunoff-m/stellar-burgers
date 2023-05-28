@@ -6,7 +6,13 @@ import {
   Button,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import {
+  NavLink,
+  Navigate,
+  Outlet,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogout, userUpdate } from '../../store/actions/user';
 import { ProfileLink } from '../../components/profile-link/profile-link';
@@ -14,11 +20,12 @@ import { ProfileLink } from '../../components/profile-link/profile-link';
 function Profile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const exitHandler = (e) => {
     e.preventDefault();
     dispatch(userLogout());
-    navigate('/login');
+    <Navigate to='/login' replace state={{ from: location.pathname }} />;
   };
 
   return (

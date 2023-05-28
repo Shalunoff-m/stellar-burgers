@@ -1,3 +1,5 @@
+import { useSelector } from 'react-redux';
+
 export function sortData(data, dataTypes) {
   const sortedBuffer = {};
   for (let product in dataTypes) {

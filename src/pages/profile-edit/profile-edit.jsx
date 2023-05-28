@@ -8,20 +8,40 @@ import {
   Input,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useForm } from '../../hooks/use-form';
 
 function ProfileEdit() {
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
   const [buttonText, setButtonText] = useState('Сохранить');
   const [contolsVisible, setControlsVisible] = useState(false);
   const { userName: name, userEmail: email } = useSelector(
     (store) => store.user
   );
-  const [formData, setFormData] = React.useState({
-    userName: '',
-    userEmail: '',
-    password: '',
-  });
+
+  const { formData, setFormData, onSubmit } = useForm(
+    {
+      userName: '',
+      userEmail: '',
+      password: '',
+    },
+    () => {
+      setButtonText('Сохраняем данные');
+      dispatch(
+        userUpdate(
+          formData,
+          () => {
+            setButtonText('Данные сохранены');
+            setButtonText('Сохранить');
+            setControlsVisible(false);
+          },
+          () => {
+            setButtonText('Не удалось');
+            setButtonText('Сохранить');
+          }
+        )
+      );
+    }
+  );
 
   useEffect(() => {
     setFormData({
@@ -46,32 +66,8 @@ function ProfileEdit() {
     setControlsVisible(false);
   };
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-    setButtonText('Сохраняем данные');
-    dispatch(
-      userUpdate(
-        formData,
-        () => {
-          setButtonText('Данные сохранены');
-          setTimeout(() => {
-            setButtonText('Сохранить');
-            setControlsVisible(false);
-            dispatch(userGet());
-          }, 1000);
-        },
-        () => {
-          setButtonText('Не удалось');
-          setTimeout(() => {
-            setButtonText('Сохранить');
-          }, 1000);
-        }
-      )
-    );
-  };
-
   return (
-    <form className={styles.form} name='userData' onSubmit={submitHandler}>
+    <form className={styles.form} name='userData' onSubmit={onSubmit}>
       <Input
         // className='m-6'
         type={'text'}

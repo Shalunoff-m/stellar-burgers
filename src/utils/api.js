@@ -59,7 +59,6 @@ export async function userLoginApi(data) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      authorization: 'Bearer ' + getCookies('accesstoken'),
     },
     body: JSON.stringify({
       email: data.userEmail,
@@ -81,9 +80,7 @@ export async function userLoginApi(data) {
 } */
 
 async function checkResult(res) {
-  return res.ok
-    ? await res.json()
-    : Promise.reject(`Ошибка загрузки данных с сервера: ${res.status}`);
+  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 }
 
 export const checkTokens = () => {
@@ -95,11 +92,13 @@ export const checkTokens = () => {
 export const refreshTokens = () => {
   updateAccessTokenApi()
     .then((res) => {
+      // console.log('обновление токенов');
       setCookies('accesstoken', clearToken(res.accessToken), {
         expires: 60 * 15,
+        path: '/',
       });
       saveToLocalStorage('refreshtoken', res.refreshToken);
-      checkTokens();
+      // checkTokens();
     })
     .catch((err) => {
       console.log(err);
@@ -178,3 +177,45 @@ export async function resetPasswordApi(data) {
 
   return checkResult(res);
 }
+
+// export const fetchWithRefresh = ({ responce, data }) => {
+//   return responce(data ? data : null)
+//     .then((res) => {
+//       console.log('Первый запрос данных');
+//       return Promise.resolve(res);
+//     })
+//     .catch((err) => {
+//       if (err.message === 'jwt expired' || err.message === 'jwt malformed') {
+//         console.log('Первая ошибка в catch', err);
+//         refreshTokens();
+//         responce(data ? data : null).then((res) => {
+//           console.log('Второй запрос данных');
+//           return Promise.resolve(res);
+//         });
+//       } else {
+//         return Promise.reject(err);
+//       }
+//     });
+// };
+
+export const fetchWithRefresh = async ({ responce, data }) => {
+  try {
+    const res = await responce(data ? data : null);
+    return Promise.resolve(res);
+  } catch (err) {
+    if (err.message === 'jwt expired' || err.message === 'jwt malformed') {
+      await updateAccessTokenApi().then((res) => {
+        setCookies('accesstoken', clearToken(res.accessToken), {
+          expires: 60 * 15,
+          path: '/',
+        });
+        saveToLocalStorage('refreshtoken', res.refreshToken);
+      });
+
+      const try2 = responce(data ? data : null);
+      return try2;
+    } else {
+      return Promise.reject(err);
+    }
+  }
+};

@@ -50,19 +50,15 @@ function ResetPassword() {
   // };
 
   const successCb = () => {
-    console.log('success');
+    // console.log('success');
     setButtonText('Пароль сохранен!');
-    setTimeout(() => {
-      navigate('/login');
-    }, 1000);
+    navigate('/login');
   };
 
   const errorCb = () => {
     console.log('error');
     setButtonText('Сохранить не удалось...');
-    setTimeout(() => {
-      setButtonText('Сохранить');
-    }, 1000);
+    setButtonText('Сохранить');
   };
 
   // const onSubmit = (e) => {

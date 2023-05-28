@@ -49,7 +49,7 @@ export const getCookies = (name) => {
 };
 
 export const deleteCookie = (name) => {
-  setCookies(name, null, { expires: -1 });
+  setCookies(name, null, { expires: -1, path: '/' });
 };
 
 export const deleteLocalStorage = (name) => {

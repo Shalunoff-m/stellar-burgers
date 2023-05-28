@@ -6,14 +6,16 @@ import {
   Button,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Link, Navigate, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { userRegister } from '../../store/actions/user';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from '../../hooks/use-form';
 
 function Register() {
   const navigate = useNavigate();
+  const { isAuthentificated } = useSelector((store) => store.user);
+
   const dispatch = useDispatch();
   const [buttonText, setButtonText] = useState('Зарегистрироваться');
   const { formData, onChange, setFormData, onSubmit } = useForm(
@@ -43,17 +45,12 @@ function Register() {
 
   const successCb = () => {
     setButtonText('Успешно!');
-    setTimeout(() => {
-      navigate('/login');
-    }, 1000);
+    navigate('/login');
   };
 
   const errorCb = () => {
     setButtonText('Что-то не так ...');
-    setTimeout(() => {
-      setFormData({ userName: '', userEmail: '', password: '' });
-      navigate('/register', { replace: true });
-    }, 1000);
+    navigate('/register', { replace: true });
   };
 
   /* const onSubmit = (e) => {
@@ -61,6 +58,8 @@ function Register() {
     setButtonText('Отправляем данные...');
     dispatch(userRegister(formData, successCb, errorCb));
   }; */
+
+  if (isAuthentificated) return <Navigate to={'/'} replace />;
 
   return (
     <div className={classNames(styles.box)}>
