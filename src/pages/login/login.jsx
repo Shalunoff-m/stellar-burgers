@@ -7,7 +7,7 @@ import {
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { userLogin } from '../../store/actions/user';
+import { tryRelogin, userLogin } from '../../store/actions/user';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '../../hooks/use-form';
 
@@ -28,6 +28,10 @@ function Login() {
       dispatch(userLogin(formData, successCb, errorCb));
     }
   );
+
+  useEffect(() => {
+    dispatch(tryRelogin());
+  }, [dispatch]);
 
   const successCb = () => {
     // console.log('Вход выполнен');

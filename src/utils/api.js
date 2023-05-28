@@ -178,26 +178,6 @@ export async function resetPasswordApi(data) {
   return checkResult(res);
 }
 
-// export const fetchWithRefresh = ({ responce, data }) => {
-//   return responce(data ? data : null)
-//     .then((res) => {
-//       console.log('Первый запрос данных');
-//       return Promise.resolve(res);
-//     })
-//     .catch((err) => {
-//       if (err.message === 'jwt expired' || err.message === 'jwt malformed') {
-//         console.log('Первая ошибка в catch', err);
-//         refreshTokens();
-//         responce(data ? data : null).then((res) => {
-//           console.log('Второй запрос данных');
-//           return Promise.resolve(res);
-//         });
-//       } else {
-//         return Promise.reject(err);
-//       }
-//     });
-// };
-
 export const fetchWithRefresh = async ({ responce, data }) => {
   try {
     const res = await responce(data ? data : null);

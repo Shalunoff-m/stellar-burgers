@@ -38,16 +38,15 @@ export const userRegister = (data, successCb, errorCb) => (dispatch) => {
   userRegisterApi(data)
     .then((res) => {
       console.log(res);
-      // dispatch(userRegisterSuccess());
-      // dispatch({
-      //   type: USER_LOGIN_SUCCESS,
-      //   payload: res,
-      // });
-      // successCb();
+      dispatch(userRegisterSuccess());
+      dispatch({
+        type: USER_LOGIN_SUCCESS,
+        payload: res,
+      });
+      successCb();
     })
     .catch((err) => {
       console.log(err);
-      refreshTokens();
       dispatch(userRegisterFailed(err));
       errorCb();
     });
@@ -86,7 +85,6 @@ export const userLogin = (data, successCb, errorCb) => (dispatch) => {
     })
     .catch((err) => {
       console.log(err);
-      refreshTokens();
       dispatch({
         type: USER_LOGIN_ERROR,
         payload: err,
@@ -170,7 +168,6 @@ export const userUpdate = (data, successCb, failedCb) => (dispatch) => {
     })
     .catch((err) => {
       console.log(err);
-      // refreshTokens();
       failedCb();
     });
   // Данные формы отправляются на сервер
