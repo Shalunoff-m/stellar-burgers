@@ -1,0 +1,18 @@
+.navItem {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.link {
+  cursor: pointer;
+  color: #8585ad;
+  text-decoration: none;
+  transition: color 1s;
+}
+
+.activeLink {
+  color: white;
+  transition: color 1s;
+}

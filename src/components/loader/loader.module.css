@@ -1,0 +1,16 @@
+.layout {
+  width: 750px;
+  height: 400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  overflow: hidden;
+}
+
+.img {
+  mix-blend-mode: screen;
+  object-fit: cover;
+}

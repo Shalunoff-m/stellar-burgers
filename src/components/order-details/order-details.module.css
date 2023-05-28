@@ -1,0 +1,19 @@
+.orderTotal {
+  text-shadow: 0 0 30px #262684;
+}
+
+.window {
+  width: 720px;
+  background-color: #1c1c21;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 30px;
+  position: relative;
+}
+
+.closeIcon {
+  position: absolute;
+  top: 63px;
+  right: 43px;
+}
