@@ -1,11 +1,12 @@
 import React from 'react';
 import styles from './order-info.module.css';
 import classNames from 'classnames';
-import { api } from '../../utils/data';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useSelector } from 'react-redux';
 
 function OrderInfo() {
-  const img = api[0].image;
+  const { data } = useSelector((state) => state.ingredients);
+  const img = data[0].image;
   return (
     <div className={classNames(styles.box)}>
       <div className={styles.orderItem}>
@@ -36,7 +37,11 @@ function OrderInfo() {
         <ul className={classNames(styles.ingredientsList, 'pr-6')}>
           <li className={styles.ingredienDetail}>
             <div className={styles.imgContainer}>
-              <img className={styles.imgIngredient} src={api[0].image} alt='' />
+              <img
+                className={styles.imgIngredient}
+                src={data[0].image}
+                alt=''
+              />
             </div>
             <p className='text text_type_main-default'>
               Флюоресцентная булка R2-D3
@@ -56,7 +61,11 @@ function OrderInfo() {
           </li>
           <li className={styles.ingredienDetail}>
             <div className={styles.imgContainer}>
-              <img className={styles.imgIngredient} src={api[0].image} alt='' />
+              <img
+                className={styles.imgIngredient}
+                src={data[0].image}
+                alt=''
+              />
             </div>
             <p className='text text_type_main-default'>
               Флюоресцентная булка R2-D3
@@ -76,7 +85,11 @@ function OrderInfo() {
           </li>
           <li className={styles.ingredienDetail}>
             <div className={styles.imgContainer}>
-              <img className={styles.imgIngredient} src={api[0].image} alt='' />
+              <img
+                className={styles.imgIngredient}
+                src={data[0].image}
+                alt=''
+              />
             </div>
             <p className='text text_type_main-default'>
               Флюоресцентная булка R2-D3
@@ -96,7 +109,11 @@ function OrderInfo() {
           </li>
           <li className={styles.ingredienDetail}>
             <div className={styles.imgContainer}>
-              <img className={styles.imgIngredient} src={api[0].image} alt='' />
+              <img
+                className={styles.imgIngredient}
+                src={data[0].image}
+                alt=''
+              />
             </div>
             <p className='text text_type_main-default'>
               Флюоресцентная булка R2-D3
@@ -116,7 +133,11 @@ function OrderInfo() {
           </li>
           <li className={styles.ingredienDetail}>
             <div className={styles.imgContainer}>
-              <img className={styles.imgIngredient} src={api[0].image} alt='' />
+              <img
+                className={styles.imgIngredient}
+                src={data[0].image}
+                alt=''
+              />
             </div>
             <p className='text text_type_main-default'>
               Флюоресцентная булка R2-D3
@@ -136,7 +157,11 @@ function OrderInfo() {
           </li>
           <li className={styles.ingredienDetail}>
             <div className={styles.imgContainer}>
-              <img className={styles.imgIngredient} src={api[0].image} alt='' />
+              <img
+                className={styles.imgIngredient}
+                src={data[0].image}
+                alt=''
+              />
             </div>
             <p className='text text_type_main-default'>
               Флюоресцентная булка R2-D3

@@ -13,11 +13,12 @@ import {
   useNavigate,
   useParams,
 } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { passwordReset } from '../../store/actions/user';
 import { useForm } from '../../hooks/use-form';
 
 function ResetPassword() {
+  const { isAuthentificated } = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { state } = useLocation();
@@ -33,24 +34,11 @@ function ResetPassword() {
     }
   );
 
-  /*  const [formData, setformData] = React.useState({
-    password: '',
-    code: '',
-  }); */
-
   const isSuccess = state ? state.success : false;
 
-  useEffect(() => {
-    // console.log(isSuccess);
-  }, [isSuccess]);
-
-  // const onChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setformData({ ...formData, [name]: value });
-  // };
+  useEffect(() => {}, [isSuccess]);
 
   const successCb = () => {
-    // console.log('success');
     setButtonText('Пароль сохранен!');
     navigate('/login');
   };
@@ -61,12 +49,7 @@ function ResetPassword() {
     setButtonText('Сохранить');
   };
 
-  // const onSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   dispatch(passwordReset(formData, successCb, errorCb));
-  // };
-
+  if (isAuthentificated) return <Navigate to={'/'} replace />;
   if (!isSuccess) return <Navigate to='/forgot-password' />;
 
   return (

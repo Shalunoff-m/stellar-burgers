@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './ingredient.module.css';
-import { api } from '../../utils/data';
+// import { api } from '../../utils/data';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import classNames from 'classnames';

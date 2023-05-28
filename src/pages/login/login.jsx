@@ -34,9 +34,7 @@ function Login() {
   }, [dispatch]);
 
   const successCb = () => {
-    // console.log('Вход выполнен');
     setButtonText('Вход выполнен!');
-    // navigate(`${location?.state?.from || '/'}`, { replace: true });
   };
 
   const errorCb = () => {

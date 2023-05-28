@@ -7,10 +7,12 @@ import {
   PasswordInput,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { api } from '../../utils/data';
+// import { api } from '../../utils/data';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function OrderHistory() {
+  const { data } = useSelector((state) => state.ingredients);
   const navigate = useNavigate();
 
   const toDetailHandler = () => {
@@ -37,13 +39,25 @@ function OrderHistory() {
         <div className={styles.ingredientsTotal}>
           <ul className={styles.orderIngredients}>
             <li className={styles.imgContainer}>
-              <img className={styles.imgIngredient} src={api[0].image} alt='' />
+              <img
+                className={styles.imgIngredient}
+                src={data[0].image}
+                alt=''
+              />
             </li>
             <li className={styles.imgContainer}>
-              <img className={styles.imgIngredient} src={api[1].image} alt='' />
+              <img
+                className={styles.imgIngredient}
+                src={data[1].image}
+                alt=''
+              />
             </li>
             <li className={styles.imgContainer}>
-              <img className={styles.imgIngredient} src={api[2].image} alt='' />
+              <img
+                className={styles.imgIngredient}
+                src={data[2].image}
+                alt=''
+              />
             </li>
           </ul>
           <div className={styles.sumTotal}>

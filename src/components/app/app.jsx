@@ -21,8 +21,6 @@ import { OrderHistory } from '../../pages/order-history/order-history';
 import { OrderInfo } from '../../pages/order-info/order-info';
 import { NotFound } from '../../pages/not-found/not-found';
 import { useDispatch, useSelector } from 'react-redux';
-import { tryRelogin } from '../../store/actions/user';
-import { checkTokens } from '../../utils/api';
 import { ProtectedRouteElement } from '../protected-route-element/protected-route-element';
 import { ProfileEdit } from '../../pages/profile-edit/profile-edit';
 import ModalOverlay from '../modal-overlay/modal-overlay';
@@ -32,49 +30,34 @@ import { loadFromApi } from '../../store/actions/ingredients';
 
 function App() {
   const dispatch = useDispatch();
-  const { isAuthentificated } = useSelector((store) => store.user);
   const { data } = useSelector((store) => store.ingredients);
   let location = useLocation();
-  // let state = location.state as { backgroundLocation?: Location };
   let background = location.state && location.state.background;
 
   useEffect(() => {
-    // Попытка повторной авторизации,
-    // если сохранился refreshToken
     if (!data) {
       dispatch(loadFromApi());
     }
-
-    // dispatch(tryRelogin());
-    // if (isAuthentificated) {
-    //   setInterval(checkTokens, 60000);
-    // }
-    // return () => {
-    //   clearInterval(checkTokens);
-    // };
   }, [dispatch]);
 
   return (
     <div>
       <Routes location={background || location}>
         <Route path='/' element={<LayoutPage />}>
+          {/* Главная страница */}
           <Route index element={<MainPage />} />
-
           <Route path='ingredients/:id' element={<Ingredient />} />
 
-          {/* Маршруты недоступные авторизованному пользователю */}
-          {/* <Route path='login' element={<Login />} /> */}
-          <Route path='login' element={<Login />} />
-          {/* <Route path='register' element={<Register />} /> */}
-          <Route path='register' element={<Register />} />
-          {/* <Route path='reset' element={<ResetPassword />} /> */}
-          <Route path='reset' element={<ResetPassword />} />
-          {/* <Route path='forgot-password' element={<ForgotPassword />} /> */}
-          <Route path='forgot-password' element={<ForgotPassword />} />
-          {/* <Route path='reset-password' element={<ResetPassword />} /> */}
-          <Route path='reset-password' element={<ResetPassword />} />
           {/* ------------------------------------- */}
+          {/* Маршруты недоступные авторизованному пользователю */}
+          <Route path='login' element={<Login />} />
+          <Route path='register' element={<Register />} />
+          <Route path='reset' element={<ResetPassword />} />
+          <Route path='forgot-password' element={<ForgotPassword />} />
+          <Route path='reset-password' element={<ResetPassword />} />
 
+          {/* ------------------------------------- */}
+          {/* Защищенные маршруты */}
           <Route
             path='profile'
             element={<ProtectedRouteElement element={<Profile />} />}
@@ -93,6 +76,10 @@ function App() {
             path='orders/detail'
             element={<ProtectedRouteElement element={<OrderInfo />} />}
           />
+
+          {/* ------------------------------------- */}
+          {/* Прочие маршруты */}
+
           <Route path='order-feed' element={<OrderFeed />} />
           <Route path='*' element={<NotFound />} />
         </Route>

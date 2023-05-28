@@ -5,13 +5,14 @@ import {
   Input,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { passwordForgot, passwordReset } from '../../store/actions/user';
 import { useForm } from '../../hooks/use-form';
 
 function ForgotPassword() {
   // const [email, setEmail] = React.useState('');
+  const { isAuthentificated } = useSelector((store) => store.user);
   const [buttonText, setButtonText] = useState('Восстановить');
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -25,11 +26,6 @@ function ForgotPassword() {
       dispatch(passwordForgot(formData, successCb, errorCb));
     }
   );
-
-  /*   const onChange = (e) => {
-    setEmail(e.target.value);
-  };
- */
 
   const successCb = () => {
     // console.log('Успешно');
@@ -53,15 +49,8 @@ function ForgotPassword() {
     });
   };
 
-  /*  const onSubmit = (e) => {
-    e.preventDefault();
-    setButtonText('Отправляем...');
+  if (isAuthentificated) return <Navigate to={'/'} replace />;
 
-    
-
-    dispatch(passwordForgot(email, successCb, errorCb));
-  };
- */
   return (
     <div className={classNames(styles.box)}>
       <p

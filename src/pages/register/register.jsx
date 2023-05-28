@@ -30,19 +30,6 @@ function Register() {
     }
   );
 
-  /* const { loading } = useSelector((store) => store.user);
-  const
-  const [formData, setFormData] = React.useState({
-    userName: '',
-    userEmail: '',
-    password: '',
-  });
-
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  }; */
-
   const successCb = () => {
     setButtonText('Успешно!');
     navigate('/login');
@@ -52,12 +39,6 @@ function Register() {
     setButtonText('Что-то не так ...');
     navigate('/register', { replace: true });
   };
-
-  /* const onSubmit = (e) => {
-    e.preventDefault();
-    setButtonText('Отправляем данные...');
-    dispatch(userRegister(formData, successCb, errorCb));
-  }; */
 
   if (isAuthentificated) return <Navigate to={'/'} replace />;
 
@@ -91,7 +72,7 @@ function Register() {
         />
         <Input
           // className='m-6'
-          type={'text'}
+          type={'email'}
           placeholder={'E-mail'}
           onChange={onChange}
           // icon={'CurrencyIcon'}

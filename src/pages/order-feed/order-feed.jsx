@@ -1,11 +1,14 @@
 import React from 'react';
 import styles from './order-feed.module.css';
 import classNames from 'classnames';
-import { api } from '../../utils/data';
+// import { api } from '../../utils/data';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useSelector } from 'react-redux';
 
 function OrderFeed() {
-  const img = api[0].image;
+  // const img = api[0].image;
+  const { data } = useSelector((state) => state.ingredients);
+  const img = data[0].image;
 
   return (
     <main className={classNames(styles.box)}>
@@ -38,21 +41,21 @@ function OrderFeed() {
                   <li className={styles.imgContainer}>
                     <img
                       className={styles.imgIngredient}
-                      src={api[0].image}
+                      src={data[0].image}
                       alt=''
                     />
                   </li>
                   <li className={styles.imgContainer}>
                     <img
                       className={styles.imgIngredient}
-                      src={api[1].image}
+                      src={data[1].image}
                       alt=''
                     />
                   </li>
                   <li className={styles.imgContainer}>
                     <img
                       className={styles.imgIngredient}
-                      src={api[2].image}
+                      src={data[2].image}
                       alt=''
                     />
                   </li>
