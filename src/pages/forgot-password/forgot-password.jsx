@@ -8,49 +8,64 @@ import {
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { passwordForgot, passwordReset } from '../../store/actions/user';
+import { useForm } from '../../hooks/use-form';
 
 function ForgotPassword() {
-  const [email, setEmail] = React.useState('');
+  // const [email, setEmail] = React.useState('');
   const [buttonText, setButtonText] = useState('Восстановить');
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const onChange = (e) => {
+
+  const { formData, onChange, setFormData, onSubmit } = useForm(
+    {
+      email: '',
+    },
+    () => {
+      setButtonText('Отправляем данные...');
+      dispatch(passwordForgot(formData, successCb, errorCb));
+    }
+  );
+
+  /*   const onChange = (e) => {
     setEmail(e.target.value);
   };
-  const navigate = useNavigate();
+ */
 
-  const onSubmit = (e) => {
+  const successCb = () => {
+    // console.log('Успешно');
+    setButtonText('Успешно');
+    setTimeout(() => {
+      navigate('/reset', {
+        replace: true,
+        state: {
+          success: true,
+        },
+      });
+    }, 1000);
+  };
+
+  const errorCb = () => {
+    console.log('Неудачно');
+    setButtonText('Что-то не так');
+    setTimeout(() => {
+      navigate('/forgot-password', {
+        replace: true,
+        state: {
+          success: true,
+        },
+      });
+    }, 1000);
+  };
+
+  /*  const onSubmit = (e) => {
     e.preventDefault();
     setButtonText('Отправляем...');
 
-    const successCb = () => {
-      // console.log('Успешно');
-      setButtonText('Успешно');
-      setTimeout(() => {
-        navigate('/reset', {
-          replace: true,
-          state: {
-            success: true,
-          },
-        });
-      }, 1000);
-    };
-
-    const errorCb = () => {
-      console.log('Неудачно');
-      setButtonText('Что-то не так');
-      setTimeout(() => {
-        navigate('/forgot-password', {
-          replace: true,
-          state: {
-            success: true,
-          },
-        });
-      }, 1000);
-    };
+    
 
     dispatch(passwordForgot(email, successCb, errorCb));
   };
-
+ */
   return (
     <div className={classNames(styles.box)}>
       <p
@@ -66,7 +81,7 @@ function ForgotPassword() {
       <form className={styles.form} onSubmit={onSubmit} name='forgot-password'>
         <Input
           // className='m-6'
-          type={'text'}
+          type={'email'}
           placeholder={'Укажите e-mail'}
           onChange={onChange}
           // icon={'CurrencyIcon'}
@@ -78,7 +93,7 @@ function ForgotPassword() {
           errorText={'Ошибка'}
           size={'default'}
           extraClass='mb-6'
-          value={email}
+          value={formData.email}
         />
         <Button
           htmlType='submit'

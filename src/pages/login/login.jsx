@@ -9,41 +9,38 @@ import {
 import { Link, useNavigate } from 'react-router-dom';
 import { userLogin } from '../../store/actions/user';
 import { useDispatch, useSelector } from 'react-redux';
+import { useForm } from '../../hooks/use-form';
 
 function Login() {
   const dispatch = useDispatch();
+  const { formData, onChange, setFormData, onSubmit } = useForm(
+    {
+      userEmail: '',
+      password: '',
+    },
+    () => {
+      setButtonText('Отправляем данные...');
+      dispatch(userLogin(formData, successCb, errorCb));
+    }
+  );
+
   const [buttonText, setButtonText] = useState('Войти');
   const navigate = useNavigate();
-  // const userData = useSelector((store) => store.user);
-  const [formData, setFormData] = React.useState({
-    userEmail: '',
-    password: '',
-  });
-
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
 
   const successCb = () => {
-    setButtonText('Успешно вошли!');
-    setTimeout(() => {
-      navigate('/');
-    }, 1000);
+    setButtonText('Вход выполнен!');
+    // setTimeout(() => {
+    //   navigate('/', { replace: true });
+    // }, 1000);
   };
 
   const errorCb = () => {
-    setButtonText('Ключи не подходят');
+    setButtonText('Вход не выполнен');
     setTimeout(() => {
       setFormData({ userEmail: '', password: '' });
+      setButtonText('Войти');
       navigate('/login', { replace: true });
     }, 1000);
-  };
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    setButtonText('Отправляем данные...');
-    dispatch(userLogin(formData, successCb, errorCb));
   };
 
   return (

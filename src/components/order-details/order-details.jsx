@@ -3,11 +3,13 @@ import React from 'react';
 import DoneIcon from '../../images/done.png';
 import { useSelector } from 'react-redux';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 export default function OrderDetails(props) {
   const { order } = useSelector((store) => store.order);
   const navigate = useNavigate();
+
+  if (!order) return <Navigate to='/' />;
 
   return (
     <>

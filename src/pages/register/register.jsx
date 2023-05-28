@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './register.module.css';
 import classNames from 'classnames';
 import {
@@ -7,16 +7,29 @@ import {
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { userRegister } from '../../store/actions/user';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from '../../hooks/use-form';
 
 function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [buttonText, setButtonText] = useState('Зарегистрироваться');
-  const { loading } = useSelector((store) => store.user);
-  // const
+  const { formData, onChange, setFormData, onSubmit } = useForm(
+    {
+      userName: '',
+      userEmail: '',
+      password: '',
+    },
+    () => {
+      setButtonText('Отправляем данные...');
+      dispatch(userRegister(formData, successCb, errorCb));
+    }
+  );
+
+  /* const { loading } = useSelector((store) => store.user);
+  const
   const [formData, setFormData] = React.useState({
     userName: '',
     userEmail: '',
@@ -26,7 +39,7 @@ function Register() {
   const onChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-  };
+  }; */
 
   const successCb = () => {
     setButtonText('Успешно!');
@@ -43,11 +56,11 @@ function Register() {
     }, 1000);
   };
 
-  const onSubmit = (e) => {
+  /* const onSubmit = (e) => {
     e.preventDefault();
     setButtonText('Отправляем данные...');
     dispatch(userRegister(formData, successCb, errorCb));
-  };
+  }; */
 
   return (
     <div className={classNames(styles.box)}>

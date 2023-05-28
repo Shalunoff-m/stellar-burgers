@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './reset-password.module.css';
 import classNames from 'classnames';
 import {
@@ -6,40 +6,70 @@ import {
   Button,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, Navigate, useLocation, useParams } from 'react-router-dom';
+import {
+  Link,
+  Navigate,
+  useLocation,
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { passwordReset } from '../../store/actions/user';
+import { useForm } from '../../hooks/use-form';
 
 function ResetPassword() {
   const dispatch = useDispatch();
-  const [formData, setformData] = React.useState({
+  const navigate = useNavigate();
+  const { state } = useLocation();
+  const [buttonText, setButtonText] = useState('Войти');
+  const { formData, onChange, setFormData, onSubmit } = useForm(
+    {
+      password: '',
+      code: '',
+    },
+    () => {
+      setButtonText('Отправляем данные...');
+      dispatch(passwordReset(formData, successCb, errorCb));
+    }
+  );
+
+  /*  const [formData, setformData] = React.useState({
     password: '',
     code: '',
-  });
-  const { state } = useLocation();
+  }); */
+
   const isSuccess = state ? state.success : false;
 
   useEffect(() => {
     // console.log(isSuccess);
   }, [isSuccess]);
 
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    setformData({ ...formData, [name]: value });
+  // const onChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setformData({ ...formData, [name]: value });
+  // };
+
+  const successCb = () => {
+    console.log('success');
+    setButtonText('Пароль сохранен!');
+    setTimeout(() => {
+      navigate('/login');
+    }, 1000);
   };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-
-    const successCb = () => {
-      console.log('success');
-    };
-    const errorCb = () => {
-      console.log('error');
-    };
-
-    dispatch(passwordReset(formData, successCb, errorCb));
+  const errorCb = () => {
+    console.log('error');
+    setButtonText('Сохранить не удалось...');
+    setTimeout(() => {
+      setButtonText('Сохранить');
+    }, 1000);
   };
+
+  // const onSubmit = (e) => {
+  //   e.preventDefault();
+
+  //   dispatch(passwordReset(formData, successCb, errorCb));
+  // };
 
   if (!isSuccess) return <Navigate to='/forgot-password' />;
 
@@ -86,7 +116,7 @@ function ResetPassword() {
           size='medium'
           extraClass='mb-20'
         >
-          Сохранить
+          {buttonText}
         </Button>
       </form>
 

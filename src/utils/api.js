@@ -155,7 +155,6 @@ export async function forgotPasswordApi(email) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      // authorization: 'Bearer ' + getCookies('accesstoken'),
     },
     body: JSON.stringify({
       email: email,
@@ -170,11 +169,10 @@ export async function resetPasswordApi(data) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      // authorization: 'Bearer ' + getCookies('accesstoken'),
     },
     body: JSON.stringify({
-      password: '',
-      token: '',
+      password: data.password,
+      token: data.code,
     }),
   });
 

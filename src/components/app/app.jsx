@@ -4,6 +4,7 @@ import {
   Routes,
   Route,
   useLocation,
+  Navigate,
 } from 'react-router-dom';
 
 // Загрузка страниц
@@ -32,6 +33,7 @@ import { loadFromApi } from '../../store/actions/ingredients';
 function App() {
   const dispatch = useDispatch();
   const { isAuthentificated } = useSelector((store) => store.user);
+  const { data } = useSelector((store) => store.ingredients);
   let location = useLocation();
   // let state = location.state as { backgroundLocation?: Location };
   let background = location.state && location.state.background;
@@ -39,21 +41,25 @@ function App() {
   useEffect(() => {
     // Попытка повторной авторизации,
     // если сохранился refreshToken
-    dispatch(loadFromApi());
-    dispatch(tryRelogin());
+    if (!data) {
+      dispatch(loadFromApi());
+    }
+
+    // dispatch(tryRelogin());
     // if (isAuthentificated) {
     //   setInterval(checkTokens, 60000);
     // }
     // return () => {
     //   clearInterval(checkTokens);
     // };
-  }, [isAuthentificated]);
+  }, [dispatch]);
 
   return (
     <div>
       <Routes location={background || location}>
         <Route path='/' element={<LayoutPage />}>
           <Route index element={<MainPage />} />
+
           <Route path='ingredients/:id' element={<Ingredient />} />
 
           {/* Маршруты недоступные авторизованному пользователю */}
@@ -147,16 +153,7 @@ function App() {
           />
           <Route
             path='/order'
-            element={
-              <ModalOverlay
-                children={
-                  <ProtectedRouteElement
-                    type='online'
-                    element={<OrderDetails />}
-                  />
-                }
-              />
-            }
+            element={<ModalOverlay children={<OrderDetails />} />}
           />
         </Routes>
       )}

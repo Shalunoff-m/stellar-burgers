@@ -36,6 +36,7 @@ export const userRegister = (data, successCb, errorCb) => (dispatch) => {
   dispatch(userRegisterStart());
   userRegisterApi(data)
     .then((res) => {
+      console.log(res);
       dispatch(userRegisterSuccess());
       successCb();
     })
@@ -166,17 +167,19 @@ export const userUpdate = (data, successCb, failedCb) => (dispatch) => {
 };
 
 // PASSWORD_FORGOT //////////////////////////////////////////
-export const passwordForgot = (email, successCb, errorCb) => (dispatch) => {
-  forgotPasswordApi()
-    .then((res) => {
-      // console.log(res);
-      successCb();
-    })
-    .catch((err) => {
-      console.log(err);
-      errorCb();
-    });
-};
+export const passwordForgot =
+  ({ email }, successCb, errorCb) =>
+  (dispatch) => {
+    forgotPasswordApi(email)
+      .then((res) => {
+        // console.log(res);
+        successCb();
+      })
+      .catch((err) => {
+        console.log(err);
+        errorCb();
+      });
+  };
 
 // PASSWORD_RESET //////////////////////////////////////////
 export const passwordReset = (data, successCb, errorCb) => (dispatch) => {

@@ -12,12 +12,12 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
 function MainPage() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const { loading: loader } = useSelector((store) => store.ingredients);
 
   // useEffect(() => {
-  //   dispatch(loadFromApi());
-  // }, []);
+  //   // dispatch(loadFromApi());
+  // }, [dispatch]);
 
   return (
     <>
