@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './order-feed.module.css';
 import classNames from 'classnames';
 // import { api } from '../../utils/data';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 function OrderFeed() {
   // const img = api[0].image;
+  const dispatch = useDispatch();
   const { data } = useSelector((state) => state.ingredients);
   const img = data[0].image;
+
+  useEffect(() => {
+    dispatch({ type: 'WS_CONNECTION_START' });
+
+    return () => {
+      dispatch({ type: 'WS_CONNECTION_CLOSED' });
+    };
+  }, []);
 
   return (
     <main className={classNames(styles.box)}>
