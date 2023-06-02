@@ -79,6 +79,7 @@ p {
   border-radius: 30px;
   padding: 24px;
   z-index: -5;
+  border: 1px solid #26268400;
 }
 
 .itemTopString {

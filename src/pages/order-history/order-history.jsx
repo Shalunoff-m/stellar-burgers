@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './order-history.module.css';
 import classNames from 'classnames';
 import {
@@ -9,11 +9,16 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 // import { api } from '../../utils/data';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 function OrderHistory() {
   const { data } = useSelector((state) => state.ingredients);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch({ type: 'WS_CONNECTION_START' });
+  }, []);
 
   const toDetailHandler = () => {
     navigate('/orders/detail');

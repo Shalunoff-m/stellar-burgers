@@ -35,12 +35,13 @@ import {
   ORDER,
   ORDERS,
   ORDERS_DETAIL,
-  ORDERS_FEED,
+  FEED,
   PAGE404,
   PROFILE,
   REGISTER,
   RESET,
   RESET_PASSWORD,
+  FEED_DETAIL,
 } from '../../pages/path';
 
 function App() {
@@ -89,13 +90,14 @@ function App() {
           </Route>
           <Route
             path={ORDERS_DETAIL}
-            element={<ProtectedRouteElement element={<OrderInfo />} />}
+            element={<ProtectedRouteElement element={<OrderDetails />} />}
           />
 
           {/* ------------------------------------- */}
           {/* Прочие маршруты */}
 
-          <Route path={ORDERS_FEED} element={<OrderFeed />} />
+          <Route path={FEED} element={<OrderFeed />} />
+          <Route path={FEED_DETAIL} element={<OrderFeed />} />
           <Route path={PAGE404} element={<NotFound />} />
         </Route>
       </Routes>

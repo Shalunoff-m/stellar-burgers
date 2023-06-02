@@ -18,7 +18,7 @@ export function Header() {
           <NavItem Icon={BurgerIcon} to='/'>
             Конструктор
           </NavItem>
-          <NavItem Icon={ListIcon} to='/order-feed'>
+          <NavItem Icon={ListIcon} to='/feed'>
             Лента заказов
           </NavItem>
         </Navigation>
