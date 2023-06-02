@@ -13,7 +13,12 @@ export default function OrderDetails(props) {
 
   return (
     <>
-      <div className={styles.window}>
+      <div
+        className={styles.window}
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
         <h2
           className={`text text_type_digits-large pt-20 pb-8 ${styles.orderTotal}`}
         >
@@ -31,7 +36,7 @@ export default function OrderDetails(props) {
           <CloseIcon
             type='primary'
             onClick={() => {
-              navigate('/', { replace: true });
+              navigate(-1);
             }}
           />
         </div>
