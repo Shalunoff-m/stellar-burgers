@@ -12,9 +12,7 @@ function OrderInfo() {
   const navigate = useNavigate();
 
   const closeHandler = (e) => {
-    e.nativeEvent.stopPropagation();
     navigate(-1);
-    console.log('Был клик');
   };
 
   return (
