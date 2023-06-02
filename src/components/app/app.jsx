@@ -88,16 +88,13 @@ function App() {
               element={<ProtectedRouteElement element={<OrderHistory />} />}
             />
           </Route>
-          <Route
-            path={ORDERS_DETAIL}
-            element={<ProtectedRouteElement element={<OrderDetails />} />}
-          />
+          <Route path={ORDERS_DETAIL} element={<OrderInfo />} />
 
           {/* ------------------------------------- */}
           {/* Прочие маршруты */}
 
           <Route path={FEED} element={<OrderFeed />} />
-          <Route path={FEED_DETAIL} element={<OrderFeed />} />
+          {/* <Route path={FEED_DETAIL} element={<OrderFeed />} /> */}
           <Route path={PAGE404} element={<NotFound />} />
         </Route>
       </Routes>

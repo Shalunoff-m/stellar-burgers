@@ -5,17 +5,21 @@ import classNames from 'classnames';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadFromApi } from '../../store/actions/ingredients';
+import { useNavigate } from 'react-router-dom';
 
 function OrderFeed() {
-  // const img = api[0].image;
   const dispatch = useDispatch();
   let { data } = useSelector((state) => state.ingredients);
   const { messages } = useSelector((state) => state.webSocket);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch({ type: 'WS_CONNECTION_START' });
-    console.log(data);
   }, [data, dispatch]);
+
+  const clickHandler = () => {
+    navigate('/orders/detail');
+  };
 
   return (
     <>
@@ -35,7 +39,7 @@ function OrderFeed() {
           <div className={styles.orderLayout}>
             <section>
               <ul className={styles.orderBox}>
-                <li className={styles.orderItem}>
+                <li className={styles.orderItem} onClick={clickHandler}>
                   <div className={styles.itemTopString}>
                     <p className='text text_type_digits-default'>#034535</p>
                     <p className='text text_type_main-default text_color_inactive'>
