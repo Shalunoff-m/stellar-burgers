@@ -18,7 +18,7 @@ import { Ingredient } from '../../pages/ingredient/ingredient';
 import { Profile } from '../../pages/profile/profile';
 import { OrderFeed } from '../../pages/order-feed/order-feed';
 import { OrderHistory } from '../../pages/order-history/order-history';
-import { OrderInfo } from '../../pages/order-info/order-info';
+import { OrderInfo } from '../order-info/order-info';
 import { NotFound } from '../../pages/not-found/not-found';
 import { useDispatch, useSelector } from 'react-redux';
 import { ProtectedRouteElement } from '../protected-route-element/protected-route-element';
@@ -43,6 +43,7 @@ import {
   RESET_PASSWORD,
   FEED_DETAIL,
 } from '../../pages/path';
+import { OrderInfoPage } from '../../pages/order-info-page/order-info-page';
 
 function App() {
   const dispatch = useDispatch();
@@ -88,25 +89,41 @@ function App() {
               element={<ProtectedRouteElement element={<OrderHistory />} />}
             />
           </Route>
-          <Route path={ORDERS_DETAIL} element={<OrderInfo />} />
+
+          {/* Страница с деталями о заказе */}
+          <Route path={ORDERS_DETAIL} element={<OrderInfoPage />} />
 
           {/* ------------------------------------- */}
           {/* Прочие маршруты */}
 
           <Route path={FEED} element={<OrderFeed />} />
-          {/* <Route path={FEED_DETAIL} element={<OrderFeed />} /> */}
+          <Route path={FEED_DETAIL} element={<OrderInfoPage />} />
           <Route path={PAGE404} element={<NotFound />} />
         </Route>
       </Routes>
       {background && (
         <Routes>
+          {/* Модалка с деталями о ингридиенте */}
           <Route
             path={INGREDIENTS_ID}
             element={<ModalOverlay children={<IngredientDetails />} />}
           />
+
+          {/* Модалка с деталями совершенного заказа */}
           <Route
             path={ORDER}
             element={<ModalOverlay children={<OrderDetails />} />}
+          />
+
+          {/* Модалка с деталями о заказе */}
+          <Route
+            path={FEED_DETAIL}
+            element={<ModalOverlay children={<OrderInfo />} />}
+          />
+          {/* Модалка с деталями о заказе */}
+          <Route
+            path={ORDERS_DETAIL}
+            element={<ModalOverlay children={<OrderInfo />} />}
           />
         </Routes>
       )}

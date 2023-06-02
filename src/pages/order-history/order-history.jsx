@@ -8,20 +8,24 @@ import {
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 // import { api } from '../../utils/data';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 function OrderHistory() {
   const { data } = useSelector((state) => state.ingredients);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
 
   useEffect(() => {
     dispatch({ type: 'WS_CONNECTION_START' });
   }, []);
 
   const toDetailHandler = () => {
-    navigate('/orders/detail');
+    // navigate('/orders/detail');
+    navigate(`/orders/detail`, {
+      state: { background: location },
+    });
   };
 
   return (

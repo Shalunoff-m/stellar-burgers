@@ -5,20 +5,25 @@ import classNames from 'classnames';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadFromApi } from '../../store/actions/ingredients';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function OrderFeed() {
   const dispatch = useDispatch();
   let { data } = useSelector((state) => state.ingredients);
   const { messages } = useSelector((state) => state.webSocket);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     dispatch({ type: 'WS_CONNECTION_START' });
   }, [data, dispatch]);
 
   const clickHandler = () => {
-    navigate('/orders/detail');
+    navigate('/feed/detail', {
+      state: { background: location },
+    });
+
+    // navigate('/feed/detail');
   };
 
   return (
