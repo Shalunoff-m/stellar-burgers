@@ -9,6 +9,6 @@ export const PROFILE = 'profile';
 export const ORDERS = 'orders';
 export const ORDERS_DETAIL = 'orders/detail';
 export const FEED = 'feed';
-export const FEED_DETAIL = 'feed/detail';
+export const FEED_DETAIL = 'feed/:id';
 export const PAGE404 = '*';
 export const ORDER = 'order';

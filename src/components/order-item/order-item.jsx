@@ -18,7 +18,10 @@ function OrderItem({ order }) {
   // let order = {};
 
   const clickHandler = () => {
-    navigate('/feed/detail', {
+    // navigate('/feed/detail', {
+    //   state: { background: location },
+    // });
+    navigate(`/feed/${order._id}`, {
       state: { background: location },
     });
   };
@@ -29,7 +32,7 @@ function OrderItem({ order }) {
     <>
       <li className={styles.orderItem} onClick={clickHandler}>
         <div className={styles.itemTopString}>
-          <p className='text text_type_digits-default'>{order.number}</p>
+          <p className='text text_type_digits-default'>#{order.number}</p>
           <p className='text text_type_main-default text_color_inactive'>
             {timeEncode(order.createdAt)}
           </p>
