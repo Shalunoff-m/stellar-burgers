@@ -1,8 +1,11 @@
 import { Middleware, MiddlewareAPI } from 'redux';
+import { getCookies } from '../../utils/localSaver';
 
 // Константы endpoint соединений
 export const allOrders = 'wss://norma.nomoreparties.space/orders/all';
-export const userOrders = 'wss://norma.nomoreparties.space/orders';
+export const userOrders = `wss://norma.nomoreparties.space/orders?token=${getCookies(
+  'accesstoken'
+)}`;
 
 export const socketMiddleware = () => {
   return (store) => {

@@ -3,14 +3,16 @@ export const saveToLocalStorage = (name, data) => {
   localStorage.setItem(name, JSON.stringify(data));
 };
 
-// Функци чтения из Local Storage
+// Функция чтения из Local Storage
 export const readFromLocalStorage = (name) => {
   const myData = JSON.parse(localStorage.getItem(name));
   return myData;
 };
 
-// Запись в Cookies--------------------------------------
+// Запись в Cookies
 
+/* Пример
+setCookie('username', 'John Doe', { expires: 7 * 24 * 60 * 60 }); */
 export const setCookies = (name, value, props) => {
   props = props || {};
   let exp = props.expires;
@@ -32,11 +34,9 @@ export const setCookies = (name, value, props) => {
     }
   }
   document.cookie = updatedCookie;
-
-  // Пример
-  // setCookie('username', 'John Doe', { expires: 7 * 24 * 60 * 60 });
 };
 
+// Функция чтения из Cookies
 export const getCookies = (name) => {
   const matches = document.cookie.match(
     new RegExp(
@@ -48,10 +48,12 @@ export const getCookies = (name) => {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 };
 
+// Функция удаления из Cookies
 export const deleteCookie = (name) => {
   setCookies(name, null, { expires: -1, path: '/' });
 };
 
+// Функция удаления из Local Storage
 export const deleteLocalStorage = (name) => {
   localStorage.removeItem(name);
 };
