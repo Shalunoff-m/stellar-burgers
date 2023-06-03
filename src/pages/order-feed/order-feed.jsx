@@ -12,6 +12,8 @@ import {
   timeEncode,
 } from '../../utils/utils';
 import { ImageList } from '../../components/image-list/image-list';
+import { OrderItem } from '../../components/order-item/order-item';
+import { v4 as uuidv4 } from 'uuid';
 
 function OrderFeed() {
   const dispatch = useDispatch();
@@ -27,7 +29,7 @@ function OrderFeed() {
     if (data) dispatch({ type: 'WS_CONNECTION_START', payload: 'allOrders' });
   }, [data]);
 
-  order = orders[4];
+  order = orders[3];
 
   const clickHandler = () => {
     navigate('/feed/detail', {
@@ -39,51 +41,29 @@ function OrderFeed() {
     <>
       {data && order && (
         <main className={classNames(styles.box)}>
-          <h2
-            className={classNames(
-              styles.heading,
-              'text',
-              'text_type_main-large',
-              'pt-10',
-              'pb-5'
-            )}
-          >
-            Лента заказов
-          </h2>
           <div className={styles.orderLayout}>
             <section>
+              <h2
+                className={classNames(
+                  styles.heading,
+                  'text',
+                  'text_type_main-large',
+                  'pt-10',
+                  'pb-5'
+                )}
+              >
+                Лента заказов
+              </h2>
               <ul className={styles.orderBox}>
-                <li className={styles.orderItem} onClick={clickHandler}>
-                  <div className={styles.itemTopString}>
-                    <p className='text text_type_digits-default'>
-                      {order.number}
-                    </p>
-                    <p className='text text_type_main-default text_color_inactive'>
-                      {timeEncode(order.createdAt)}
-                    </p>
-                  </div>
-                  <p className='text text_type_main-medium'>{order.name}</p>
-                  <div className={styles.ingredientsTotal}>
-                    <ul className={styles.orderIngredients}>
-                      <ImageList images={order.ingredients} />
-                    </ul>
-                    <div className={styles.sumTotal}>
-                      <p
-                        className={classNames(
-                          styles.sum,
-                          'text',
-                          'text_type_digits-default'
-                        )}
-                      >
-                        {calculateTotalCoast(data, order.ingredients)}
-                      </p>
-                      <CurrencyIcon type='primary' />
-                    </div>
-                  </div>
-                </li>
+                {/* {orders.map((order) => (
+                  <OrderItem key={uuidv4()} order={order} />
+                ))} */}
+                <OrderItem key={uuidv4()} order={orders[1]} />
+                <OrderItem key={uuidv4()} order={orders[2]} />
+                <OrderItem key={uuidv4()} order={orders[3]} />
               </ul>
             </section>
-            <section className={styles.orderSection}>
+            <section className={classNames(styles.orderSection, 'pt-25')}>
               <div className={styles.statusTable}>
                 <div>
                   <h3 className='text text_type_main-medium pb-6'>Готовы:</h3>
