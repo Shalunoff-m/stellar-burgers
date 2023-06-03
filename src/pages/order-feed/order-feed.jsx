@@ -6,30 +6,34 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { useDispatch, useSelector } from 'react-redux';
 import { loadFromApi } from '../../store/actions/ingredients';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { allDataIsReady, timeEncode } from '../../utils/utils';
+import { ImageList } from '../../components/image-list/image-list';
 
 function OrderFeed() {
   const dispatch = useDispatch();
-  let { data } = useSelector((state) => state.ingredients);
-  const { messages } = useSelector((state) => state.webSocket);
+  const { data, orders } = useSelector((state) => ({
+    data: state.ingredients.data,
+    orders: state.webSocket.orders,
+  }));
   const navigate = useNavigate();
   const location = useLocation();
+  let order = {};
 
   useEffect(() => {
     if (data) dispatch({ type: 'WS_CONNECTION_START', payload: 'allOrders' });
-    console.log(messages);
   }, [data]);
+
+  order = orders[0];
 
   const clickHandler = () => {
     navigate('/feed/detail', {
       state: { background: location },
     });
-
-    // navigate('/feed/detail');
   };
 
   return (
     <>
-      {data && (
+      {data && order && (
         <main className={classNames(styles.box)}>
           <h2
             className={classNames(
@@ -47,37 +51,17 @@ function OrderFeed() {
               <ul className={styles.orderBox}>
                 <li className={styles.orderItem} onClick={clickHandler}>
                   <div className={styles.itemTopString}>
-                    <p className='text text_type_digits-default'>#034535</p>
+                    <p className='text text_type_digits-default'>
+                      {order.number}
+                    </p>
                     <p className='text text_type_main-default text_color_inactive'>
-                      Сегодня, 16:20 i-GMT+3
+                      {timeEncode(order.createdAt)}
                     </p>
                   </div>
-                  <p className='text text_type_main-medium'>
-                    Death Star Starship Main бургер
-                  </p>
+                  <p className='text text_type_main-medium'>{order.name}</p>
                   <div className={styles.ingredientsTotal}>
                     <ul className={styles.orderIngredients}>
-                      <li className={styles.imgContainer}>
-                        <img
-                          className={styles.imgIngredient}
-                          src={data[0].image}
-                          alt=''
-                        />
-                      </li>
-                      <li className={styles.imgContainer}>
-                        <img
-                          className={styles.imgIngredient}
-                          src={data[1].image}
-                          alt=''
-                        />
-                      </li>
-                      <li className={styles.imgContainer}>
-                        <img
-                          className={styles.imgIngredient}
-                          src={data[2].image}
-                          alt=''
-                        />
-                      </li>
+                      <ImageList images={order.ingredients} />
                     </ul>
                     <div className={styles.sumTotal}>
                       <p

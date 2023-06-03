@@ -1,3 +1,4 @@
+import { updatedOrders } from '../../utils/utils';
 import {
   WS_CONNECTION_START,
   WS_CONNECTION_SUCCESS,
@@ -9,7 +10,7 @@ import {
 
 const initialState = {
   wsConnected: false,
-  orders: {},
+  orders: [],
   total: '',
   totalToday: '',
   error: undefined,
@@ -40,10 +41,13 @@ export const wsReducer = (state = initialState, action) => {
 
     case WS_GET_MESSAGE:
       const { orders, total, totalToday } = JSON.parse(action.payload);
+      const updatedData = updatedOrders(orders, state.orders);
+      // console.log(updatedData);
+
       return {
         ...state,
         error: undefined,
-        orders,
+        orders: [...updatedData],
         total,
         totalToday,
       };
