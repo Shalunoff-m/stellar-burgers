@@ -6,7 +6,11 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { useDispatch, useSelector } from 'react-redux';
 import { loadFromApi } from '../../store/actions/ingredients';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { allDataIsReady, timeEncode } from '../../utils/utils';
+import {
+  allDataIsReady,
+  calculateTotalCoast,
+  timeEncode,
+} from '../../utils/utils';
 import { ImageList } from '../../components/image-list/image-list';
 
 function OrderFeed() {
@@ -23,7 +27,7 @@ function OrderFeed() {
     if (data) dispatch({ type: 'WS_CONNECTION_START', payload: 'allOrders' });
   }, [data]);
 
-  order = orders[0];
+  order = orders[4];
 
   const clickHandler = () => {
     navigate('/feed/detail', {
@@ -71,7 +75,7 @@ function OrderFeed() {
                           'text_type_digits-default'
                         )}
                       >
-                        480
+                        {calculateTotalCoast(data, order.ingredients)}
                       </p>
                       <CurrencyIcon type='primary' />
                     </div>

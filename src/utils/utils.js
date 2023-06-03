@@ -98,3 +98,15 @@ export const timeEncode = (time) => {
 
   return returnString;
 };
+
+export const calculateTotalCoast = (data, ingredients) => {
+  // const element = getElement({ data: data, id: ingredients[0] });
+  // console.log(element);
+  let returnTotal = ingredients.reduce((acc, id) => {
+    const element = getElement({ data: data, id: id });
+    // console.log(element);
+    return acc + element.price;
+  }, 0);
+
+  return returnTotal;
+};
