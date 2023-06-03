@@ -15,8 +15,9 @@ function OrderFeed() {
   const location = useLocation();
 
   useEffect(() => {
-    dispatch({ type: 'WS_CONNECTION_START' });
-  }, [data, dispatch]);
+    if (data) dispatch({ type: 'WS_CONNECTION_START', payload: 'allOrders' });
+    console.log(messages);
+  }, [data]);
 
   const clickHandler = () => {
     navigate('/feed/detail', {

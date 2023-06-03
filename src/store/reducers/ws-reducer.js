@@ -9,7 +9,9 @@ import {
 
 const initialState = {
   wsConnected: false,
-  messages: [],
+  orders: {},
+  total: '',
+  totalToday: '',
   error: undefined,
 };
 
@@ -37,10 +39,13 @@ export const wsReducer = (state = initialState, action) => {
       };
 
     case WS_GET_MESSAGE:
+      const { orders, total, totalToday } = JSON.parse(action.payload);
       return {
         ...state,
         error: undefined,
-        messages: [...state.messages, action.payload],
+        orders,
+        total,
+        totalToday,
       };
     default:
       return state;

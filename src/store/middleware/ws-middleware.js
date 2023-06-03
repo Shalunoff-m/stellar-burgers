@@ -1,7 +1,10 @@
 import { Middleware, MiddlewareAPI } from 'redux';
-export const baseUrl = 'wss://norma.nomoreparties.space/orders/all';
 
-export const socketMiddleware = (wsUrl = baseUrl) => {
+// Константы endpoint соединений
+export const allOrders = 'wss://norma.nomoreparties.space/orders/all';
+export const userOrders = 'wss://norma.nomoreparties.space/orders';
+
+export const socketMiddleware = () => {
   return (store) => {
     let socket = null;
 
@@ -10,8 +13,23 @@ export const socketMiddleware = (wsUrl = baseUrl) => {
       const { type, payload } = action;
 
       if (type === 'WS_CONNECTION_START') {
-        socket = new WebSocket(wsUrl);
+        let url = '';
+
+        // Выставляем endpoint соединения в зависимости от payload
+        switch (payload) {
+          case 'allOrders':
+            url = allOrders;
+            break;
+          case 'userOrders':
+            url = userOrders;
+            break;
+          default:
+            url = allOrders;
+            break;
+        }
+        socket = new WebSocket(url);
       }
+
       if (socket) {
         socket.onopen = (event) => {
           dispatch({ type: 'WS_CONNECTION_SUCCESS', payload: event });
@@ -28,11 +46,6 @@ export const socketMiddleware = (wsUrl = baseUrl) => {
         socket.onclose = (event) => {
           dispatch({ type: 'WS_CONNECTION_CLOSED', payload: event });
         };
-
-        if (type === 'WS_SEND_MESSAGE') {
-          const message = payload;
-          socket.send(JSON.stringify(message));
-        }
       }
 
       next(action);
