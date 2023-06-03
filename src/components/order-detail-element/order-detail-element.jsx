@@ -6,32 +6,32 @@ import { getElement } from '../../utils/utils';
 
 function OrderDetailElements({ order, data }) {
   const [element, setElement] = useState(null);
-  // const [element2, setElement2] = useState({});
-  // console.log(data);
+  const [element2, setElement2] = useState({});
 
   useEffect(() => {
     if (data && order) {
-      // console.log(order);
       const object = getElement({ data, id: order.ingredients[0] });
       setElement(object);
 
-      // setElement(getElement({ data, id: order.ingredients[0] }));
-      //   const objectOfIngredients = order.ingredients.map((ingredient) => {
-      //     return getElement({ data: data, id: ingredient });
-      //   });
-      //   setElement2(objectOfIngredients);
-      //   console.log(objectOfIngredients);
+      const objectOfIngredients = order.ingredients.map((ingredient) => {
+        return getElement({ data: data, id: ingredient });
+      });
+
+      calculateIngredients(objectOfIngredients);
+      // Запись итогового значения
+      setElement2(objectOfIngredients);
     }
-  }, [order, data, getElement]);
+  }, [order, data]);
 
-  // const convertedData = () => {
-  //   const objectOfIngredients = order.ingredients.map((ingredient) => {
-  //     return getElement({ data: data, id: ingredient });
-  //   });
-  //   // console.log(objectOfIngredients);
-  // };
+  // console.log(element2);
 
-  // convertedData();
+  const calculateIngredients = (objectOfIngredients) => {
+    // TODO Функция калькуляции данных
+    /* Нужно написать функцию калькуляции данных.
+      Сначала нужно подсчитать кол-во одинаковых ингридиентов и вернуть новый массив данных с удалением дубликатов и проставленным количеством  */
+
+    console.log(objectOfIngredients);
+  };
 
   return (
     // <p>some text</p>
