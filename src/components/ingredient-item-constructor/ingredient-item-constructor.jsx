@@ -43,12 +43,9 @@ export default function IngredientItemConstructor(props) {
   const counter = calculateCount(dataCounter);
 
   const clickHandler = () => {
-    // TODO Вернуть обратно обработчик
     navigate(`/ingredients/${element._id}`, {
       state: { background: location },
     });
-
-    // dispatch(showModalDetail(element));
   };
 
   const contextHandler = (e) => {

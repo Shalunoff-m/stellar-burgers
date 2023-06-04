@@ -36,7 +36,7 @@ function OrderDetailElements({ order, data }) {
             )}
           >
             {element.count}
-            <span className='text_type_main-small'>х</span>
+            <span className='text_type_main-small'> х </span>
             {element.price}
           </p>
           <CurrencyIcon type='primary' />

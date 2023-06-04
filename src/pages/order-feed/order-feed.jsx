@@ -16,6 +16,7 @@ import { OrderItem } from '../../components/order-item/order-item';
 import { v4 as uuidv4 } from 'uuid';
 
 function OrderFeed() {
+  // BM страница с лентой заказов WS
   const dispatch = useDispatch();
   const { data, orders } = useSelector((state) => ({
     data: state.ingredients.data,

@@ -9,6 +9,7 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { v4 as uuidv4 } from 'uuid';
 
 function OrderItem({ order }) {
+  //  BM Компонент конкретного заказа
   const navigate = useNavigate();
   const location = useLocation();
   const { data } = useSelector((state) => ({

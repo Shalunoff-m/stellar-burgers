@@ -95,9 +95,6 @@ export const userLogin = (data, successCb, errorCb) => (dispatch) => {
 
 // USER_LOGOUT ///////////////////////////////
 export const userLogout = () => (dispatch) => {
-  // TODO Добавить обертку здесь
-  // logoutApi()
-
   fetchWithRefresh({ responce: logoutApi, data: null })
     .then((res) => {
       // console.log(res);

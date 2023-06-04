@@ -67,7 +67,7 @@ p {
   /* background-color: #1c1c21; */
   /* border-radius: 30px; */
   /* padding: 24px; */
-  height: 600px;
+  max-height: 600px;
   /* width: 640px; */
 }
 

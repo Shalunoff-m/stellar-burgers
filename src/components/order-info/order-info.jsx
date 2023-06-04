@@ -8,8 +8,10 @@ import {
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { OrderDetailElements } from '../order-detail-element/order-detail-element';
+import { calculateTotalCoast, timeEncode } from '../../utils/utils';
 
 function OrderInfo() {
+  // BM Модалка с деталями заказа
   const { id } = useParams();
   const { data, orders } = useSelector((state) => ({
     data: state.ingredients.data,
@@ -71,7 +73,8 @@ function OrderInfo() {
               </ul>
               <div className={styles.descriptionTotal}>
                 <p className='text text_type_main-default text_color_inactive'>
-                  Вчера, 13:50 i-GMT+3
+                  {/* Вчера, 13:50 i-GMT+3 */}
+                  {timeEncode(order.createdAt)}
                 </p>
                 <div className={styles.totalSum}>
                   <p
@@ -81,7 +84,7 @@ function OrderInfo() {
                       'text_type_digits-default'
                     )}
                   >
-                    510
+                    {calculateTotalCoast(data, order.ingredients)}
                   </p>
                   <CurrencyIcon type='primary' />
                 </div>

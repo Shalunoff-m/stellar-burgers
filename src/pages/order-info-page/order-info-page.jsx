@@ -5,6 +5,7 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { useSelector } from 'react-redux';
 
 function OrderInfoPage() {
+  // BM страница с деталями заказа
   const { data } = useSelector((state) => state.ingredients);
   return (
     <>
