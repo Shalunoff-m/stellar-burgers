@@ -1,0 +1,45 @@
+  
+ 
+  .orderItem {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    background-color: #1c1c21;
+    border-radius: 30px;
+    padding: 24px;
+    cursor: pointer;
+    border: 1px solid #4c4cff00;
+    transition: border 0.5s ease-in-out;
+  }
+  
+  .orderItem:hover {
+    border: 1px solid #4c4cff;
+  }
+  
+  .itemTopString {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .orderIngredients {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    transform-style: preserve-3d;
+  }
+  
+  .ingredientsTotal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .sumTotal {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .sum {
+    padding-right: 10px;
+  }
+  

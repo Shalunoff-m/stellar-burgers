@@ -1,0 +1,14 @@
+body {
+  background-color: #131316;
+  color: white;
+}
+
+.layout {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+
