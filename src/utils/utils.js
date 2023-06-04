@@ -143,3 +143,21 @@ export const calculateIngredients = (objectOfIngredients) => {
   // Возвращаем значение
   return clearArrayofData;
 };
+
+export const onlyDone = (orders) => {
+  let searchedOrders = null;
+  if (orders !== null && orders.length !== 0) {
+    searchedOrders = orders.filter((order) => order.status === 'done');
+    // console.log(searchedOrders);
+  }
+  return searchedOrders;
+};
+
+export const onlyUndone = (orders) => {
+  let searchedOrders = null;
+  if (orders !== null && orders.length !== 0) {
+    searchedOrders = orders.filter((order) => order.status !== 'done');
+    // console.log(searchedOrders);
+  }
+  return searchedOrders;
+};

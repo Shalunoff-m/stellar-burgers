@@ -12,6 +12,7 @@ export const sendDataApi = (data, successCb) => (dispatch) => {
   dispatch(sendOrder());
   apiSendOrder(data)
     .then((res) => {
+      console.log(res);
       dispatch(sendOrderSuccess(res));
       successCb();
     })

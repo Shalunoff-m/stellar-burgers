@@ -1,5 +1,5 @@
 .box {
-  width: 1280px;
+  width: 1254px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -113,4 +113,13 @@ p {
 
 .sum {
   padding-right: 10px;
+}
+
+.ordersRibbon {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(10, 10%);
+  height: 300px;
+  grid-auto-flow: column;
+  overflow: hidden;
 }

@@ -31,32 +31,34 @@ function OrderItem({ order }) {
 
   return (
     <>
-      <li className={styles.orderItem} onClick={clickHandler}>
-        <div className={styles.itemTopString}>
-          <p className='text text_type_digits-default'>#{order.number}</p>
-          <p className='text text_type_main-default text_color_inactive'>
-            {timeEncode(order.createdAt)}
-          </p>
-        </div>
-        <p className='text text_type_main-medium'>{order.name}</p>
-        <div className={styles.ingredientsTotal}>
-          <ul className={styles.orderIngredients}>
-            <ImageList images={order.ingredients} />
-          </ul>
-          <div className={styles.sumTotal}>
-            <p
-              className={classNames(
-                styles.sum,
-                'text',
-                'text_type_digits-default'
-              )}
-            >
-              {calculateTotalCoast(data, order.ingredients)}
+      {order && (
+        <li className={styles.orderItem} onClick={clickHandler}>
+          <div className={styles.itemTopString}>
+            <p className='text text_type_digits-default'>#{order.number}</p>
+            <p className='text text_type_main-default text_color_inactive'>
+              {timeEncode(order.createdAt)}
             </p>
-            <CurrencyIcon type='primary' />
           </div>
-        </div>
-      </li>
+          <p className='text text_type_main-medium'>{order.name}</p>
+          <div className={styles.ingredientsTotal}>
+            <ul className={styles.orderIngredients}>
+              <ImageList images={order.ingredients} />
+            </ul>
+            <div className={styles.sumTotal}>
+              <p
+                className={classNames(
+                  styles.sum,
+                  'text',
+                  'text_type_digits-default'
+                )}
+              >
+                {calculateTotalCoast(data, order.ingredients)}
+              </p>
+              <CurrencyIcon type='primary' />
+            </div>
+          </div>
+        </li>
+      )}
     </>
   );
 }
