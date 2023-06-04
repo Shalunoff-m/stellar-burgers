@@ -17,16 +17,22 @@ import {
   WS_CONNECTION_CLOSED,
   WS_CONNECTION_START,
   allOrdersWebSocket,
+  userOrdersWebSocket,
 } from '../../store/actions/ws-actions';
 
 function OrderInfoPage() {
   // BM страница с деталями заказа
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { data, orders } = useSelector((state) => ({
+  const { data, type } = useSelector((state) => ({
     data: state.ingredients.data,
-    orders: state.webSocket.orders,
+    type: state.user.isAuthentificated,
   }));
+  const { orders } = useSelector((state) => ({
+    orders:
+      type === true ? state.webSocket.userOrders : state.webSocket.allOrders,
+  }));
+
   const navigate = useNavigate();
   const [order, setOrder] = useState(null);
 
@@ -36,25 +42,32 @@ function OrderInfoPage() {
 
   useEffect(() => {
     if (data)
-      dispatch({
-        type: WS_CONNECTION_START,
-        payload: allOrdersWebSocket,
-      });
+      type === true
+        ? dispatch({
+            type: WS_CONNECTION_START,
+            payload: userOrdersWebSocket,
+          })
+        : dispatch({
+            type: WS_CONNECTION_START,
+            payload: allOrdersWebSocket,
+          });
 
     return () => {
       dispatch({ type: WS_CONNECTION_CLOSED });
     };
-  }, [data]);
+  }, [data, dispatch]);
 
   useEffect(() => {
-    // console.log(orders);
-    setOrder(
-      orders.find((order) => {
-        return order._id === id;
-      })
-    );
+    console.log(type);
+    if (orders) {
+      setOrder(
+        orders.find((order) => {
+          return order._id === id;
+        })
+      );
+    }
     // console.log(order);
-  }, [id, orders]);
+  }, [id, orders, type]);
 
   return (
     // <p>Код компонента</p>

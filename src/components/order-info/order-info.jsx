@@ -17,9 +17,14 @@ import {
 function OrderInfo() {
   // BM Модалка с деталями заказа
   const { id } = useParams();
-  const { data, orders } = useSelector((state) => ({
+  const { data, type } = useSelector((state) => ({
     data: state.ingredients.data,
-    orders: state.webSocket.orders,
+    type: state.webSocket.type,
+  }));
+
+  const { orders } = useSelector((state) => ({
+    orders:
+      type === 'user' ? state.webSocket.userOrders : state.webSocket.allOrders,
   }));
   const navigate = useNavigate();
   const [order, setOrder] = useState(null);

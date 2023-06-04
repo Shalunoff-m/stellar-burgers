@@ -10,7 +10,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 export default function IngredientItemConstructor(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const dataCounter = useSelector((store) => store.constructor);
+  const dataCounter = useSelector((store) => store.constructorOrder);
   const { data: element } = props;
   const location = useLocation();
 

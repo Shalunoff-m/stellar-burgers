@@ -1,33 +1,27 @@
+import { presetDefault } from '../../utils/preset';
 import {
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
   SET_BUN,
   SORT_INGREDIENT,
 } from '../actions/constructor';
-import { v4 as uuidv4 } from 'uuid';
 
 const inintialState = {
-  bun: null,
-  ingredients: null,
+  bun: presetDefault,
+  ingredients: [],
   loading: false,
   error: '',
   order: null,
 };
 
-export const constructorReducer = (state = inintialState, action) => {
+export const constructorOrderReducer = (state = inintialState, action) => {
   switch (action.type) {
     case ADD_INGREDIENT:
-      const allIngredients = state.ingredients ? state.ingredients : [];
-
-      allIngredients.push({
-        _listId: uuidv4(),
-        ...action.payload,
-      });
-      // return state;
       return {
         ...state,
-        ingredients: allIngredients,
+        ingredients: [...state.ingredients, action.payload],
       };
+
     case REMOVE_INGREDIENT:
       return {
         ...state,

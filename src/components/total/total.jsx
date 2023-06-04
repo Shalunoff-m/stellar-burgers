@@ -12,7 +12,7 @@ export default function Total({ dataForCalc }) {
   const navigate = useNavigate();
   const { bun, ingredients } = dataForCalc;
   const dispatch = useDispatch();
-  const data = useSelector((store) => store.constructor);
+  const data = useSelector((store) => store.constructorOrder);
   const { loading } = useSelector((store) => store.order);
   const location = useLocation();
 

@@ -11,14 +11,16 @@ import { presetDefault } from '../../utils/preset';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeOrderModal, resetOrder } from '../../store/actions/order-detail';
 import { useDrop } from 'react-dnd';
-import { ADD_INGREDIENT, SET_BUN } from '../../store/actions/constructor';
+import {
+  ADD_INGREDIENT,
+  SET_BUN,
+  addIngredient,
+} from '../../store/actions/constructor';
 
 export default function BurgerIngredients() {
   // Временная часть, для навигации
 
-  const { ingredients, bun = presetDefault } = useSelector(
-    (store) => store.constructor
-  );
+  const { ingredients, bun } = useSelector((store) => store.constructorOrder);
   const { visible } = useSelector((store) => store.order);
   const dispatch = useDispatch();
 
@@ -27,7 +29,7 @@ export default function BurgerIngredients() {
     accept: 'baseIngredient',
     drop(item) {
       item.type !== 'bun'
-        ? dispatch({ type: ADD_INGREDIENT, payload: item })
+        ? dispatch(addIngredient(item))
         : dispatch({ type: SET_BUN, payload: item });
     },
     collect: (monitor) => ({

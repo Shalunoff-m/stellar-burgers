@@ -10,6 +10,7 @@ import {
   WS_CONNECTION_SUCCESS,
   WS_GET_MESSAGE_ALL,
   WS_GET_MESSAGE_USER,
+  allOrdersWebSocket,
 } from '../actions/ws-actions';
 
 // Константы endpoint соединений
@@ -62,6 +63,10 @@ export const socketMiddleware = () => {
 
           if (message === 'Invalid or missing token') {
             refreshTokens();
+            dispatch({
+              type: WS_CONNECTION_START,
+              payload: allOrdersWebSocket,
+            });
           } else {
             // console.log(type);
             switch (type) {
