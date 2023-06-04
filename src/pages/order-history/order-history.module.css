@@ -61,7 +61,7 @@ p {
   padding: 0 0 24px;
   overflow-y: scroll;
   height: calc(100vh - 400px);
-  min-width: 850px;
+  /* max-width: 840px; */
 }
 
 .orderBox::-webkit-scrollbar {

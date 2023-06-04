@@ -26,9 +26,6 @@ export const socketMiddleware = () => {
           case 'userOrders':
             url = userOrders;
             break;
-          default:
-            url = allOrders;
-            break;
         }
         socket = new WebSocket(url);
       }
