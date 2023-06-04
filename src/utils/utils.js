@@ -110,3 +110,36 @@ export const calculateTotalCoast = (data, ingredients) => {
 
   return returnTotal;
 };
+
+export const calculateIngredients = (objectOfIngredients) => {
+  // Блок подсчитывает кол-во одинаковых элементов и записывает значение в count
+  let newArray = objectOfIngredients.map((ingredient) => {
+    let refreshElement = { ...ingredient };
+    let count = 0;
+
+    objectOfIngredients.forEach((checkElement) => {
+      if (ingredient._id === checkElement._id) {
+        count++;
+      }
+    });
+
+    refreshElement = { ...refreshElement, count: count };
+    return refreshElement;
+  });
+
+  // Блок находид только уникальные индексы заказа
+  const clearSetArray = new Set();
+  newArray.forEach((item) => {
+    clearSetArray.add(item._id);
+  });
+
+  // Блок оставляет только массив уникальных объектов
+  let clearArrayofData = [];
+  for (let id of clearSetArray) {
+    const findenElement = newArray.find((element) => element._id === id);
+    clearArrayofData.push(findenElement);
+  }
+
+  // Возвращаем значение
+  return clearArrayofData;
+};
