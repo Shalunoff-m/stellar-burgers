@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { OrderItem } from '../../components/order-item/order-item';
 import { v4 as uuidv4 } from 'uuid';
 import { OrderItemHistory } from '../../components/order-item-history/order-item-history';
+import { userOrdersWebSocket } from '../../store/actions/ws-actions';
 
 function OrderHistory() {
   // BM Профиль - история заказов
@@ -25,7 +26,11 @@ function OrderHistory() {
   const location = useLocation();
 
   useEffect(() => {
-    if (data) dispatch({ type: 'WS_CONNECTION_START', payload: 'userOrders' });
+    if (data)
+      dispatch({
+        type: 'WS_CONNECTION_START',
+        payload: userOrdersWebSocket,
+      });
     return () => {
       dispatch({ type: 'WS_CONNECTION_CLOSED' });
     };

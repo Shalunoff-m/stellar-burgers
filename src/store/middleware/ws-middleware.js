@@ -1,6 +1,10 @@
 import { Middleware, MiddlewareAPI } from 'redux';
 import { getCookies } from '../../utils/localSaver';
 import { refreshTokens } from '../../utils/api';
+import {
+  WS_CONNECTED_TYPE_ALL,
+  WS_CONNECTED_TYPE_USER,
+} from '../actions/ws-actions';
 
 // Константы endpoint соединений
 export const allOrders = 'wss://norma.nomoreparties.space/orders/all';
@@ -12,24 +16,25 @@ export const socketMiddleware = () => {
   // BM Middleware WS
   return (store) => {
     let socket = null;
-
     return (next) => (action) => {
       const { dispatch, getState } = store;
-      const { type, payload } = action;
+      const { type, payload: options } = action;
 
       if (type === 'WS_CONNECTION_START') {
-        let url = '';
-
-        // Выставляем endpoint соединения в зависимости от payload
-        switch (payload) {
-          case 'allOrders':
-            url = allOrders;
+        // const { webSocket } = getState();
+        switch (options.destination) {
+          case 'user':
+            dispatch({ type: WS_CONNECTED_TYPE_USER });
+            // console.log('user');
             break;
-          case 'userOrders':
-            url = userOrders;
+
+          case 'all':
+            dispatch({ type: WS_CONNECTED_TYPE_ALL });
+            // console.log('all');
             break;
         }
-        socket = new WebSocket(url);
+
+        socket = new WebSocket(options.endpoint);
       }
 
       if (socket) {
@@ -42,13 +47,24 @@ export const socketMiddleware = () => {
         };
 
         socket.onmessage = (event) => {
+          const {
+            webSocket: { type },
+          } = getState();
           const { data } = event;
-          const { message } = JSON.parse(data);
+          const { message, ...saveData } = JSON.parse(data);
+          // console.log(payload.destination);
 
           if (message === 'Invalid or missing token') {
             refreshTokens();
           } else {
-            dispatch({ type: 'WS_GET_MESSAGE', payload: data });
+            // console.log(type);
+            switch (type) {
+              case 'all':
+                dispatch({ type: 'WS_GET_MESSAGE_ALL', payload: saveData });
+                return;
+              case 'user':
+                dispatch({ type: 'WS_GET_MESSAGE_USER', payload: saveData });
+            }
           }
         };
 

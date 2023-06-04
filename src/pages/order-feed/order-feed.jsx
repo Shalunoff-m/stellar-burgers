@@ -17,6 +17,7 @@ import { ImageList } from '../../components/image-list/image-list';
 import { OrderItem } from '../../components/order-item/order-item';
 import { v4 as uuidv4 } from 'uuid';
 import { Loader } from '../../components/loader/loader';
+import { allOrdersWebSocket } from '../../store/actions/ws-actions';
 
 function OrderFeed() {
   const { loading: loader } = useSelector((store) => store.ingredients);
@@ -35,11 +36,15 @@ function OrderFeed() {
   const [undoneOrders, setUndoneOrders] = useState(null);
 
   useEffect(() => {
-    if (data) dispatch({ type: 'WS_CONNECTION_START', payload: 'allOrders' });
+    if (data)
+      dispatch({
+        type: 'WS_CONNECTION_START',
+        payload: allOrdersWebSocket,
+      });
     return () => {
       dispatch({ type: 'WS_CONNECTION_CLOSED' });
     };
-  }, [data]);
+  }, [data, dispatch]);
 
   useEffect(() => {
     if (orders) {
