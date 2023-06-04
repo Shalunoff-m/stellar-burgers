@@ -91,7 +91,10 @@ function App() {
           </Route>
 
           {/* Страница с деталями о заказе */}
-          <Route path={ORDERS_DETAIL} element={<OrderInfoPage />} />
+          <Route
+            path={ORDERS_DETAIL}
+            element={<ProtectedRouteElement element={<OrderInfoPage />} />}
+          />
 
           {/* ------------------------------------- */}
           {/* Прочие маршруты */}

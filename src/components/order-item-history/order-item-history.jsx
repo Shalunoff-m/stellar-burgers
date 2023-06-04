@@ -26,7 +26,7 @@ function OrderItemHistory({ order }) {
     // navigate('/feed/detail', {
     //   state: { background: location },
     // });
-    navigate(`/feed/${order._id}`, {
+    navigate(`/orders/${order._id}`, {
       state: { background: location },
     });
   };
