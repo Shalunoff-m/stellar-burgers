@@ -1,15 +1,48 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './order-info-page.module.css';
 import classNames from 'classnames';
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector } from 'react-redux';
+import {
+  CloseIcon,
+  CurrencyIcon,
+} from '@ya.praktikum/react-developer-burger-ui-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { calculateTotalCoast, timeEncode } from '../../utils/utils';
+import { OrderDetailElements } from '../../components/order-detail-element/order-detail-element';
 
 function OrderInfoPage() {
   // BM страница с деталями заказа
-  const { data } = useSelector((state) => state.ingredients);
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const { data, orders } = useSelector((state) => ({
+    data: state.ingredients.data,
+    orders: state.webSocket.orders,
+  }));
+  const navigate = useNavigate();
+  const [order, setOrder] = useState(null);
+
+  const closeHandler = (e) => {
+    navigate(-1);
+  };
+
+  useEffect(() => {
+    if (data) dispatch({ type: 'WS_CONNECTION_START', payload: 'allOrders' });
+  }, [data]);
+
+  useEffect(() => {
+    // console.log(orders);
+    setOrder(
+      orders.find((order) => {
+        return order._id === id;
+      })
+    );
+    // console.log(order);
+  }, [id, orders]);
+
   return (
+    // <p>Код компонента</p>
     <>
-      {data && (
+      {data && order && (
         <div className={classNames(styles.box)}>
           <div className={styles.orderItem}>
             <p
@@ -20,11 +53,9 @@ function OrderInfoPage() {
                 styles.orderNumber
               )}
             >
-              #034535
+              #{order.number}
             </p>
-            <p className='text text_type_main-medium pb-3'>
-              Death Star Starship Main бургер
-            </p>
+            <p className='text text_type_main-medium pb-3'>{order.name}</p>
             <p
               className={classNames(
                 'text',
@@ -33,158 +64,17 @@ function OrderInfoPage() {
                 'pb-15'
               )}
             >
-              Выполнен
+              {/* TODO Дописать функцию подстановки статуса */}
+              {order.status}
             </p>
             <p className='text text_type_main-medium pb-6'>Состав:</p>
             <ul className={classNames(styles.ingredientsList, 'pr-6')}>
-              <li className={styles.ingredienDetail}>
-                <div className={styles.imgContainer}>
-                  <img
-                    className={styles.imgIngredient}
-                    src={data[0].image}
-                    alt=''
-                  />
-                </div>
-                <p className='text text_type_main-default'>
-                  Флюоресцентная булка R2-D3
-                </p>
-                <div className={styles.countAndPrice}>
-                  <p
-                    className={classNames(
-                      styles.sum,
-                      'text',
-                      'text_type_digits-default'
-                    )}
-                  >
-                    2 <span className='text_type_main-small'>х</span> 480
-                  </p>
-                  <CurrencyIcon type='primary' />
-                </div>
-              </li>
-              <li className={styles.ingredienDetail}>
-                <div className={styles.imgContainer}>
-                  <img
-                    className={styles.imgIngredient}
-                    src={data[0].image}
-                    alt=''
-                  />
-                </div>
-                <p className='text text_type_main-default'>
-                  Флюоресцентная булка R2-D3
-                </p>
-                <div className={styles.countAndPrice}>
-                  <p
-                    className={classNames(
-                      styles.sum,
-                      'text',
-                      'text_type_digits-default'
-                    )}
-                  >
-                    2 <span className='text_type_main-small'>х</span> 480
-                  </p>
-                  <CurrencyIcon type='primary' />
-                </div>
-              </li>
-              <li className={styles.ingredienDetail}>
-                <div className={styles.imgContainer}>
-                  <img
-                    className={styles.imgIngredient}
-                    src={data[0].image}
-                    alt=''
-                  />
-                </div>
-                <p className='text text_type_main-default'>
-                  Флюоресцентная булка R2-D3
-                </p>
-                <div className={styles.countAndPrice}>
-                  <p
-                    className={classNames(
-                      styles.sum,
-                      'text',
-                      'text_type_digits-default'
-                    )}
-                  >
-                    2 <span className='text_type_main-small'>х</span> 480
-                  </p>
-                  <CurrencyIcon type='primary' />
-                </div>
-              </li>
-              <li className={styles.ingredienDetail}>
-                <div className={styles.imgContainer}>
-                  <img
-                    className={styles.imgIngredient}
-                    src={data[0].image}
-                    alt=''
-                  />
-                </div>
-                <p className='text text_type_main-default'>
-                  Флюоресцентная булка R2-D3
-                </p>
-                <div className={styles.countAndPrice}>
-                  <p
-                    className={classNames(
-                      styles.sum,
-                      'text',
-                      'text_type_digits-default'
-                    )}
-                  >
-                    2 <span className='text_type_main-small'>х</span> 480
-                  </p>
-                  <CurrencyIcon type='primary' />
-                </div>
-              </li>
-              <li className={styles.ingredienDetail}>
-                <div className={styles.imgContainer}>
-                  <img
-                    className={styles.imgIngredient}
-                    src={data[0].image}
-                    alt=''
-                  />
-                </div>
-                <p className='text text_type_main-default'>
-                  Флюоресцентная булка R2-D3
-                </p>
-                <div className={styles.countAndPrice}>
-                  <p
-                    className={classNames(
-                      styles.sum,
-                      'text',
-                      'text_type_digits-default'
-                    )}
-                  >
-                    2 <span className='text_type_main-small'>х</span> 480
-                  </p>
-                  <CurrencyIcon type='primary' />
-                </div>
-              </li>
-              <li className={styles.ingredienDetail}>
-                <div className={styles.imgContainer}>
-                  <img
-                    className={styles.imgIngredient}
-                    src={data[0].image}
-                    alt=''
-                  />
-                </div>
-                <p className='text text_type_main-default'>
-                  Флюоресцентная булка R2-D3
-                </p>
-                <div className={styles.countAndPrice}>
-                  <p
-                    className={classNames(
-                      styles.sum,
-                      'text',
-                      'text_type_digits-default'
-                    )}
-                  >
-                    2 <span className='text_type_main-small'>х</span> 480
-                  </p>
-                  <CurrencyIcon type='primary' />
-                </div>
-              </li>
+              <OrderDetailElements order={order} data={data} />
             </ul>
             <div className={styles.descriptionTotal}>
               <p className='text text_type_main-default text_color_inactive'>
-                Вчера, 13:50 i-GMT+3
+                {/* Вчера, 13:50 i-GMT+3 */}
+                {timeEncode(order.createdAt)}
               </p>
               <div className={styles.totalSum}>
                 <p
@@ -194,7 +84,7 @@ function OrderInfoPage() {
                     'text_type_digits-default'
                   )}
                 >
-                  510
+                  {calculateTotalCoast(data, order.ingredients)}
                 </p>
                 <CurrencyIcon type='primary' />
               </div>
