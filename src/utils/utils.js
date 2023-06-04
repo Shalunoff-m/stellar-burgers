@@ -161,3 +161,16 @@ export const onlyUndone = (orders) => {
   }
   return searchedOrders;
 };
+
+export const convertStatus = (statusName) => {
+  switch (statusName) {
+    case 'created':
+      return 'Создан';
+    case 'pending':
+      return 'Готовится';
+    case 'done':
+      return 'Готов';
+    default:
+      return statusName;
+  }
+};

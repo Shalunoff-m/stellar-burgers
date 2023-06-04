@@ -7,7 +7,11 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { calculateTotalCoast, timeEncode } from '../../utils/utils';
+import {
+  calculateTotalCoast,
+  convertStatus,
+  timeEncode,
+} from '../../utils/utils';
 import { OrderDetailElements } from '../../components/order-detail-element/order-detail-element';
 
 function OrderInfoPage() {
@@ -27,6 +31,10 @@ function OrderInfoPage() {
 
   useEffect(() => {
     if (data) dispatch({ type: 'WS_CONNECTION_START', payload: 'allOrders' });
+
+    return () => {
+      dispatch({ type: 'WS_CONNECTION_CLOSED' });
+    };
   }, [data]);
 
   useEffect(() => {
@@ -65,7 +73,7 @@ function OrderInfoPage() {
               )}
             >
               {/* TODO Дописать функцию подстановки статуса */}
-              {order.status}
+              {convertStatus(order.status)}
             </p>
             <p className='text text_type_main-medium pb-6'>Состав:</p>
             <ul className={classNames(styles.ingredientsList, 'pr-6')}>

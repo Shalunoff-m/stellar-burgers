@@ -8,7 +8,11 @@ import {
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { OrderDetailElements } from '../order-detail-element/order-detail-element';
-import { calculateTotalCoast, timeEncode } from '../../utils/utils';
+import {
+  calculateTotalCoast,
+  convertStatus,
+  timeEncode,
+} from '../../utils/utils';
 
 function OrderInfo() {
   // BM Модалка с деталями заказа
@@ -65,7 +69,7 @@ function OrderInfo() {
                 )}
               >
                 {/* TODO Дописать функцию подстановки статуса */}
-                {order.status}
+                {convertStatus(order.status)}
               </p>
               <p className='text text_type_main-medium pb-6'>Состав:</p>
               <ul className={classNames(styles.ingredientsList, 'pr-6')}>
