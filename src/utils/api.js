@@ -12,16 +12,14 @@ export async function apiGetData() {
 }
 
 export async function apiSendOrder(data) {
-  const res = await fetch(
-    API_ENDPOINT + `orders?token=${getCookies('accesstoken')}`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ ingredients: data }),
-    }
-  );
+  const res = await fetch(API_ENDPOINT + `orders`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: 'Bearer ' + getCookies('accesstoken'),
+    },
+    body: JSON.stringify({ ingredients: data }),
+  });
 
   return checkResult(res);
 }

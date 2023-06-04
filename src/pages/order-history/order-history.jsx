@@ -12,14 +12,18 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 function OrderHistory() {
+  // BM Профиль - история заказов
   const { data } = useSelector((state) => state.ingredients);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
 
   useEffect(() => {
-    dispatch({ type: 'WS_CONNECTION_START' });
-  }, []);
+    if (data) dispatch({ type: 'WS_CONNECTION_START', payload: 'userOrders' });
+    return () => {
+      dispatch({ type: 'WS_CONNECTION_CLOSED' });
+    };
+  }, [data]);
 
   const toDetailHandler = () => {
     // navigate('/orders/detail');

@@ -79,9 +79,7 @@ function OrderFeed() {
                 <OrderItem key={uuidv4()} order={orders[3]} /> */}
               </ul>
             </section>
-            <section
-              className={classNames(styles.orderSection, 'pt-25', 'show')}
-            >
+            <section className={classNames(styles.orderSection, 'pt-25')}>
               {/* BM Секция с отчетами по заказам */}
               <div className={styles.statusTable}>
                 <div>
