@@ -30,7 +30,7 @@ function Profile() {
 
   return (
     <div className={classNames(styles.box)}>
-      <div className={classNames(styles.section, 'pr-15')}>
+      <div className={classNames(styles.section, 'pr-15', 'pt-30')}>
         <nav className={classNames(styles.nav, 'pb-20')}>
           <ProfileLink to='/profile' end>
             Профиль

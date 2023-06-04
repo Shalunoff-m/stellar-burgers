@@ -9,6 +9,7 @@ import {
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useForm } from '../../hooks/use-form';
+import classNames from 'classnames';
 
 function ProfileEdit() {
   const dispatch = useDispatch();
@@ -67,7 +68,11 @@ function ProfileEdit() {
   };
 
   return (
-    <form className={styles.form} name='userData' onSubmit={onSubmit}>
+    <form
+      className={classNames(styles.form, 'pt-30')}
+      name='userData'
+      onSubmit={onSubmit}
+    >
       <Input
         // className='m-6'
         type={'text'}
