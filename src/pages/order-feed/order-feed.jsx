@@ -16,8 +16,11 @@ import {
 import { ImageList } from '../../components/image-list/image-list';
 import { OrderItem } from '../../components/order-item/order-item';
 import { v4 as uuidv4 } from 'uuid';
+import { Loader } from '../../components/loader/loader';
 
 function OrderFeed() {
+  const { loading: loader } = useSelector((store) => store.ingredients);
+
   // BM страница с лентой заказов WS
   const dispatch = useDispatch();
   const { data, orders, total, totalToday } = useSelector((state) => ({
@@ -54,7 +57,7 @@ function OrderFeed() {
 
   return (
     <>
-      {data && orders && doneOrders && (
+      {data && orders && doneOrders ? (
         <main className={classNames(styles.box)}>
           <div className={styles.orderLayout}>
             <section>
@@ -186,6 +189,8 @@ function OrderFeed() {
             </section>
           </div>
         </main>
+      ) : (
+        <Loader />
       )}
     </>
   );
