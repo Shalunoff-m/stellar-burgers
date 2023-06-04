@@ -1,5 +1,6 @@
 import { Middleware, MiddlewareAPI } from 'redux';
 import { getCookies } from '../../utils/localSaver';
+import { refreshTokens } from '../../utils/api';
 
 // Константы endpoint соединений
 export const allOrders = 'wss://norma.nomoreparties.space/orders/all';
@@ -8,6 +9,7 @@ export const userOrders = `wss://norma.nomoreparties.space/orders?token=${getCoo
 )}`;
 
 export const socketMiddleware = () => {
+  // BM Middleware WS
   return (store) => {
     let socket = null;
 
@@ -41,8 +43,15 @@ export const socketMiddleware = () => {
 
         socket.onmessage = (event) => {
           const { data } = event;
-          dispatch({ type: 'WS_GET_MESSAGE', payload: data });
+          const { message } = JSON.parse(data);
+
+          if (message === 'Invalid or missing token') {
+            refreshTokens();
+          } else {
+            dispatch({ type: 'WS_GET_MESSAGE', payload: data });
+          }
         };
+
         socket.onclose = (event) => {
           dispatch({ type: 'WS_CONNECTION_CLOSED', payload: event });
         };
