@@ -13,6 +13,11 @@ import {
   timeEncode,
 } from '../../utils/utils';
 import { OrderDetailElements } from '../../components/order-detail-element/order-detail-element';
+import {
+  WS_CONNECTION_CLOSED,
+  WS_CONNECTION_START,
+  allOrdersWebSocket,
+} from '../../store/actions/ws-actions';
 
 function OrderInfoPage() {
   // BM страница с деталями заказа
@@ -30,10 +35,14 @@ function OrderInfoPage() {
   };
 
   useEffect(() => {
-    if (data) dispatch({ type: 'WS_CONNECTION_START', payload: 'allOrders' });
+    if (data)
+      dispatch({
+        type: WS_CONNECTION_START,
+        payload: allOrdersWebSocket,
+      });
 
     return () => {
-      dispatch({ type: 'WS_CONNECTION_CLOSED' });
+      dispatch({ type: WS_CONNECTION_CLOSED });
     };
   }, [data]);
 

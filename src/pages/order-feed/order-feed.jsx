@@ -17,7 +17,11 @@ import { ImageList } from '../../components/image-list/image-list';
 import { OrderItem } from '../../components/order-item/order-item';
 import { v4 as uuidv4 } from 'uuid';
 import { Loader } from '../../components/loader/loader';
-import { allOrdersWebSocket } from '../../store/actions/ws-actions';
+import {
+  WS_CONNECTION_CLOSED,
+  WS_CONNECTION_START,
+  allOrdersWebSocket,
+} from '../../store/actions/ws-actions';
 
 function OrderFeed() {
   const { loading: loader } = useSelector((store) => store.ingredients);
@@ -26,7 +30,7 @@ function OrderFeed() {
   const dispatch = useDispatch();
   const { data, orders, total, totalToday } = useSelector((state) => ({
     data: state.ingredients.data,
-    orders: state.webSocket.orders,
+    orders: state.webSocket.allOrders,
     total: state.webSocket.total,
     totalToday: state.webSocket.totalToday,
   }));
@@ -38,11 +42,11 @@ function OrderFeed() {
   useEffect(() => {
     if (data)
       dispatch({
-        type: 'WS_CONNECTION_START',
+        type: WS_CONNECTION_START,
         payload: allOrdersWebSocket,
       });
     return () => {
-      dispatch({ type: 'WS_CONNECTION_CLOSED' });
+      dispatch({ type: WS_CONNECTION_CLOSED });
     };
   }, [data, dispatch]);
 

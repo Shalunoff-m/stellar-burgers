@@ -13,13 +13,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { OrderItem } from '../../components/order-item/order-item';
 import { v4 as uuidv4 } from 'uuid';
 import { OrderItemHistory } from '../../components/order-item-history/order-item-history';
-import { userOrdersWebSocket } from '../../store/actions/ws-actions';
+import {
+  WS_CONNECTION_CLOSED,
+  WS_CONNECTION_START,
+  userOrdersWebSocket,
+} from '../../store/actions/ws-actions';
 
 function OrderHistory() {
   // BM Профиль - история заказов
   const { data, orders } = useSelector((state) => ({
     data: state.ingredients.data,
-    orders: state.webSocket.orders,
+    orders: state.webSocket.userOrders,
   }));
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -28,11 +32,11 @@ function OrderHistory() {
   useEffect(() => {
     if (data)
       dispatch({
-        type: 'WS_CONNECTION_START',
+        type: WS_CONNECTION_START,
         payload: userOrdersWebSocket,
       });
     return () => {
-      dispatch({ type: 'WS_CONNECTION_CLOSED' });
+      dispatch({ type: WS_CONNECTION_CLOSED });
     };
   }, [data]);
 
