@@ -40,12 +40,13 @@ p {
 .section {
   display: flex;
   flex-direction: column;
+
   /* align-items: flex-start; */
 }
 .section:last-child {
   /* display: flex; */
   /* flex-direction: column; */
-  align-items: center;
+  /* align-items: center; */
 }
 
 .section:first-child {
@@ -59,6 +60,6 @@ p {
 .form {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   /* margin-top: 40px; */
 }

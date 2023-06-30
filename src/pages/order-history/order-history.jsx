@@ -18,6 +18,7 @@ import {
   WS_CONNECTION_START,
   userOrdersWebSocket,
 } from '../../store/actions/ws-actions';
+import { getCookies } from '../../utils/localSaver';
 
 function OrderHistory() {
   // BM Профиль - история заказов
