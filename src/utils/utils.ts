@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux';
+import { IIngredient, IProductTypes, TSortedData } from '../store/types';
 
-export function sortData(data, dataTypes) {
-  const sortedBuffer = {};
-  console.log(sortedBuffer);
+export function sortData(data: Array<IIngredient>, dataTypes: IProductTypes): TSortedData {
+  const sortedBuffer: TSortedData = {};
   for (let product in dataTypes) {
     const filterList = data.filter((element) => {
       return element.type === product;
@@ -12,26 +12,26 @@ export function sortData(data, dataTypes) {
   return sortedBuffer;
 }
 
-export const clearToken = (accToken) => {
+export const clearToken = (accToken: string) => {
   let authToken = accToken.split('Bearer ')[1];
   return authToken;
 };
 
-export const updatedOrders = (newOrders, initOrders) => {
-  // let updatedData = [];
+// export const updatedOrders = (newOrders, initOrders) => {
+//   // let updatedData = [];
 
-  // Проверка на наличие входящих данных
-  if (newOrders !== undefined || newOrders.length !== 0) {
-    // Проверяем существует ли вообще массив заказов у пользователя
-    if (initOrders === undefined || initOrders.length === 0) {
-      // Если нет, возвращаем весь новый массив
-      return newOrders;
-      // Иначе, возвращаем то, что уже успело сохраниться в стейт
-    } else {
-      return newOrders;
-    }
-  }
-};
+//   // Проверка на наличие входящих данных
+//   if (newOrders !== undefined || newOrders.length !== 0) {
+//     // Проверяем существует ли вообще массив заказов у пользователя
+//     if (initOrders === undefined || initOrders.length === 0) {
+//       // Если нет, возвращаем весь новый массив
+//       return newOrders;
+//       // Иначе, возвращаем то, что уже успело сохраниться в стейт
+//     } else {
+//       return newOrders;
+//     }
+//   }
+// };
 
 export const getElement = ({ data, id }) => {
   // console.log(id);
