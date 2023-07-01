@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 
 export function sortData(data, dataTypes) {
   const sortedBuffer = {};
+  console.log(sortedBuffer);
   for (let product in dataTypes) {
     const filterList = data.filter((element) => {
       return element.type === product;
@@ -27,28 +28,6 @@ export const updatedOrders = (newOrders, initOrders) => {
       return newOrders;
       // Иначе, возвращаем то, что уже успело сохраниться в стейт
     } else {
-      // console.log('Старые заказы есть, но есть и новые данные');
-      // Сначала ищем все новые заказы и добавляем их
-      // updatedData = newOrders.reduce((acc, newOrder) => {
-      // console.log(newOrder);
-      // Проверка на существование заказа в нашей базе заказов
-
-      // initOrders.forEach((oldOrder) => {
-      //   if (oldOrder._id !== newOrder._id)
-
-      // });
-      // if (
-      //   !initOrders.some((oldOrder) => {
-      //     return oldOrder._id === newOrder._id;
-      //   })
-      // )
-
-      // acc.push(newOrder);
-      // acc.push(newOrder);
-      // return acc;
-      // }, []);
-
-      // console.log(updatedData.length === 0 ? 'Новых заказов нет' : updatedData);
       return newOrders;
     }
   }

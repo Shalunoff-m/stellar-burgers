@@ -1,6 +1,12 @@
 import PropTypes from "prop-types";
 
-const productTypes = {
+interface IProductTypes {
+  bun: string,
+  sauce: string,
+  main: string,
+}
+
+const productTypes: IProductTypes = {
   bun: "Булки",
   sauce: "Соусы",
   main: "Начинки",
