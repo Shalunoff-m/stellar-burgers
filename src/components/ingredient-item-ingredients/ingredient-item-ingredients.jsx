@@ -25,6 +25,8 @@ export default function IngredientItemIngredients(props) {
     }),
   });
 
+
+  // BM Сортировка ингредиентов
   const [{ isHover }, dropRef] = useDrop({
     accept: 'sortComponent',
     drop(dragged) {

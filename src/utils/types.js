@@ -1,15 +1,9 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
-interface IProductTypes {
-  bun: string,
-  sauce: string,
-  main: string,
-}
-
-const productTypes: IProductTypes = {
-  bun: "Булки",
-  sauce: "Соусы",
-  main: "Начинки",
+const productTypes = {
+  bun: 'Булки',
+  sauce: 'Соусы',
+  main: 'Начинки',
 };
 
 const ingredientType = PropTypes.shape({

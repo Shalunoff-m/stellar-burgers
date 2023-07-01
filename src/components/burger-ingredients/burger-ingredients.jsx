@@ -25,6 +25,7 @@ export default function BurgerIngredients() {
   const dispatch = useDispatch();
 
   // Часть отвечающая за DND
+  //  BM добавление ингр. перетаскиванием
   const [{ isHover, isDrag }, dropTarget] = useDrop({
     accept: 'baseIngredient',
     drop(item) {

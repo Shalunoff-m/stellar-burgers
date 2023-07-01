@@ -3,7 +3,11 @@ import styles from './ingredient-item-constructor.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_INGREDIENT, SET_BUN } from '../../store/actions/constructor';
+import {
+  ADD_INGREDIENT,
+  SET_BUN,
+  addIngredient,
+} from '../../store/actions/constructor';
 import { showModalDetail } from '../../store/actions/ingredient-detail';
 import { useDrag } from 'react-dnd';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -51,7 +55,7 @@ export default function IngredientItemConstructor(props) {
   const contextHandler = (e) => {
     e.preventDefault();
     element.type !== 'bun'
-      ? dispatch({ type: ADD_INGREDIENT, payload: element })
+      ? dispatch(addIngredient(element))
       : dispatch({ type: SET_BUN, payload: element });
   };
 
