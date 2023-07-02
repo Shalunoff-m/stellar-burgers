@@ -1,7 +1,16 @@
 import { useSelector } from 'react-redux';
-import { ICalcIngredients, IIngredient, IProductTypes, TSortedData } from '../store/types';
+import {
+  ICalcIngredients,
+  IIngredient,
+  IProductTypes,
+  TSortedData,
+} from '../store/types';
+import { IOrder, TOrderStatus } from '../store/types/orders';
 
-export function sortData(data: Array<IIngredient>, dataTypes: IProductTypes): TSortedData {
+export function sortData(
+  data: Array<IIngredient>,
+  dataTypes: IProductTypes
+): TSortedData {
   const sortedBuffer: TSortedData = {};
   for (let product in dataTypes) {
     const filterList = data.filter((element) => {
@@ -33,7 +42,13 @@ export const clearToken = (accToken: string) => {
 //   }
 // };
 
-export const getElement = ({ data, id }: { data: Array<IIngredient>, id: string }) => {
+export const getElement = ({
+  data,
+  id,
+}: {
+  data: Array<IIngredient>;
+  id: string;
+}) => {
   // console.log(id);
 
   const [finden] = data.filter((element) => {
@@ -79,7 +94,10 @@ export const timeEncode = (time: string) => {
   return returnString;
 };
 
-export const calculateTotalCoast = (data: Array<IIngredient>, ingredients: Array<string>) => {
+export const calculateTotalCoast = (
+  data: Array<IIngredient>,
+  ingredients: Array<string>
+) => {
   let returnTotal: number = 0;
   if (data && ingredients) {
     returnTotal = ingredients.reduce((acc: number, id: string) => {
@@ -87,28 +105,30 @@ export const calculateTotalCoast = (data: Array<IIngredient>, ingredients: Array
       // console.log(element);
       return acc + element.price;
     }, 0);
-
-
   }
 
   return returnTotal;
 };
 
-export const calculateIngredients = (objectOfIngredients: Array<IIngredient>) => {
+export const calculateIngredients = (
+  objectOfIngredients: Array<IIngredient>
+) => {
   // Блок подсчитывает кол-во одинаковых элементов и записывает значение в count
-  let newArray: Array<IIngredient> = objectOfIngredients.map((ingredient: IIngredient) => {
-    let refreshElement: ICalcIngredients = { ...ingredient };
-    let count = 0;
+  let newArray: Array<IIngredient> = objectOfIngredients.map(
+    (ingredient: IIngredient) => {
+      let refreshElement: ICalcIngredients = { ...ingredient };
+      let count = 0;
 
-    objectOfIngredients.forEach((checkElement: IIngredient) => {
-      if (ingredient._id === checkElement._id) {
-        count++;
-      }
-    });
+      objectOfIngredients.forEach((checkElement: IIngredient) => {
+        if (ingredient._id === checkElement._id) {
+          count++;
+        }
+      });
 
-    refreshElement = { ...refreshElement, count: count };
-    return refreshElement;
-  });
+      refreshElement = { ...refreshElement, count: count };
+      return refreshElement;
+    }
+  );
 
   // Блок находит только уникальные индексы заказа
   const clearSetArray = new Set();
@@ -119,33 +139,35 @@ export const calculateIngredients = (objectOfIngredients: Array<IIngredient>) =>
   // Блок оставляет только массив уникальных объектов
   let clearArrayofData: Array<ICalcIngredients> = [];
   for (let id of clearSetArray) {
-    const findenElement = newArray.find((element: ICalcIngredients) => element._id === id);
-    findenElement && clearArrayofData.push(findenElement)
+    const findenElement = newArray.find(
+      (element: ICalcIngredients) => element._id === id
+    );
+    findenElement && clearArrayofData.push(findenElement);
   }
 
   // Возвращаем значение
   return clearArrayofData;
 };
 
-export const onlyDone = (orders: any) => {
-  let searchedOrders = null;
-  if (orders !== null && orders.length !== 0) {
-    searchedOrders = orders.filter((order: any) => order.status === 'done');
+export const onlyDone = (orders: Array<IOrder>) => {
+  let searchedOrders: Array<IOrder> = [];
+  if (orders && orders.length !== 0) {
+    searchedOrders = orders.filter((order: IOrder) => order.status === 'done');
     // console.log(searchedOrders);
   }
   return searchedOrders;
 };
 
-export const onlyUndone = (orders: any) => {
-  let searchedOrders = null;
-  if (orders !== null && orders.length !== 0) {
-    searchedOrders = orders.filter((order: any) => order.status !== 'done');
+export const onlyUndone = (orders: Array<IOrder>) => {
+  let searchedOrders: Array<IOrder> = [];
+  if (orders && orders.length !== 0) {
+    searchedOrders = orders.filter((order: IOrder) => order.status !== 'done');
     // console.log(searchedOrders);
   }
   return searchedOrders;
 };
 
-export const convertStatus = (statusName: any) => {
+export const convertStatus = (statusName: TOrderStatus) => {
   switch (statusName) {
     case 'created':
       return 'Создан';
