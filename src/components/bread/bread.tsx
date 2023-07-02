@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styles from './bread.module.css';
-import PropTypes from 'prop-types';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
+import { IIngredient } from '../../store/types';
 
-export default function Bread(props) {
+interface IBreadProps {
+  bread: IIngredient;
+  type: 'top' | 'bottom';
+}
+
+const Bread: FC<IBreadProps> = (props) => {
   const { bread, type } = props;
   const orderType = type === 'top' ? ' (Верх)' : ' (Низ)';
   return (
@@ -17,13 +22,6 @@ export default function Bread(props) {
       />
     </div>
   );
-}
-
-Bread.propTypes = {
-  bread: PropTypes.shape({
-    image: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-  }).isRequired,
-  type: PropTypes.string,
 };
+
+export default Bread;
