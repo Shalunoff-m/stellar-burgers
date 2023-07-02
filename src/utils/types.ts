@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
+import { IProductTypes } from '../store/types';
 
-const productTypes = {
+const productTypes: IProductTypes = {
   bun: 'Булки',
   sauce: 'Соусы',
   main: 'Начинки',
