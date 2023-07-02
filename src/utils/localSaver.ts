@@ -1,11 +1,12 @@
 // Функция записи в Local Storage
-export const saveToLocalStorage = (name, data) => {
+export const saveToLocalStorage = (name: string, data: string) => {
   localStorage.setItem(name, JSON.stringify(data));
 };
 
 // Функция чтения из Local Storage
-export const readFromLocalStorage = (name) => {
-  const myData = JSON.parse(localStorage.getItem(name));
+export const readFromLocalStorage = (name: string) => {
+  const getName = localStorage.getItem(name);
+  const myData = getName && JSON.parse(getName);
   return myData;
 };
 
@@ -13,7 +14,11 @@ export const readFromLocalStorage = (name) => {
 
 /* Пример
 setCookie('username', 'John Doe', { expires: 7 * 24 * 60 * 60 }); */
-export const setCookies = (name, value, props) => {
+export const setCookies = (
+  name: string,
+  value: string | number | boolean,
+  props?: any
+) => {
   props = props || {};
   let exp = props.expires;
   if (typeof exp == 'number' && exp) {
@@ -37,7 +42,7 @@ export const setCookies = (name, value, props) => {
 };
 
 // Функция чтения из Cookies
-export const getCookies = (name) => {
+export const getCookies = (name: string) => {
   const matches = document.cookie.match(
     new RegExp(
       '(?:^|; )' +
@@ -49,11 +54,11 @@ export const getCookies = (name) => {
 };
 
 // Функция удаления из Cookies
-export const deleteCookie = (name) => {
-  setCookies(name, null, { expires: -1, path: '/' });
+export const deleteCookie = (name: string) => {
+  setCookies(name, '', { expires: -1, path: '/' });
 };
 
 // Функция удаления из Local Storage
-export const deleteLocalStorage = (name) => {
+export const deleteLocalStorage = (name: string) => {
   localStorage.removeItem(name);
 };
