@@ -5,8 +5,18 @@ import {
   SET_BUN,
   SORT_INGREDIENT,
 } from '../actions/constructor';
+import { IConstructorIngredient } from '../types/constructor';
+import { IIngredient } from '../types/ingredients';
 
-const inintialState = {
+type TConstructorState = {
+  bun: IIngredient;
+  ingredients: Array<IConstructorIngredient>;
+  loading: boolean;
+  error: string;
+  order: any;
+};
+
+const inintialState: TConstructorState = {
   bun: presetDefault,
   ingredients: [],
   loading: false,
@@ -14,7 +24,7 @@ const inintialState = {
   order: null,
 };
 
-export const constructorOrderReducer = (state = inintialState, action) => {
+export const constructorOrderReducer = (state = inintialState, action: any) => {
   switch (action.type) {
     case ADD_INGREDIENT:
       return {
@@ -26,7 +36,8 @@ export const constructorOrderReducer = (state = inintialState, action) => {
       return {
         ...state,
         ingredients: state.ingredients.filter(
-          (item) => item._listId !== action.payload._listId
+          (item: IConstructorIngredient) =>
+            item._listId !== action.payload._listId
         ),
       };
 
@@ -37,17 +48,24 @@ export const constructorOrderReducer = (state = inintialState, action) => {
       };
 
     case SORT_INGREDIENT:
-      const { dragged, drop } = action.payload;
-      let indexDrag = null;
-      let indexDrop = null;
+      const {
+        dragged,
+        drop,
+      }: { dragged: IConstructorIngredient; drop: IConstructorIngredient } =
+        action.payload;
+      let indexDrag: number | null = null;
+      let indexDrop: number | null = null;
       state.ingredients.forEach((element, index) => {
         if (dragged._listId === element._listId) indexDrag = index;
         if (drop._listId === element._listId) indexDrop = index;
       });
 
-      const clearIngredientList = state.ingredients;
-      clearIngredientList.splice(indexDrag, 1);
-      clearIngredientList.splice(indexDrop, 0, dragged);
+      const clearIngredientList: Array<IConstructorIngredient> =
+        state.ingredients;
+      if (indexDrag && indexDrop) {
+        clearIngredientList.splice(indexDrag, 1);
+        clearIngredientList.splice(indexDrop, 0, dragged);
+      }
 
       return {
         ...state,
