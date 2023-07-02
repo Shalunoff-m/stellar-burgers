@@ -19,6 +19,7 @@ import {
   deleteLocalStorage,
 } from '../../utils/localSaver';
 import { clearToken } from '../../utils/utils';
+import { IUser } from '../types';
 
 export const USER_REGISTER: 'USER_REGISTER' = 'USER_REGISTER';
 export const USER_REGISTER_SUCCESS: 'USER_REGISTER_SUCCESS' =
@@ -47,9 +48,11 @@ export interface IUserLogin {
 }
 export interface IUserLoginSuccess {
   readonly type: typeof USER_LOGIN_SUCCESS;
+  readonly payload: any;
 }
 export interface IUserLoginError {
   readonly type: typeof USER_LOGIN_ERROR;
+  readonly payload: any;
 }
 export interface IUserLogout {
   readonly type: typeof USER_LOGOUT;
@@ -59,6 +62,7 @@ export interface IUserRelogin {
 }
 export interface IUserUpdate {
   readonly type: typeof USER_UPDATE;
+  readonly payload: any;
 }
 export interface IUserGet {
   readonly type: typeof USER_GET;

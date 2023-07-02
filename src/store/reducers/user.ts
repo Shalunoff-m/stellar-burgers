@@ -8,9 +8,18 @@ import {
   USER_LOGIN_ERROR,
   USER_LOGOUT,
   USER_UPDATE,
+  TUserActions,
 } from '../actions/user';
 
-const inintialState = {
+type TUserState = {
+  isAuthentificated: boolean;
+  loading: boolean;
+  error: boolean;
+  userName: string | null;
+  userEmail: string | null;
+};
+
+const inintialState: TUserState = {
   isAuthentificated: false,
   loading: false,
   error: false,
@@ -18,7 +27,7 @@ const inintialState = {
   userEmail: null,
 };
 
-export const userReducer = (state = inintialState, action) => {
+export const userReducer = (state = inintialState, action: TUserActions) => {
   switch (action.type) {
     case USER_REGISTER:
       return { ...state, loading: true };
