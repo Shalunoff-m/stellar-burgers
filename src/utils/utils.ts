@@ -58,7 +58,26 @@ export const getElement = ({
 };
 
 export const timeEncode = (time: string) => {
-  // Основная возвращаемая строка
+  const getDate = new Date(Date.parse(time));
+  const convertedTime = new Intl.DateTimeFormat('ru', {
+    weekday: 'long',
+    dayPeriod: 'long',
+    hour: 'numeric',
+    minute: 'numeric',
+  }).format(getDate);
+
+  // Блок определения сдвига часового пояса
+  const offsetMinutes = getDate.getTimezoneOffset();
+  const offsetHours = Math.abs(offsetMinutes) / 60;
+  const offsetSign = offsetMinutes < 0 ? '+' : '-';
+  const utcDay = `i-GMT${offsetSign}${offsetHours}`;
+
+  // Итоговая возвращаемая строка
+  const returnString = `${convertedTime} ${utcDay} `;
+
+  // console.log(convertedTime);
+  /* // Основная возвращаемая строка
+  
 
   let returnString = '';
 
@@ -90,6 +109,7 @@ export const timeEncode = (time: string) => {
   // Итоговая возвращаемая строка
   returnString = `${dayValue}, ${timeValue} ${utcDay} `;
 
+  return returnString; */
   return returnString;
 };
 
