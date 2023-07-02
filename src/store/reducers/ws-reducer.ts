@@ -4,14 +4,25 @@ import {
   WS_CONNECTION_SUCCESS,
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
-  WS_SEND_MESSAGE,
   WS_GET_MESSAGE_ALL,
   WS_GET_MESSAGE_USER,
   WS_CONNECTED_TYPE_ALL,
   WS_CONNECTED_TYPE_USER,
+  TWsActions,
 } from '../actions/ws-actions';
+import { IOrder } from '../types';
 
-const initialState = {
+type TWsReducerState = {
+  type: string;
+  wsConnected: boolean;
+  userOrders: Array<IOrder> | null;
+  allOrders: Array<IOrder> | null;
+  total: string;
+  totalToday: string;
+  error: any;
+};
+
+const initialState: TWsReducerState = {
   type: '',
   wsConnected: false,
   userOrders: null,
@@ -21,7 +32,7 @@ const initialState = {
   error: undefined,
 };
 
-export const wsReducer = (state = initialState, action) => {
+export const wsReducer = (state = initialState, action: TWsActions) => {
   switch (action.type) {
     case WS_CONNECTION_SUCCESS:
       return {
