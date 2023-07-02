@@ -23,3 +23,7 @@ export interface TSortedData {
     [name: string]: Array<IIngredient>
 }
 
+export interface ICalcIngredients extends IIngredient {
+    count?: number,
+}
+

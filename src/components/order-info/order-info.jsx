@@ -40,7 +40,6 @@ function OrderInfo() {
         return order._id === id;
       })
     );
-    // console.log(order);
   }, [id, orders]);
 
   return (

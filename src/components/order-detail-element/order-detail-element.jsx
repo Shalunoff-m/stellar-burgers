@@ -13,7 +13,6 @@ function OrderDetailElements({ order, data }) {
       const objectOfIngredients = order.ingredients.map((ingredient) => {
         return getElement({ data: data, id: ingredient });
       });
-
       setElement(calculateIngredients(objectOfIngredients));
     }
   }, [order, data]);

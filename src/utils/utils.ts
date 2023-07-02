@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { IIngredient, IProductTypes, TSortedData } from '../store/types';
+import { ICalcIngredients, IIngredient, IProductTypes, TSortedData } from '../store/types';
 
 export function sortData(data: Array<IIngredient>, dataTypes: IProductTypes): TSortedData {
   const sortedBuffer: TSortedData = {};
@@ -33,7 +33,7 @@ export const clearToken = (accToken: string) => {
 //   }
 // };
 
-export const getElement = ({ data, id }) => {
+export const getElement = ({ data, id }: { data: Array<IIngredient>, id: string }) => {
   // console.log(id);
 
   const [finden] = data.filter((element) => {
@@ -43,8 +43,9 @@ export const getElement = ({ data, id }) => {
   return finden;
 };
 
-export const timeEncode = (time) => {
+export const timeEncode = (time: string) => {
   // Основная возвращаемая строка
+
   let returnString = '';
 
   // Основные переменные
@@ -78,25 +79,28 @@ export const timeEncode = (time) => {
   return returnString;
 };
 
-export const calculateTotalCoast = (data, ingredients) => {
-  // const element = getElement({ data: data, id: ingredients[0] });
-  // console.log(element);
-  let returnTotal = ingredients.reduce((acc, id) => {
-    const element = getElement({ data: data, id: id });
-    // console.log(element);
-    return acc + element.price;
-  }, 0);
+export const calculateTotalCoast = (data: Array<IIngredient>, ingredients: Array<string>) => {
+  let returnTotal: number = 0;
+  if (data && ingredients) {
+    returnTotal = ingredients.reduce((acc: number, id: string) => {
+      const element = getElement({ data: data, id: id });
+      // console.log(element);
+      return acc + element.price;
+    }, 0);
+
+
+  }
 
   return returnTotal;
 };
 
-export const calculateIngredients = (objectOfIngredients) => {
+export const calculateIngredients = (objectOfIngredients: Array<IIngredient>) => {
   // Блок подсчитывает кол-во одинаковых элементов и записывает значение в count
-  let newArray = objectOfIngredients.map((ingredient) => {
-    let refreshElement = { ...ingredient };
+  let newArray: Array<IIngredient> = objectOfIngredients.map((ingredient: IIngredient) => {
+    let refreshElement: ICalcIngredients = { ...ingredient };
     let count = 0;
 
-    objectOfIngredients.forEach((checkElement) => {
+    objectOfIngredients.forEach((checkElement: IIngredient) => {
       if (ingredient._id === checkElement._id) {
         count++;
       }
@@ -106,42 +110,42 @@ export const calculateIngredients = (objectOfIngredients) => {
     return refreshElement;
   });
 
-  // Блок находид только уникальные индексы заказа
+  // Блок находит только уникальные индексы заказа
   const clearSetArray = new Set();
-  newArray.forEach((item) => {
+  newArray.forEach((item: ICalcIngredients) => {
     clearSetArray.add(item._id);
   });
 
   // Блок оставляет только массив уникальных объектов
-  let clearArrayofData = [];
+  let clearArrayofData: Array<ICalcIngredients> = [];
   for (let id of clearSetArray) {
-    const findenElement = newArray.find((element) => element._id === id);
-    clearArrayofData.push(findenElement);
+    const findenElement = newArray.find((element: ICalcIngredients) => element._id === id);
+    findenElement && clearArrayofData.push(findenElement)
   }
 
   // Возвращаем значение
   return clearArrayofData;
 };
 
-export const onlyDone = (orders) => {
+export const onlyDone = (orders: any) => {
   let searchedOrders = null;
   if (orders !== null && orders.length !== 0) {
-    searchedOrders = orders.filter((order) => order.status === 'done');
+    searchedOrders = orders.filter((order: any) => order.status === 'done');
     // console.log(searchedOrders);
   }
   return searchedOrders;
 };
 
-export const onlyUndone = (orders) => {
+export const onlyUndone = (orders: any) => {
   let searchedOrders = null;
   if (orders !== null && orders.length !== 0) {
-    searchedOrders = orders.filter((order) => order.status !== 'done');
+    searchedOrders = orders.filter((order: any) => order.status !== 'done');
     // console.log(searchedOrders);
   }
   return searchedOrders;
 };
 
-export const convertStatus = (statusName) => {
+export const convertStatus = (statusName: any) => {
   switch (statusName) {
     case 'created':
       return 'Создан';
