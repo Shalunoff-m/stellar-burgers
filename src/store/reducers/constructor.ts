@@ -64,7 +64,7 @@ export const constructorOrderReducer = (
         if (drop._listId === element._listId) indexDrop = index;
       });
 
-      const clearIngredientList: Array<IConstructorIngredient> =
+      let clearIngredientList: Array<IConstructorIngredient> | [] =
         state.ingredients;
       if (indexDrag && indexDrop) {
         clearIngredientList.splice(indexDrag, 1);

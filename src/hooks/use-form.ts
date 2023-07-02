@@ -1,15 +1,14 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 
-export const useForm = (defaultData, submitCb) => {
+export const useForm = (defaultData: any, submitCb: any) => {
   const [formData, setFormData] = useState(defaultData);
 
-  const onChange = (e) => {
+  const onChange = (e: React.BaseSyntheticEvent) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: React.BaseSyntheticEvent) => {
     e.preventDefault();
     submitCb();
   };
