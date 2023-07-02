@@ -1,5 +1,6 @@
 // Экшены для отправки заказа и сохранения результата
 import { apiSendOrder } from '../../utils/api';
+import { AppDispatch, AppThunk } from '../types';
 
 export const SEND_ORDER: 'SEND_ORDER' = 'SEND_ORDER';
 export const SEND_ORDER_SUCCESS: 'SEND_ORDER_SUCCESS' = 'SEND_ORDER_SUCCESS';
@@ -33,22 +34,21 @@ export type TOrderDetailActions =
   | ICloseOrderModal;
 
 // усилитель для отправки данных на сервер
-// TODO Доделать
-export const sendDataApi = (data: any, successCb: any) => (dispatch: any) => {
-  dispatch(sendOrder());
-  apiSendOrder(data)
-    .then((res) => {
-      console.log(res);
-      dispatch(sendOrderSuccess(res));
-      successCb();
-    })
-    .catch((err) => {
-      console.log(err);
-      dispatch(sendOrderError(err));
-    });
-};
+export const sendDataApi: AppThunk =
+  (data: any, successCb: any) => (dispatch: AppDispatch) => {
+    dispatch(sendOrder());
+    apiSendOrder(data)
+      .then((res) => {
+        console.log(res);
+        dispatch(sendOrderSuccess(res));
+        successCb();
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch(sendOrderError(err));
+      });
+  };
 
-// TODO Доделать
 // функции-конструкторы для работы с АПИ
 export const sendOrder = (): ISendOrder => ({ type: SEND_ORDER });
 export const sendOrderSuccess = (data: any): ISendOrderSuccess => ({

@@ -94,7 +94,6 @@ function OrderInfoPage() {
                 'pb-15'
               )}
             >
-              {/* TODO Дописать функцию подстановки статуса */}
               {convertStatus(order.status)}
             </p>
             <p className='text text_type_main-medium pb-6'>Состав:</p>

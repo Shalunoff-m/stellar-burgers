@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { IConstructorIngredient } from '../types/constructor';
-import { IIngredient } from '../types';
+import { AppDispatch, AppThunk, IIngredient } from '../types';
 
 // Экшены для работы со списком
 export const ADD_INGREDIENT: 'ADD_INGREDIENT' = 'ADD_INGREDIENT';
@@ -67,9 +67,9 @@ export const sortIngredient = ({
   payload: { dragged, drop },
 });
 
-// TODO Доделать
-export const addIngredient = (item: any) => (dispatch: any) => {
-  const sendData = { _listId: uuidv4(), ...item };
-  // console.log(sendData);
-  dispatch({ type: ADD_INGREDIENT, payload: sendData });
-};
+export const addIngredient: AppThunk =
+  (item: IIngredient) => (dispatch: AppDispatch) => {
+    const sendData = { _listId: uuidv4(), ...item };
+    // console.log(sendData);
+    dispatch({ type: ADD_INGREDIENT, payload: sendData });
+  };

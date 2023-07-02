@@ -85,10 +85,6 @@ function OrderFeed() {
                 {orders.map((order) => (
                   <OrderItem key={uuidv4()} order={order} />
                 ))}
-                {/* TODO Вернуть прогрузку всех заказов */}
-                {/* <OrderItem key={uuidv4()} order={orders[1]} />
-                <OrderItem key={uuidv4()} order={orders[2]} />
-                <OrderItem key={uuidv4()} order={orders[3]} /> */}
               </ul>
             </section>
             <section className={classNames(styles.orderSection, 'pt-25')}>

@@ -19,7 +19,7 @@ import {
   deleteLocalStorage,
 } from '../../utils/localSaver';
 import { clearToken } from '../../utils/utils';
-import { IUser } from '../types';
+import { AppDispatch, AppThunk, IUser } from '../types';
 
 export const USER_REGISTER: 'USER_REGISTER' = 'USER_REGISTER';
 export const USER_REGISTER_SUCCESS: 'USER_REGISTER_SUCCESS' =
@@ -79,11 +79,10 @@ export type TUserActions =
   | IUserRelogin
   | IUserUpdate
   | IUserGet;
-// USER_REGISTER ///////////////////////////////////////
 
-// TODO Доделать
-export const userRegister =
-  (data: any, successCb: any, errorCb: any) => (dispatch: any) => {
+// USER_REGISTER ///////////////////////////////////////
+export const userRegister: AppThunk =
+  (data: any, successCb: any, errorCb: any) => (dispatch: AppDispatch) => {
     dispatch(userRegisterStart());
     userRegisterApi(data)
       .then((res) => {
@@ -115,9 +114,8 @@ export const userRegisterFailed = (data: any): IUserRegisterError => ({
 
 // USER LOGIN ////////////////////////////////////////
 
-// TODO Доделать
-export const userLogin =
-  (data: any, successCb: any, errorCb: any) => (dispatch: any) => {
+export const userLogin: AppThunk =
+  (data: any, successCb: any, errorCb: any) => (dispatch: AppDispatch) => {
     dispatch({
       type: USER_LOGIN,
     });
@@ -146,8 +144,7 @@ export const userLogin =
   };
 
 // USER_LOGOUT ///////////////////////////////
-// TODO Доделать
-export const userLogout = () => (dispatch: any) => {
+export const userLogout: AppThunk = () => (dispatch: AppDispatch) => {
   fetchWithRefresh({ responce: logoutApi, data: null })
     .then((res) => {
       // console.log(res);
@@ -162,9 +159,8 @@ export const userLogout = () => (dispatch: any) => {
     });
 };
 
-// TODO Доделать
 // USER_RELOGIN ///////////////////////////////
-export const tryRelogin = () => (dispatch: any) => {
+export const tryRelogin: AppThunk = () => (dispatch: AppDispatch) => {
   // Проверка токенов
   const getLocalToken = readFromLocalStorage('refreshtoken');
   const getAccessCookie = getCookies('accesstoken');
@@ -207,9 +203,8 @@ export const tryRelogin = () => (dispatch: any) => {
 };
 
 // USER_UPDATE //////////////////////////////////////////
-// TODO Доделать
-export const userUpdate =
-  (data: any, successCb: any, failedCb: any) => (dispatch: any) => {
+export const userUpdate: AppThunk =
+  (data: any, successCb: any, failedCb: any) => (dispatch: AppDispatch) => {
     // userUpdateApi(data)
     fetchWithRefresh({ responce: userUpdateApi, data: data })
       .then((res) => {
@@ -229,10 +224,9 @@ export const userUpdate =
   };
 
 // PASSWORD_FORGOT //////////////////////////////////////////
-// TODO Доделать
-export const passwordForgot =
+export const passwordForgot: AppThunk =
   ({ email }: any, successCb: any, errorCb: any) =>
-  (dispatch: any) => {
+  (dispatch: AppDispatch) => {
     forgotPasswordApi(email)
       .then((res) => {
         // console.log(res);
@@ -245,9 +239,8 @@ export const passwordForgot =
   };
 
 // PASSWORD_RESET //////////////////////////////////////////
-// TODO Доделать
-export const passwordReset =
-  (data: any, successCb: any, errorCb: any) => (dispatch: any) => {
+export const passwordReset: AppThunk =
+  (data: any, successCb: any, errorCb: any) => (dispatch: AppDispatch) => {
     resetPasswordApi(data)
       .then((res) => {
         // console.log(res);
@@ -260,8 +253,7 @@ export const passwordReset =
   };
 
 // USER_GET //////////////////////////////////////////
-// TODO Доделать
-export const userGet = () => (dispatch: any) => {
+export const userGet: AppThunk = () => (dispatch: AppDispatch) => {
   // getUserApi()
   fetchWithRefresh({ responce: getUserApi, data: null })
     .then((res) => {

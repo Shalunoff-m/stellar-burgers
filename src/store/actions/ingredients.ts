@@ -1,5 +1,5 @@
 import { apiGetData } from '../../utils/api';
-import { IIngredient } from '../types';
+import { AppDispatch, AppThunk, IIngredient } from '../types';
 
 export const GET_DATA: 'GET_DATA' = 'GET_DATA';
 export const GET_DATA_SUCCESS: 'GET_DATA_SUCCESS' = 'GET_DATA_SUCCESS';
@@ -32,8 +32,7 @@ export type TIngredientsActions =
   | IShowOrderDetail
   | ISetPreset;
 
-// TODO Доделать
-export const loadFromApi = () => (dispatch: any) => {
+export const loadFromApi: AppThunk = () => (dispatch: AppDispatch) => {
   dispatch(getData());
   apiGetData()
     .then((res) => {
