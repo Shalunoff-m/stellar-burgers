@@ -42,6 +42,16 @@ export interface IResetOrder {
   readonly type: typeof RESET_ORDER;
 }
 
+export type TConstructorActions =
+  | IAddIngredient
+  | IRemoveIngredient
+  | ISetBun
+  | ISortIngredient
+  | ISendOrder
+  | ISendOrderSuccess
+  | ISendOrderError
+  | IResetOrder;
+
 export const sortIngredient = ({
   dragged,
   drop,

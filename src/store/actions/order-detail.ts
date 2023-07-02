@@ -25,6 +25,13 @@ export interface ICloseOrderModal {
   readonly type: typeof CLOSE_ORDER_MODAL;
 }
 
+export type TOrderDetailActions =
+  | ISendOrder
+  | ISendOrderSuccess
+  | ISendOrderError
+  | IResetOrder
+  | ICloseOrderModal;
+
 // усилитель для отправки данных на сервер
 // TODO Доделать
 export const sendDataApi = (data: any, successCb: any) => (dispatch: any) => {

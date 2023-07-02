@@ -64,6 +64,17 @@ export interface IUserGet {
   readonly type: typeof USER_GET;
 }
 
+export type TUserActions =
+  | IUserRegister
+  | IUserRegisterSuccess
+  | IUserRegisterError
+  | IUserLogin
+  | IUserLoginSuccess
+  | IUserLoginError
+  | IUserLogout
+  | IUserRelogin
+  | IUserUpdate
+  | IUserGet;
 // USER_REGISTER ///////////////////////////////////////
 
 // TODO Доделать

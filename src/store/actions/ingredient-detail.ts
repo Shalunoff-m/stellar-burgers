@@ -11,6 +11,8 @@ export interface ICloseModalDetail {
   readonly type: typeof CLOSE_MODAL_DETAIL;
 }
 
+export type TIngredientDetailActions = IShowModalDetail | ICloseModalDetail;
+
 export const showModalDetail = (data: IIngredient): IShowModalDetail => ({
   type: SHOW_MODAL_DETAIL,
   payload: data,

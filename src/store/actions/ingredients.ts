@@ -25,6 +25,13 @@ export interface ISetPreset {
   readonly type: typeof SET_PRESET;
 }
 
+export type TIngredientsActions =
+  | IGetData
+  | IGetDataSuccess
+  | IGetDataFailed
+  | IShowOrderDetail
+  | ISetPreset;
+
 // TODO Доделать
 export const loadFromApi = () => (dispatch: any) => {
   dispatch(getData());
