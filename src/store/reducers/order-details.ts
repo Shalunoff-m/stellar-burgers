@@ -4,16 +4,27 @@ import {
   SEND_ORDER_ERROR,
   RESET_ORDER,
   CLOSE_ORDER_MODAL,
+  TOrderDetailActions,
 } from '../actions/order-detail';
 
-const inintialState = {
+type TOrderDetailState = {
+  loading: boolean;
+  error: string;
+  order: Array<string> | null;
+  visible: boolean;
+};
+
+const inintialState: TOrderDetailState = {
   loading: false,
   error: '',
   order: null,
   visible: false,
 };
 
-export const orderReducer = (state = inintialState, action) => {
+export const orderReducer = (
+  state = inintialState,
+  action: TOrderDetailActions
+) => {
   switch (action.type) {
     case SEND_ORDER:
       return {

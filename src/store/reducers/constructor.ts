@@ -4,6 +4,7 @@ import {
   REMOVE_INGREDIENT,
   SET_BUN,
   SORT_INGREDIENT,
+  TConstructorActions,
 } from '../actions/constructor';
 import { IConstructorIngredient } from '../types/constructor';
 import { IIngredient } from '../types/ingredients';
@@ -13,7 +14,7 @@ type TConstructorState = {
   ingredients: Array<IConstructorIngredient>;
   loading: boolean;
   error: string;
-  order: any;
+  order: Array<string> | null;
 };
 
 const inintialState: TConstructorState = {
@@ -24,7 +25,10 @@ const inintialState: TConstructorState = {
   order: null,
 };
 
-export const constructorOrderReducer = (state = inintialState, action: any) => {
+export const constructorOrderReducer = (
+  state = inintialState,
+  action: TConstructorActions
+) => {
   switch (action.type) {
     case ADD_INGREDIENT:
       return {

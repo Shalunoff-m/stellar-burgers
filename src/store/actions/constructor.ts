@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { IConstructorIngredient } from '../types/constructor';
+import { IIngredient } from '../types';
 
 // Экшены для работы со списком
 export const ADD_INGREDIENT: 'ADD_INGREDIENT' = 'ADD_INGREDIENT';
@@ -15,12 +16,15 @@ export const RESET_ORDER: 'RESET_ORDER' = 'RESET_ORDER';
 
 export interface IAddIngredient {
   readonly type: typeof ADD_INGREDIENT;
+  readonly payload: IConstructorIngredient;
 }
 export interface IRemoveIngredient {
   readonly type: typeof REMOVE_INGREDIENT;
+  readonly payload: IConstructorIngredient;
 }
 export interface ISetBun {
   readonly type: typeof SET_BUN;
+  readonly payload: IIngredient;
 }
 export interface ISortIngredient {
   readonly type: typeof SORT_INGREDIENT;
