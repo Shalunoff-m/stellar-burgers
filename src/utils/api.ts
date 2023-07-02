@@ -11,7 +11,7 @@ export async function apiGetData() {
   return checkResult(res);
 }
 
-export async function apiSendOrder(data) {
+export async function apiSendOrder(data: Array<string>) {
   const res = await fetch(API_ENDPOINT + `orders`, {
     method: 'POST',
     headers: {
@@ -24,7 +24,11 @@ export async function apiSendOrder(data) {
   return checkResult(res);
 }
 
-export async function userRegisterApi(data) {
+export async function userRegisterApi(data: {
+  password: string;
+  userEmail: string;
+  userName: string;
+}) {
   const res = await fetch(API_ENDPOINT + 'auth/register', {
     method: 'POST',
     headers: {
@@ -55,7 +59,7 @@ export async function updateAccessTokenApi() {
   return checkResult(res);
 }
 
-export async function userLoginApi(data) {
+export async function userLoginApi(data: any) {
   const res = await fetch(API_ENDPOINT + 'auth/login', {
     method: 'POST',
     headers: {
@@ -80,8 +84,10 @@ export async function userLoginApi(data) {
   });
 } */
 
-async function checkResult(res) {
-  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
+async function checkResult(res: any) {
+  return res.ok
+    ? res.json()
+    : res.json().then((err: any) => Promise.reject(err));
 }
 
 export const checkTokens = () => {
@@ -133,7 +139,11 @@ export async function getUserApi() {
   return checkResult(res);
 }
 
-export async function userUpdateApi(data) {
+export async function userUpdateApi(data: {
+  password: string;
+  userEmail: string;
+  userName: string;
+}) {
   const res = await fetch(API_ENDPOINT + 'auth/user', {
     method: 'PATCH',
     headers: {
@@ -150,7 +160,7 @@ export async function userUpdateApi(data) {
   return checkResult(res);
 }
 
-export async function forgotPasswordApi(email) {
+export async function forgotPasswordApi(email: string) {
   const res = await fetch(API_ENDPOINT + 'password-reset', {
     method: 'POST',
     headers: {
@@ -164,7 +174,10 @@ export async function forgotPasswordApi(email) {
   return checkResult(res);
 }
 
-export async function resetPasswordApi(data) {
+export async function resetPasswordApi(data: {
+  code: string;
+  password: string;
+}) {
   const res = await fetch(API_ENDPOINT + 'password-reset/reset', {
     method: 'POST',
     headers: {
@@ -179,11 +192,11 @@ export async function resetPasswordApi(data) {
   return checkResult(res);
 }
 
-export const fetchWithRefresh = async ({ responce, data }) => {
+export const fetchWithRefresh = async ({ responce, data }: any) => {
   try {
     const res = await responce(data ? data : null);
     return Promise.resolve(res);
-  } catch (err) {
+  } catch (err: any) {
     if (err.message === 'jwt expired' || err.message === 'jwt malformed') {
       await updateAccessTokenApi().then((res) => {
         setCookies('accesstoken', clearToken(res.accessToken), {
