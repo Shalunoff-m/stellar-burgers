@@ -7,10 +7,6 @@ import classNames from 'classnames';
 import { useSelector } from '../../hooks/use-custom-redux';
 import { IIngredient } from '../../store/types';
 
-type CustomNavigateOptions = NavigateOptions & {
-  replace?: boolean;
-};
-
 export const IngredientDetails: FC = () => {
   const components = useSelector((store) => store.ingredients);
   const { id } = useParams();

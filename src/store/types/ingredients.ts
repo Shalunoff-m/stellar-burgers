@@ -1,7 +1,7 @@
 export interface IIngredient {
   _id: string;
   name: string;
-  type: string;
+  type?: string;
   proteins: number;
   fat: number;
   carbohydrates: number;

@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import React, { useRef, useContext, FC } from 'react';
+import { useRef, FC } from 'react';
 import styles from './ingredient-item-ingredients.module.css';
 import {
   DragIcon,
@@ -13,7 +12,7 @@ import { useDispatch } from '../../hooks/use-custom-redux';
 import { IConstructorIngredient } from '../../store/types';
 
 interface IIngredientItemIngredientsProps {
-  data: any;
+  data: IConstructorIngredient;
 }
 
 const IngredientItemIngredients: FC<IIngredientItemIngredientsProps> = (
@@ -50,34 +49,26 @@ const IngredientItemIngredients: FC<IIngredientItemIngredientsProps> = (
   dragRef(dropRef(ref));
 
   return (
-    <li
-      className={`${styles.listItem} pl-4 pr-4 pt-2 pb-2 ${
-        isHover && styles.isOver
-      } ${isDragging && styles.isDrag}`}
-      data-type='listItem'
-      id={data._listId}
-      ref={ref}
-    >
-      <DragIcon type='primary' />
-      <ConstructorElement
-        type={data.type}
-        isLocked={false}
-        text={data.name}
-        price={data.price}
-        thumbnail={data.image}
-        handleClose={removeHandle}
-      />
-    </li>
+    data && (
+      <li
+        className={`${styles.listItem} pl-4 pr-4 pt-2 pb-2 ${
+          isHover && styles.isOver
+        } ${isDragging && styles.isDrag}`}
+        data-type='listItem'
+        id={data._listId}
+        ref={ref}
+      >
+        <DragIcon type='primary' />
+        <ConstructorElement
+          isLocked={false}
+          text={data.name}
+          price={data.price}
+          thumbnail={data.image}
+          handleClose={removeHandle}
+        />
+      </li>
+    )
   );
 };
 
 export default IngredientItemIngredients;
-
-// IngredientItemIngredients.propTypes = {
-//   data: PropTypes.shape({
-//     image: PropTypes.string.isRequired,
-//     name: PropTypes.string,
-//     price: PropTypes.number,
-//     type: PropTypes.string,
-//   }),
-// };
