@@ -9,7 +9,7 @@ const modalRoot = document.querySelector('#modal');
 
 interface IModal {
   onClose: () => void;
-  children: any;
+  children: React.ReactNode;
 }
 
 const Modal: FC<IModal> = (props) => {
@@ -31,7 +31,7 @@ const Modal: FC<IModal> = (props) => {
   return (
     modalRoot &&
     ReactDOM.createPortal(
-      <ModalOverlay clickHandler={onClose}>
+      <ModalOverlay>
         <div
           onClick={(evt) => {
             evt.stopPropagation();
