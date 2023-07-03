@@ -2,22 +2,20 @@ import styles from './burger-ingredients.module.css';
 import Scroll from '../scroll/scroll';
 import IngredientItems from '../ingredient-items/ingredient-items';
 import IngredientItemIngredients from '../ingredient-item-ingredients/ingredient-item-ingredients';
-import React from 'react';
+import { FC } from 'react';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import Total from '../total/total';
 import Bread from '../bread/bread';
-import { presetDefault } from '../../utils/preset';
-import { useDispatch, useSelector } from 'react-redux';
-import { closeOrderModal, resetOrder } from '../../store/actions/order-detail';
+import { resetOrder } from '../../store/actions/order-detail';
 import { useDrop } from 'react-dnd';
-import {
-  ADD_INGREDIENT,
-  SET_BUN,
-  addIngredient,
-} from '../../store/actions/constructor';
+import { SET_BUN, addIngredient } from '../../store/actions/constructor';
+import { useDispatch, useSelector } from '../../hooks/use-custom-redux';
+import { IIngredient } from '../../store/types';
 
-export default function BurgerIngredients() {
+interface IBurgerIngredients {}
+
+export const BurgerIngredients: FC<IBurgerIngredients> = () => {
   // Временная часть, для навигации
 
   const { ingredients, bun } = useSelector((store) => store.constructorOrder);
@@ -28,7 +26,7 @@ export default function BurgerIngredients() {
   //  BM добавление ингр. перетаскиванием
   const [{ isHover, isDrag }, dropTarget] = useDrop({
     accept: 'baseIngredient',
-    drop(item) {
+    drop(item: IIngredient) {
       item.type !== 'bun'
         ? dispatch(addIngredient(item))
         : dispatch({ type: SET_BUN, payload: item });
@@ -76,6 +74,6 @@ export default function BurgerIngredients() {
       />
     </section>
   );
-}
+};
 
-// Данные приходят не как пропсы, а через хук useContext, соответственно проверки на пропсы здесь неуместны.
+export default BurgerIngredients;
