@@ -1,18 +1,25 @@
 import PropTypes from 'prop-types';
-import React, { useRef, useContext } from 'react';
+import React, { useRef, useContext, FC } from 'react';
 import styles from './ingredient-item-ingredients.module.css';
 import {
   DragIcon,
   ConstructorElement,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch } from 'react-redux';
 import { REMOVE_INGREDIENT } from '../../store/actions/constructor';
 import { useDrag } from 'react-dnd';
 import { useDrop } from 'react-dnd';
 import { sortIngredient } from '../../store/actions/constructor';
+import { useDispatch } from '../../hooks/use-custom-redux';
+import { IConstructorIngredient } from '../../store/types';
 
-export default function IngredientItemIngredients(props) {
-  const ref = useRef(null);
+interface IIngredientItemIngredientsProps {
+  data: any;
+}
+
+const IngredientItemIngredients: FC<IIngredientItemIngredientsProps> = (
+  props
+) => {
+  const ref = useRef<HTMLLIElement>(null);
   const { data } = props;
   const dispatch = useDispatch();
 
@@ -25,11 +32,10 @@ export default function IngredientItemIngredients(props) {
     }),
   });
 
-
   // BM Сортировка ингредиентов
   const [{ isHover }, dropRef] = useDrop({
     accept: 'sortComponent',
-    drop(dragged) {
+    drop(dragged: IConstructorIngredient) {
       dispatch(sortIngredient({ dragged, drop: data }));
     },
     collect: (monitor) => ({
@@ -37,7 +43,7 @@ export default function IngredientItemIngredients(props) {
     }),
   });
 
-  const removeHandle = (e) => {
+  const removeHandle = (): void => {
     dispatch({ type: REMOVE_INGREDIENT, payload: data });
   };
 
@@ -63,13 +69,15 @@ export default function IngredientItemIngredients(props) {
       />
     </li>
   );
-}
-
-IngredientItemIngredients.propTypes = {
-  data: PropTypes.shape({
-    image: PropTypes.string.isRequired,
-    name: PropTypes.string,
-    price: PropTypes.number,
-    type: PropTypes.string,
-  }),
 };
+
+export default IngredientItemIngredients;
+
+// IngredientItemIngredients.propTypes = {
+//   data: PropTypes.shape({
+//     image: PropTypes.string.isRequired,
+//     name: PropTypes.string,
+//     price: PropTypes.number,
+//     type: PropTypes.string,
+//   }),
+// };
