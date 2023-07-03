@@ -1,17 +1,27 @@
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import styles from './ingredient-item-constructor.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { v4 as uuidv4 } from 'uuid';
-import { useDispatch, useSelector } from 'react-redux';
 import {
-  ADD_INGREDIENT,
+  // ADD_INGREDIENT,
   SET_BUN,
   addIngredient,
 } from '../../store/actions/constructor';
-import { showModalDetail } from '../../store/actions/ingredient-detail';
+// import { showModalDetail } from '../../store/actions/ingredient-detail';
 import { useDrag } from 'react-dnd';
 import { useLocation, useNavigate } from 'react-router-dom';
-export default function IngredientItemConstructor(props) {
+import { FC } from 'react';
+import { useDispatch, useSelector } from '../../hooks/use-custom-redux';
+import { IConstructorIngredient, IIngredient } from '../../store/types';
+import { TConstructorState } from '../../store/reducers/constructor';
+
+interface IIngredientItemConstructorProps {
+  data: IIngredient;
+}
+
+const IngredientItemConstructor: FC<IIngredientItemConstructorProps> = (
+  props
+) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const dataCounter = useSelector((store) => store.constructorOrder);
@@ -25,8 +35,8 @@ export default function IngredientItemConstructor(props) {
   });
 
   //  Функция подсчета кол-ва для счетчика
-  const calculateCount = (data) => {
-    const checkItem = (id) => {
+  const calculateCount = (data: TConstructorState) => {
+    const checkItem = (id: string) => {
       if (id === element._id) return true;
       return false;
     };
@@ -34,7 +44,7 @@ export default function IngredientItemConstructor(props) {
     const { bun, ingredients } = data;
     const bunCount = bun ? (checkItem(bun._id) ? 2 : 0) : 0;
     const ingredientCounter = ingredients
-      ? ingredients.reduce((acc, item) => {
+      ? ingredients.reduce((acc: number, item: IConstructorIngredient) => {
           if (checkItem(item._id)) acc++;
           return acc;
         }, 0)
@@ -52,7 +62,7 @@ export default function IngredientItemConstructor(props) {
     });
   };
 
-  const contextHandler = (e) => {
+  const contextHandler = (e: React.SyntheticEvent) => {
     e.preventDefault();
     element.type !== 'bun'
       ? dispatch(addIngredient(element))
@@ -84,14 +94,6 @@ export default function IngredientItemConstructor(props) {
       )}
     </li>
   );
-}
-
-IngredientItemConstructor.propTypes = {
-  data: PropTypes.shape({
-    __v: PropTypes.number,
-    _id: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    name: PropTypes.string,
-    price: PropTypes.number,
-  }),
 };
+
+export default IngredientItemConstructor;

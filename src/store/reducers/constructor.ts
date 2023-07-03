@@ -9,7 +9,7 @@ import {
 import { IConstructorIngredient } from '../types/constructor';
 import { IIngredient } from '../types/ingredients';
 
-type TConstructorState = {
+export type TConstructorState = {
   bun: IIngredient;
   ingredients: Array<IConstructorIngredient>;
   loading: boolean;
