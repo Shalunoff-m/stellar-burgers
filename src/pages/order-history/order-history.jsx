@@ -21,7 +21,6 @@ import {
 import { getCookies } from '../../utils/localSaver';
 
 function OrderHistory() {
-  // BM Профиль - история заказов
   const { data, orders } = useSelector((state) => ({
     data: state.ingredients.data,
     orders: state.webSocket.userOrders,

@@ -1,10 +1,17 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+// import PropTypes from 'prop-types';
+import { FC } from 'react';
 import styles from './nav-item.module.css';
 import { NavLink } from 'react-router-dom';
 import classNames from 'classnames';
+import { TIconProps } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons/utils';
 
-export function NavItem(props) {
+interface INavItemProps {
+  to: string;
+  children: string;
+  Icon: ({ type }: TIconProps) => JSX.Element;
+}
+
+export const NavItem: FC<INavItemProps> = (props) => {
   const { Icon, to, children } = props;
 
   return (
@@ -35,10 +42,10 @@ export function NavItem(props) {
       )}
     </NavLink>
   );
-}
-
-NavItem.propTypes = {
-  Icon: PropTypes.func.isRequired,
-  children: PropTypes.node,
-  // type: PropTypes.string.isRequired,
 };
+
+// NavItem.propTypes = {
+//   Icon: PropTypes.func.isRequired,
+//   children: PropTypes.node,
+// type: PropTypes.string.isRequired,
+// };

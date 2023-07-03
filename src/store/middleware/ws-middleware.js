@@ -20,7 +20,6 @@ export const userOrders = `wss://norma.nomoreparties.space/orders?token=${getCoo
 )}`;
 
 export const socketMiddleware = () => {
-  // BM Middleware WS
   return (store) => {
     let socket = null;
     return (next) => (action) => {

@@ -15,7 +15,6 @@ import {
 } from '../../utils/utils';
 
 function OrderInfo() {
-  // BM Модалка с деталями заказа
   const { id } = useParams();
   const { data, type } = useSelector((state) => ({
     data: state.ingredients.data,

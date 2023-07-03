@@ -26,7 +26,6 @@ import {
 function OrderFeed() {
   const { loading: loader } = useSelector((store) => store.ingredients);
 
-  // BM страница с лентой заказов WS
   const dispatch = useDispatch();
   const { data, orders, total, totalToday } = useSelector((state) => ({
     data: state.ingredients.data,
@@ -88,7 +87,6 @@ function OrderFeed() {
               </ul>
             </section>
             <section className={classNames(styles.orderSection, 'pt-25')}>
-              {/* BM Секция с отчетами по заказам */}
               <div className={styles.statusTable}>
                 <div>
                   <h3 className='text text_type_main-medium pb-6'>Готовы:</h3>

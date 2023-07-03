@@ -12,7 +12,6 @@ import classNames from 'classnames';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function OrderItemHistory({ order }) {
-  //  BM Компонент профиль - конкретного заказа
   const navigate = useNavigate();
 
   const location = useLocation();

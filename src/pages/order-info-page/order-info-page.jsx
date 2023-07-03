@@ -21,7 +21,6 @@ import {
 } from '../../store/actions/ws-actions';
 
 function OrderInfoPage() {
-  // BM страница с деталями заказа
   const dispatch = useDispatch();
   const { id } = useParams();
   const { data, type } = useSelector((state) => ({

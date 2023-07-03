@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react';
+import { useMemo, useRef, FC } from 'react';
 import styles from './burger-constructor.module.css';
 import Heading from '../heading/heading';
 import Tabs from '../tabs/tabs';
@@ -12,9 +12,9 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import { sortData } from '../../utils/utils';
 import { v4 as uuidv4 } from 'uuid';
 import { closeIngredModal } from '../../store/actions/ingredient-detail';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../hooks/use-custom-redux';
 
-export default function BurgerConstructor() {
+export const BurgerConstructor: FC = () => {
   const { data } = useSelector((store) => store.ingredients);
   const bunHeader = useRef(null);
   const sauceHeader = useRef(null);
@@ -82,4 +82,6 @@ export default function BurgerConstructor() {
       </Scroll>
     </section>
   );
-}
+};
+
+export default BurgerConstructor;

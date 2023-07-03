@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styles from './header.module.css';
 import { Navigation } from '../navigation/navigation';
 import { NavItem } from '../nav-item/nav-item';
@@ -10,7 +10,9 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import classNames from 'classnames';
 
-export function Header() {
+interface IHeaderProps {}
+
+export const Header: FC<IHeaderProps> = () => {
   return (
     <header className={classNames(styles.header)}>
       <div className={styles.wrapper}>
@@ -31,4 +33,4 @@ export function Header() {
       </div>
     </header>
   );
-}
+};
