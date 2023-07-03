@@ -11,6 +11,7 @@ import {
   WS_GET_MESSAGE_ALL,
   WS_GET_MESSAGE_USER,
   allOrdersWebSocket,
+  userOrdersWebSocket,
 } from '../actions/ws-actions';
 
 // Константы endpoint соединений
@@ -58,16 +59,10 @@ export const socketMiddleware = () => {
           } = getState();
           const { data } = event;
           const { message, ...saveData } = JSON.parse(data);
-          // console.log(payload.destination);
 
           if (message === 'Invalid or missing token') {
             refreshTokens();
-            dispatch({
-              type: WS_CONNECTION_START,
-              payload: allOrdersWebSocket,
-            });
           } else {
-            // console.log(type);
             switch (type) {
               case 'all':
                 dispatch({ type: WS_GET_MESSAGE_ALL, payload: saveData });
