@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styles from './order-info-page.module.css';
 import classNames from 'classnames';
-import {
-  CloseIcon,
-  CurrencyIcon,
-} from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useParams } from 'react-router-dom';
 import {
   calculateTotalCoast,
   convertStatus,
@@ -19,8 +15,10 @@ import {
   allOrdersWebSocket,
   userOrdersWebSocket,
 } from '../../store/actions/ws-actions';
+import { useDispatch, useSelector } from '../../hooks/use-custom-redux';
+import { IOrder } from '../../store/types';
 
-function OrderInfoPage() {
+const OrderInfoPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const { data, type } = useSelector((state) => ({
@@ -32,12 +30,7 @@ function OrderInfoPage() {
       type === true ? state.webSocket.userOrders : state.webSocket.allOrders,
   }));
 
-  const navigate = useNavigate();
-  const [order, setOrder] = useState(null);
-
-  const closeHandler = (e) => {
-    navigate(-1);
-  };
+  const [order, setOrder] = useState<IOrder>();
 
   useEffect(() => {
     if (data)
@@ -65,11 +58,9 @@ function OrderInfoPage() {
         })
       );
     }
-    // console.log(order);
   }, [id, orders, type]);
 
   return (
-    // <p>Код компонента</p>
     <>
       {data && order && (
         <div className={classNames(styles.box)}>
@@ -122,6 +113,6 @@ function OrderInfoPage() {
       )}
     </>
   );
-}
+};
 
 export { OrderInfoPage };
