@@ -186,7 +186,7 @@ export const onlyUndone = (orders: Array<IOrder>) => {
   return searchedOrders;
 };
 
-export const convertStatus = (statusName: TOrderStatus) => {
+export const convertStatus = (statusName: string) => {
   switch (statusName) {
     case 'created':
       return 'Создан';

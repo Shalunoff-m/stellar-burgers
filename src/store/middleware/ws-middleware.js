@@ -50,6 +50,9 @@ export const socketMiddleware = () => {
         };
 
         socket.onerror = (event) => {
+          const { data } = event;
+          const { message, ...saveData } = JSON.parse(data);
+
           dispatch({ type: WS_CONNECTION_ERROR, payload: event });
         };
 

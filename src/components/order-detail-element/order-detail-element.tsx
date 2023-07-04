@@ -1,26 +1,38 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, FC } from 'react';
 import styles from './order-detail-element.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import classNames from 'classnames';
 import { calculateIngredients, getElement } from '../../utils/utils';
 import { v4 as uuidv4 } from 'uuid';
+import { ICalcIngredients, IIngredient, IOrder } from '../../store/types';
 
-function OrderDetailElements({ order, data }) {
-  const [elements, setElement] = useState(null);
+interface IOrderDetailElementsProps {
+  order: IOrder;
+  data: Array<IIngredient>;
+}
+
+const OrderDetailElements: FC<IOrderDetailElementsProps> = ({
+  order,
+  data,
+}) => {
+  const [elements, setElement] = useState<any>();
 
   useEffect(() => {
     if (data && order) {
-      const objectOfIngredients = order.ingredients.map((ingredient) => {
-        return getElement({ data: data, id: ingredient });
-      });
-      setElement(calculateIngredients(objectOfIngredients));
+      const objectOfIngredients = order.ingredients.map(
+        (ingredient: string) => {
+          return getElement({ data: data, id: ingredient });
+        }
+      );
+      if (objectOfIngredients)
+        setElement(calculateIngredients(objectOfIngredients));
     }
   }, [order, data]);
 
   return (
     // <p>some text</p>
     elements &&
-    elements.map((element) => (
+    elements.map((element: ICalcIngredients) => (
       <li key={uuidv4()} className={styles.ingredienDetail}>
         <div className={styles.imgContainer}>
           <img className={styles.imgIngredient} src={element.image} alt='' />
@@ -44,6 +56,6 @@ function OrderDetailElements({ order, data }) {
     ))
   );
   // <p>Text</p>
-}
+};
 
 export { OrderDetailElements };

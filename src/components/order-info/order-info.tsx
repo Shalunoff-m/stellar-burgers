@@ -5,7 +5,7 @@ import {
   CloseIcon,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { OrderDetailElements } from '../order-detail-element/order-detail-element';
 import {
@@ -13,8 +13,10 @@ import {
   convertStatus,
   timeEncode,
 } from '../../utils/utils';
+import { useSelector } from '../../hooks/use-custom-redux';
+import { IOrder } from '../../store/types';
 
-function OrderInfo() {
+const OrderInfo = () => {
   const { id } = useParams();
   const { data, type } = useSelector((state) => ({
     data: state.ingredients.data,
@@ -26,19 +28,19 @@ function OrderInfo() {
       type === 'user' ? state.webSocket.userOrders : state.webSocket.allOrders,
   }));
   const navigate = useNavigate();
-  const [order, setOrder] = useState(null);
+  const [order, setOrder] = useState<IOrder>();
 
-  const closeHandler = (e) => {
+  const closeHandler = (e: React.SyntheticEvent) => {
     navigate(-1);
   };
 
   useEffect(() => {
-    // console.log(orders);
-    setOrder(
-      orders.find((order) => {
-        return order._id === id;
-      })
-    );
+    orders &&
+      setOrder(
+        orders.find((order: IOrder) => {
+          return order._id === id;
+        })
+      );
   }, [id, orders]);
 
   return (
@@ -104,6 +106,6 @@ function OrderInfo() {
       )}
     </>
   );
-}
+};
 
 export { OrderInfo };
