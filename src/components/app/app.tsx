@@ -20,7 +20,6 @@ import { OrderFeed } from '../../pages/order-feed/order-feed';
 import { OrderHistory } from '../../pages/order-history/order-history';
 import { OrderInfo } from '../order-info/order-info';
 import { NotFound } from '../../pages/not-found/not-found';
-import { useDispatch, useSelector } from 'react-redux';
 import { ProtectedRouteElement } from '../protected-route-element/protected-route-element';
 import { ProfileEdit } from '../../pages/profile-edit/profile-edit';
 import ModalOverlay from '../modal-overlay/modal-overlay';
@@ -44,6 +43,7 @@ import {
   FEED_DETAIL,
 } from '../../pages/path';
 import { OrderInfoPage } from '../../pages/order-info-page/order-info-page';
+import { useDispatch, useSelector } from '../../hooks/use-custom-redux';
 
 function App() {
   const dispatch = useDispatch();
