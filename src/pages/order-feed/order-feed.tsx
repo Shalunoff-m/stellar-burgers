@@ -3,11 +3,10 @@ import styles from './order-feed.module.css';
 import classNames from 'classnames';
 // import { api } from '../../utils/data';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 import { loadFromApi } from '../../store/actions/ingredients';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
-  allDataIsReady,
   calculateTotalCoast,
   onlyDone,
   onlyUndone,
@@ -22,6 +21,8 @@ import {
   WS_CONNECTION_START,
   allOrdersWebSocket,
 } from '../../store/actions/ws-actions';
+import { useDispatch, useSelector } from '../../hooks/use-custom-redux';
+import { IOrder } from '../../store/types';
 
 function OrderFeed() {
   const { loading: loader } = useSelector((store) => store.ingredients);
@@ -35,8 +36,8 @@ function OrderFeed() {
   }));
   const navigate = useNavigate();
   const location = useLocation();
-  const [doneOrders, setDoneOrders] = useState(null);
-  const [undoneOrders, setUndoneOrders] = useState(null);
+  const [doneOrders, setDoneOrders] = useState<Array<IOrder>>();
+  const [undoneOrders, setUndoneOrders] = useState<Array<IOrder>>();
 
   useEffect(() => {
     if (data)
@@ -128,36 +129,37 @@ function OrderFeed() {
                 <div>
                   <h3 className='text text_type_main-medium pb-6'>В работе:</h3>
                   <div className={styles.ordersRibbon}>
-                    {undoneOrders.map((doneOrder, index) => {
-                      if (index < 19) {
-                        return (
-                          <p
-                            key={uuidv4()}
-                            className={classNames(
-                              'text',
-                              'text_type_digits-default',
-                              'pb-2'
-                            )}
-                          >
-                            {doneOrder.number}
-                          </p>
-                        );
-                      } else if (index === 20) {
-                        return (
-                          <p
-                            key={uuidv4()}
-                            className={classNames(
-                              'text',
-                              'text_type_digits-default',
-                              'pb-2',
-                              styles.orderNumber
-                            )}
-                          >
-                            ...
-                          </p>
-                        );
-                      }
-                    })}
+                    {undoneOrders &&
+                      undoneOrders.map((doneOrder, index) => {
+                        if (index < 19) {
+                          return (
+                            <p
+                              key={uuidv4()}
+                              className={classNames(
+                                'text',
+                                'text_type_digits-default',
+                                'pb-2'
+                              )}
+                            >
+                              {doneOrder.number}
+                            </p>
+                          );
+                        } else if (index === 20) {
+                          return (
+                            <p
+                              key={uuidv4()}
+                              className={classNames(
+                                'text',
+                                'text_type_digits-default',
+                                'pb-2',
+                                styles.orderNumber
+                              )}
+                            >
+                              ...
+                            </p>
+                          );
+                        }
+                      })}
                   </div>
                 </div>
               </div>

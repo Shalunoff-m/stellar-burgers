@@ -8,8 +8,8 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { tryRelogin, userLogin } from '../../store/actions/user';
-import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '../../hooks/use-form';
+import { useDispatch, useSelector } from '../../hooks/use-custom-redux';
 
 function Login() {
   const { isAuthentificated } = useSelector((store) => store.user);
