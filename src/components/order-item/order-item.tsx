@@ -1,19 +1,23 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styles from './order-item.module.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { calculateTotalCoast, timeEncode } from '../../utils/utils';
-import { useSelector } from 'react-redux';
 import { ImageList } from '../image-list/image-list';
 import classNames from 'classnames';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { v4 as uuidv4 } from 'uuid';
+import { useSelector } from '../../hooks/use-custom-redux';
+import { IOrder } from '../../store/types';
 
-function OrderItem({ order }) {
+interface IOrderItem {
+  order: IOrder;
+}
+
+const OrderItem: FC<IOrderItem> = ({ order }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { data } = useSelector((state) => ({
     data: state.ingredients.data,
-    orders: state.webSocket.orders,
   }));
   // let order = {};
 
@@ -51,7 +55,7 @@ function OrderItem({ order }) {
                   'text_type_digits-default'
                 )}
               >
-                {calculateTotalCoast(data, order.ingredients)}
+                {data && calculateTotalCoast(data, order.ingredients)}
               </p>
               <CurrencyIcon type='primary' />
             </div>
@@ -60,6 +64,6 @@ function OrderItem({ order }) {
       )}
     </>
   );
-}
+};
 
 export { OrderItem };

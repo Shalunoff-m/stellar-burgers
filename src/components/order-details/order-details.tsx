@@ -1,11 +1,11 @@
 import styles from './order-details.module.css';
 import React from 'react';
 import DoneIcon from '../../images/done.png';
-import { useSelector } from 'react-redux';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { useSelector } from '../../hooks/use-custom-redux';
 
-export default function OrderDetails(props) {
+export const OrderDetails = () => {
   const { order } = useSelector((store) => store.order);
   const navigate = useNavigate();
 
@@ -43,7 +43,6 @@ export default function OrderDetails(props) {
       </div>
     </>
   );
-}
+};
 
-// У компонента нет пропсов, он от них независим,
-// данные приходят из контекста
+export default OrderDetails;
