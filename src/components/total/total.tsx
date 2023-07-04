@@ -1,14 +1,24 @@
-import PropTypes from 'prop-types';
 import './total.module.css';
 import style from './total.module.css';
 import currencyIcon from '../../images/currency 36x36.svg';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { sendDataApi } from '../../store/actions/order-detail';
-import { ingredientType } from '../../utils/types';
-import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { FC } from 'react';
+import { useSelector, useDispatch } from '../../hooks/use-custom-redux';
+import { IConstructorIngredient, IIngredient } from '../../store/types';
+import { TConstructorState } from '../../store/reducers/constructor';
 
-export default function Total({ dataForCalc }) {
+interface ITotalProps {
+  dataForCalc: IDataForCalc;
+}
+
+interface IDataForCalc {
+  bun: IIngredient;
+  ingredients: Array<IConstructorIngredient>;
+}
+
+const Total: FC<ITotalProps> = ({ dataForCalc }) => {
   const navigate = useNavigate();
   const { bun, ingredients } = dataForCalc;
   const dispatch = useDispatch();
@@ -17,10 +27,13 @@ export default function Total({ dataForCalc }) {
   const location = useLocation();
 
   // Подсчет общей стоимости на основании булки и компонентов
-  function calculateTotal({ bun, ingredients }) {
-    let totalCoast = ingredients.reduce((acc, item) => {
-      return acc + item.price;
-    }, 0);
+  function calculateTotal({ bun, ingredients }: IDataForCalc) {
+    let totalCoast = ingredients.reduce(
+      (acc: number, item: IConstructorIngredient) => {
+        return acc + item.price;
+      },
+      0
+    );
     return totalCoast + bun.price * 2;
   }
 
@@ -32,19 +45,16 @@ export default function Total({ dataForCalc }) {
   let canOrder = bun.price !== 0 && ingredients.length > 0 ? true : false;
 
   // Формирование списка для отправки по АПИ
-  const packSendData = (data) => {
-    const list = data.ingredients.reduce(
-      (acc, item) => {
-        acc.push(item._id);
-        return acc;
-      },
-      [data.bun ? data.bun._id : []]
-    );
+  const packSendData = (data: TConstructorState) => {
+    const list = data.ingredients.map((item: IConstructorIngredient) => {
+      return item._id;
+    });
+    list.splice(0, 0, data.bun._id);
     return list;
   };
 
   // Отправка данных на сервер
-  const sendOrder = (e) => {
+  const sendOrder = (e: React.SyntheticEvent) => {
     dispatch(
       sendDataApi(packSendData(data), () => {
         navigate('/order', {
@@ -74,11 +84,6 @@ export default function Total({ dataForCalc }) {
       )}
     </div>
   );
-}
-
-Total.propTypes = {
-  dataForCalc: PropTypes.shape({
-    bun: PropTypes.object.isRequired,
-    ingredients: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
-  }),
 };
+
+export default Total;

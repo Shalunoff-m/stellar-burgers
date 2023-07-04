@@ -68,8 +68,8 @@ export const BurgerIngredients: FC<IBurgerIngredients> = () => {
       </div>
       <Total
         dataForCalc={{
-          bun: bun ? bun : {},
-          ingredients: ingredients ? ingredients : [],
+          bun: bun,
+          ingredients: ingredients,
         }}
       />
     </section>
