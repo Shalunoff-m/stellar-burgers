@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styles from './order-item-history.module.css';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
+
 import {
   calculateTotalCoast,
   convertStatus,
@@ -10,14 +11,19 @@ import {
 import { ImageList } from '../image-list/image-list';
 import classNames from 'classnames';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useSelector } from '../../hooks/use-custom-redux';
+import { IOrder } from '../../store/types';
 
-function OrderItemHistory({ order }) {
+interface IOrderItemHistoryProps {
+  order: IOrder;
+}
+
+const OrderItemHistory: FC<IOrderItemHistoryProps> = ({ order }) => {
   const navigate = useNavigate();
 
   const location = useLocation();
   const { data } = useSelector((state) => ({
     data: state.ingredients.data,
-    orders: state.webSocket.orders,
   }));
   // let order = {};
 
@@ -64,7 +70,7 @@ function OrderItemHistory({ order }) {
                   'text_type_digits-default'
                 )}
               >
-                {calculateTotalCoast(data, order.ingredients)}
+                {data && calculateTotalCoast(data, order.ingredients)}
               </p>
               <CurrencyIcon type='primary' />
             </div>
@@ -73,6 +79,6 @@ function OrderItemHistory({ order }) {
       )}
     </>
   );
-}
+};
 
 export { OrderItemHistory };
