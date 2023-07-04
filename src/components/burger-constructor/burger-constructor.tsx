@@ -16,10 +16,10 @@ import { useDispatch, useSelector } from '../../hooks/use-custom-redux';
 
 export const BurgerConstructor: FC = () => {
   const { data } = useSelector((store) => store.ingredients);
-  const bunHeader = useRef(null);
-  const sauceHeader = useRef(null);
-  const mainHeader = useRef(null);
-  const scrollContainer = useRef(null);
+  const bunHeader = useRef<HTMLHeadingElement>(null);
+  const sauceHeader = useRef<HTMLHeadingElement>(null);
+  const mainHeader = useRef<HTMLHeadingElement>(null);
+  const scrollContainer = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
   const { ingredientDetail } = useSelector((store) => store);
   const { visible } = ingredientDetail;
