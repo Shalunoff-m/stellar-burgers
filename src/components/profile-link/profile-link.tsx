@@ -1,21 +1,18 @@
 import React, { FC, ReactNode } from 'react';
 import styles from './profile-link.module.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink, NavLinkProps } from 'react-router-dom';
 import classNames from 'classnames';
 
 interface IProfileLinkProps {
-  children: ReactNode;
+  children: string;
   to: string;
-  props: any;
+  onClick?: (e: React.SyntheticEvent) => void;
+  end?: boolean;
+  props?: any;
 }
 
-type classNameProps = {
-  isActive: boolean;
-  isPending: boolean;
-};
-
 const ProfileLink: FC<IProfileLinkProps> = ({ children, to, ...props }) => {
-  const activeClass = ({ isActive }: classNameProps) => {
+  const activeClass = ({ isActive }: { isActive: boolean }) => {
     if (isActive) {
       return classNames(
         'text',

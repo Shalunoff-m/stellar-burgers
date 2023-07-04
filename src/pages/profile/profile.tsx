@@ -1,28 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import styles from './profile.module.css';
 import classNames from 'classnames';
-import {
-  Input,
-  Button,
-  PasswordInput,
-} from '@ya.praktikum/react-developer-burger-ui-components';
-import {
-  NavLink,
-  Navigate,
-  Outlet,
-  useLocation,
-  useNavigate,
-} from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { userLogout, userUpdate } from '../../store/actions/user';
-import { ProfileLink } from '../../components/profile-link/profile-link';
 
-function Profile() {
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { userLogout } from '../../store/actions/user';
+import { ProfileLink } from '../../components/profile-link/profile-link';
+import { useDispatch } from '../../hooks/use-custom-redux';
+
+const Profile = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const location = useLocation();
 
-  const exitHandler = (e) => {
+  const exitHandler = (e: React.SyntheticEvent) => {
     e.preventDefault();
     dispatch(userLogout());
     <Navigate to='/login' replace state={{ from: location.pathname }} />;
@@ -57,6 +46,6 @@ function Profile() {
       </div>
     </div>
   );
-}
+};
 
 export { Profile };
