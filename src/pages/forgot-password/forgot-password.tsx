@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import styles from './forgot-password.module.css';
 import classNames from 'classnames';
 import {
@@ -6,11 +6,11 @@ import {
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import { passwordForgot, passwordReset } from '../../store/actions/user';
 import { useForm } from '../../hooks/use-form';
+import { useDispatch, useSelector } from '../../hooks/use-custom-redux';
 
-function ForgotPassword() {
+const ForgotPassword: FC = () => {
   // const [email, setEmail] = React.useState('');
   const { isAuthentificated } = useSelector((store) => store.user);
   const [buttonText, setButtonText] = useState('Восстановить');
@@ -111,6 +111,6 @@ function ForgotPassword() {
       </p>
     </div>
   );
-}
+};
 
 export { ForgotPassword };
