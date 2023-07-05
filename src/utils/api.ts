@@ -59,7 +59,10 @@ export async function updateAccessTokenApi() {
   return checkResult(res);
 }
 
-export async function userLoginApi(data: any) {
+export async function userLoginApi(data: {
+  userEmail: string;
+  password: string;
+}) {
   const res = await fetch(API_ENDPOINT + 'auth/login', {
     method: 'POST',
     headers: {

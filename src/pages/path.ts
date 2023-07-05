@@ -1,0 +1,14 @@
+export const INDEX: '/' = '/';
+export const INGREDIENTS_ID: 'ingredients/:id' = 'ingredients/:id';
+export const LOGIN: 'login' = 'login';
+export const REGISTER: 'register' = 'register';
+export const RESET: 'reset' = 'reset';
+export const FORGOT_PASSWORD: 'forgot-password' = 'forgot-password';
+export const RESET_PASSWORD: 'reset-password' = 'reset-password';
+export const PROFILE: 'profile' = 'profile';
+export const ORDERS: 'orders' = 'orders';
+export const ORDERS_DETAIL: 'orders/:id' = 'orders/:id';
+export const FEED: 'feed' = 'feed';
+export const FEED_DETAIL: 'feed/:id' = 'feed/:id';
+export const PAGE404: '*' = '*';
+export const ORDER: 'order' = 'order';
