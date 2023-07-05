@@ -10,9 +10,8 @@ import {
   WS_CONNECTION_SUCCESS,
   WS_GET_MESSAGE_ALL,
   WS_GET_MESSAGE_USER,
-  allOrdersWebSocket,
-  userOrdersWebSocket,
 } from '../actions/ws-actions';
+import { AppDispatch, RootState } from '../types';
 
 // Константы endpoint соединений
 export const allOrders = 'wss://norma.nomoreparties.space/orders/all';
@@ -20,9 +19,9 @@ export const userOrders = `wss://norma.nomoreparties.space/orders?token=${getCoo
   'accesstoken'
 )}`;
 
-export const socketMiddleware = () => {
-  return (store) => {
-    let socket = null;
+export const socketMiddleware = (): Middleware => {
+  return (store: MiddlewareAPI<AppDispatch, RootState>) => {
+    let socket: WebSocket | null = null;
     return (next) => (action) => {
       const { dispatch, getState } = store;
       const { type, payload: options } = action;
@@ -50,9 +49,6 @@ export const socketMiddleware = () => {
         };
 
         socket.onerror = (event) => {
-          const { data } = event;
-          const { message, ...saveData } = JSON.parse(data);
-
           dispatch({ type: WS_CONNECTION_ERROR, payload: event });
         };
 
