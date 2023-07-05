@@ -2,7 +2,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { rootReducer } from './reducers';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { baseUrl, socketMiddleware } from './middleware/ws-middleware';
+import { socketMiddleware } from './middleware/ws-middleware';
 
 export const store = createStore(
   rootReducer,

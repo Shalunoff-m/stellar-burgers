@@ -9,6 +9,8 @@ import { store } from '../index';
 import { ThunkAction } from 'redux-thunk';
 
 export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
 type TApplicationActions =
   | TConstructorActions
   | TIngredientDetailActions
@@ -20,8 +22,6 @@ type TApplicationActions =
 export type AppThunk<TReturn = void> = ActionCreator<
   ThunkAction<TReturn, Action, RootState, TApplicationActions>
 >;
-
-export type AppDispatch = typeof store.dispatch;
 
 export * from './ingredients';
 export * from './constructor';
