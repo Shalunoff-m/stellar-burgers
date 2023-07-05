@@ -1,0 +1,13 @@
+.menuList {
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  flex-wrap: nowrap;
+}
+
+.menuList:last-child {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+}
