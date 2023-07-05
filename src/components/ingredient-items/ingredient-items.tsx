@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, ReactNode } from 'react';
+import React, { FC } from 'react';
 import styles from './ingredient-items.module.css';
 // import { ingredientType } from '../../utils/types';
 import { v4 as uuidv4 } from 'uuid';
@@ -19,7 +19,7 @@ const IngredientItems: FC<IIngredientItems> = (props) => {
       return <Item key={uuidv4()} data={element} />;
     });
 
-  return allItems;
+  if (allItems) return allItems;
 };
 
 export default IngredientItems;

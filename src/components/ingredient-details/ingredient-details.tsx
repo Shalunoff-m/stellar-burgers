@@ -14,7 +14,7 @@ export const IngredientDetails: FC = () => {
 
   const navigate = useNavigate();
 
-  function findIngredient(id: any) {
+  function findIngredient(id: string) {
     const element =
       id && components.data && components.data.find((item) => item._id === id);
     return element;
@@ -22,8 +22,8 @@ export const IngredientDetails: FC = () => {
 
   useEffect(() => {
     if (components.data) {
-      const searchElement = findIngredient(id);
-      setShowData(searchElement);
+      const searchElement = findIngredient(id!);
+      if (searchElement) setShowData(searchElement);
     }
   }, [components]);
 

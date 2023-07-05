@@ -1,6 +1,9 @@
 import { useState } from 'react';
 
-export const useForm = (defaultData: any, submitCb: any) => {
+export const useForm = (
+  defaultData: Record<string, string>,
+  submitCb: () => void
+) => {
   const [formData, setFormData] = useState(defaultData);
 
   const onChange = (e: React.BaseSyntheticEvent) => {
