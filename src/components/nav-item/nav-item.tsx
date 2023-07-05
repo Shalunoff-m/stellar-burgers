@@ -1,4 +1,3 @@
-// import PropTypes from 'prop-types';
 import { FC } from 'react';
 import styles from './nav-item.module.css';
 import { NavLink } from 'react-router-dom';
@@ -43,9 +42,3 @@ export const NavItem: FC<INavItemProps> = (props) => {
     </NavLink>
   );
 };
-
-// NavItem.propTypes = {
-//   Icon: PropTypes.func.isRequired,
-//   children: PropTypes.node,
-// type: PropTypes.string.isRequired,
-// };

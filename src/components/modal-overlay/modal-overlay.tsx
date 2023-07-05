@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, { useEffect, FC } from 'react';
 import styles from './modal-overlay.module.css';
 import { useNavigate } from 'react-router-dom';

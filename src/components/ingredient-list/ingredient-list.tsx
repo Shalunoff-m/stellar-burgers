@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './ingredient-list.module.css';
-// import PropTypes from 'prop-types';
 
 interface IIngredientListProps {
   listHeader: string;
@@ -27,10 +26,3 @@ const IngredientList = React.forwardRef<
 });
 
 export default IngredientList;
-
-// IngredientList.propTypes = {
-//   children: PropTypes.node,
-//   id: PropTypes.any,
-//   listHeader: PropTypes.string,
-//   refElement: PropTypes.any,
-// };

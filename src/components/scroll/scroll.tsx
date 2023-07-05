@@ -1,4 +1,3 @@
-// import PropTypes from 'prop-types';
 import React, { FC } from 'react';
 import styles from './scroll.module.css';
 
@@ -20,10 +19,5 @@ const Scroll = React.forwardRef<TRefProps, IScrollProps>((props, ref) => {
     </div>
   );
 });
-
-// Scroll.propTypes = {
-//   children: PropTypes.node,
-//   type: PropTypes.string,
-// };
 
 export default Scroll;
