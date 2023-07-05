@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './profile-edit.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 // import { useNavigate } from 'react-router-dom';
 import { userGet, userLogout, userUpdate } from '../../store/actions/user';
 import {
@@ -10,8 +10,9 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useForm } from '../../hooks/use-form';
 import classNames from 'classnames';
+import { useDispatch, useSelector } from '../../hooks/use-custom-redux';
 
-function ProfileEdit() {
+const ProfileEdit = () => {
   const dispatch = useDispatch();
   const [buttonText, setButtonText] = useState('Сохранить');
   const [contolsVisible, setControlsVisible] = useState(false);
@@ -52,7 +53,7 @@ function ProfileEdit() {
     });
   }, [name, email]);
 
-  const onChange = (e) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     setControlsVisible(true);
@@ -133,6 +134,6 @@ function ProfileEdit() {
       )}
     </form>
   );
-}
+};
 
 export { ProfileEdit };
