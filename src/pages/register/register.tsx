@@ -1,56 +1,46 @@
-import React, { useEffect, useState } from 'react';
-import styles from './reset-password.module.css';
+import React, { useState } from 'react';
+import styles from './register.module.css';
 import classNames from 'classnames';
 import {
   Input,
   Button,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import {
-  Link,
-  Navigate,
-  useLocation,
-  useNavigate,
-  useParams,
-} from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { passwordReset } from '../../store/actions/user';
+import { Link, Navigate } from 'react-router-dom';
+import { userRegister } from '../../store/actions/user';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from '../../hooks/use-form';
+import { useDispatch, useSelector } from '../../hooks/use-custom-redux';
 
-function ResetPassword() {
-  const { isAuthentificated } = useSelector((store) => store.user);
-  const dispatch = useDispatch();
+const Register = () => {
   const navigate = useNavigate();
-  const { state } = useLocation();
-  const [buttonText, setButtonText] = useState('Войти');
+  const { isAuthentificated } = useSelector((store) => store.user);
+
+  const dispatch = useDispatch();
+  const [buttonText, setButtonText] = useState('Зарегистрироваться');
   const { formData, onChange, setFormData, onSubmit } = useForm(
     {
+      userName: '',
+      userEmail: '',
       password: '',
-      code: '',
     },
     () => {
       setButtonText('Отправляем данные...');
-      dispatch(passwordReset(formData, successCb, errorCb));
+      dispatch(userRegister(formData, successCb, errorCb));
     }
   );
 
-  const isSuccess = state ? state.success : false;
-
-  useEffect(() => {}, [isSuccess]);
-
   const successCb = () => {
-    setButtonText('Пароль сохранен!');
+    setButtonText('Успешно!');
     navigate('/login');
   };
 
   const errorCb = () => {
-    console.log('error');
-    setButtonText('Сохранить не удалось...');
-    setButtonText('Сохранить');
+    setButtonText('Что-то не так ...');
+    navigate('/register', { replace: true });
   };
 
   if (isAuthentificated) return <Navigate to={'/'} replace />;
-  if (!isSuccess) return <Navigate to='/forgot-password' />;
 
   return (
     <div className={classNames(styles.box)}>
@@ -62,32 +52,45 @@ function ResetPassword() {
           'pb-6'
         )}
       >
-        Восстановление пароля
+        Регистрация
       </p>
-
-      <form name='reset-password' onSubmit={onSubmit} className={styles.form}>
-        <PasswordInput
-          onChange={onChange}
-          placeholder={'Введите новый пароль'}
-          value={formData.password}
-          name={'password'}
-          extraClass='mb-6'
-          icon='ShowIcon'
-        />
+      <form name='register' className={styles.form} onSubmit={onSubmit}>
         <Input
           // className='m-6'
-          type={'text'}
-          placeholder={'Введите код из письма'}
           onChange={onChange}
+          type={'text'}
+          placeholder={'Имя'}
           // icon={'CurrencyIcon'}
-          value={formData.code}
-          name={'code'}
+          value={formData.userName}
+          name={'userName'}
           error={false}
           // ref={inputRef}
           // onIconClick={onIconClick}
           errorText={'Ошибка'}
           size={'default'}
           extraClass='mb-6'
+        />
+        <Input
+          // className='m-6'
+          type={'email'}
+          placeholder={'E-mail'}
+          onChange={onChange}
+          // icon={'CurrencyIcon'}
+          value={formData.userEmail}
+          name={'userEmail'}
+          error={false}
+          // ref={inputRef}
+          // onIconClick={onIconClick}
+          errorText={'Ошибка'}
+          size={'default'}
+          extraClass='mb-6'
+        />
+        <PasswordInput
+          onChange={onChange}
+          value={formData.password}
+          name={'password'}
+          extraClass='mb-6'
+          icon='ShowIcon'
         />
         <Button
           htmlType='submit'
@@ -108,7 +111,7 @@ function ResetPassword() {
             'mr-2'
           )}
         >
-          Вспомнили пароль?
+          Уже зарегистрированы?
         </span>
         <Link
           to='/login'
@@ -119,6 +122,6 @@ function ResetPassword() {
       </p>
     </div>
   );
-}
+};
 
-export { ResetPassword };
+export { Register };
